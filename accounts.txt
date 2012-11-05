@@ -1,0 +1,35 @@
+John Doe
+55555
+54.61
+0
+0
+11-01-12
+1234 Wandering Way
+Richardson, TX 75080
+PAYMENTS:
+38.42
+Credit Card
+10-01-12
+42.48
+Cash
+09-01-12
+
+Windrider Technology
+34343
+650.34
+0
+1
+11-01-12
+555 Main St.
+Plano, TX 77777
+PAYMENTS:
+254.21
+Credit Card
+10-01-12
+220.37
+Credit Card
+09-01-12
+243.98
+Credit Card
+08-01-12
+
