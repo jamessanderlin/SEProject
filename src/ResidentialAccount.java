@@ -1,8 +1,8 @@
 import java.util.*;
 public class ResidentialAccount extends Account
 {
-	private Meter meter;
-
+	private Service_Location location;
+	
 	public ResidentialAccount(String clientName, int accountID, double balance, boolean flag, Date deadline, String billingAddress)
 	{
 		this.clientName = clientName;
@@ -12,12 +12,14 @@ public class ResidentialAccount extends Account
 		this.deadline = deadline;
 		this.billingAddress = billingAddress;
 	}
-	
-	public Meter getMeter() {
-		return meter;
+	 
+	public Service_Location getLocation() {
+		return location;
 	}
 
-	public void setMeter(Meter meter) {
-		this.meter = meter;
+
+	public void setLocation(Service_Location location) {
+		this.location = location;
 	}
+		
 }

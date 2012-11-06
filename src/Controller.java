@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Controller 
 {
-	ArrayList<Account> accounts = new ArrayList<Account>();
+	private ArrayList<Account> accounts;
 	
 	public static void main(String[] args)
 	{
