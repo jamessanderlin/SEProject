@@ -1,11 +1,15 @@
-/*
- * @author James Sanderlin, Mudrekh Goderya
- * 
- */
-
 import java.util.*;
 import java.io.*;
 
+/**
+ * 
+ * @author Mudrekh Goderya, James Sanderlin
+ * 
+ * The Account_IO class handles input and output of the current state of the program to accounts.txt
+ * 
+ * @
+ *
+ */
 public class Account_IO 
 {
 	public Account_IO()
