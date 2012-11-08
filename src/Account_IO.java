@@ -40,12 +40,12 @@ public class Account_IO
 				Date deadline = new Date();
 				String l1=in.nextLine();
 				String l2 = "";
-				String foo = in.nextLine();
 				
-				if(foo.equals("LINE 2"))
+				//*TODO* Add functionality for line 2 later...
+				/*if(foo.equals("LINE 2"))
 				{
 					l2 = in.nextLine();
-				}
+				}*/
 				
 				String city = in.nextLine();
 				String state = in.nextLine();
