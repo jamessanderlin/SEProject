@@ -30,7 +30,6 @@ public class Controller
 	class UserInterface
 	{
 
-		//public static void main(String[] args) 
 		public UserInterface()
 		{	
 			final JFrame mainFrame = new JFrame();
