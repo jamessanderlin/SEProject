@@ -63,5 +63,10 @@ public class Meter
 		this.meterRate = meterRate;
 	}
 	
+	public String toString()
+	{
+		return "ID: " + meterID;
+	}
+	
 	
 }

@@ -43,6 +43,7 @@ public class Controller
 	{
 
 		public JList accountJList;
+		public JList meterJList;
 		final JFrame mainFrame;
 		public UserInterface()
 		{	
@@ -53,42 +54,39 @@ public class Controller
 			menuBar.add(new JMenuItem("File"));
 			mainFrame.setJMenuBar(menuBar);
 			
-			String acc[] = new String[3];
-			acc[0] = "Mark Duncan";
-			acc[1] = "Avi Levy";
-			acc[2] = "Donald Trump";
+
 			accountJList = new JList();
+			meterJList = new JList();
 			
 			JScrollPane accountScrollPane = new JScrollPane(accountJList);
 			JPanel input = new JPanel();
-			JButton addReading = new JButton("Enter Meter Reading");
+			JButton addMeter = new JButton("Enter Meter Information");
 			JButton addAccount = new JButton("New Residential Account");
 			
-			addReading.addActionListener(new ActionListener(){
+			addMeter.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
 					
 					
 					JTextField meterIDField = new JTextField(5);
-				    JTextField dateField = new JTextField(12);
-				    JTextField readingField = new JTextField(10);
+				    JTextField meterTypeField = new JTextField(12);
 				    Object[] options = {"SAVE", "CANCEL"};
 
 				      JPanel myPanel = new JPanel();
 				      myPanel.add(new JLabel("Meter ID"));
 				      myPanel.add(meterIDField);
 				      myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-				      myPanel.add(new JLabel("Date"));
-				      myPanel.add(dateField);
-				      myPanel.add(Box.createHorizontalStrut(15));
-				      myPanel.add(new JLabel("Reading"));
-				      myPanel.add(readingField);
+				      myPanel.add(new JLabel("Meter Type"));
+				      myPanel.add(meterTypeField);
+				      
 
 				      int result = JOptionPane.showOptionDialog(null, myPanel, 
 				               "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				      if (result == 0) {
 				    	 /* STUB - fill in saving code */
-				    	Controller.this.getInstance().meters.add(new Meter(123,"foo"));
+				    	Controller.this.getInstance().meters.add(new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText()));
 				         System.out.println("saved!");
+				         
+				         refreshMeterJList();
 				      }
 				}
 			});
@@ -137,23 +135,31 @@ public class Controller
 					    			  new Date(), new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText())
 					    			 ));
 					    	 
-					    	 refreshJList();
+					    	 refreshAccountJList();
 				         System.out.println("saved!");
 				      }
 				}
 			});
 			
-			input.add(addReading);
+			input.add(addMeter);
 			input.add(addAccount);
 			mainFrame.add(accountJList, BorderLayout.WEST);
-			mainFrame.add(input, BorderLayout.EAST);
+			mainFrame.add(input, BorderLayout.NORTH);
+			mainFrame.add(meterJList, BorderLayout.EAST);
 			
 			mainFrame.setVisible(true);
 		}
 		
-		public void refreshJList() {
+		public void refreshAccountJList() {
 			System.out.println(Arrays.toString(accounts.toArray()));
 			accountJList.setListData(accounts.toArray());
+			//mainFrame.repaint();
+			
+		}
+		
+		public void refreshMeterJList() {
+			System.out.println(Arrays.toString(accounts.toArray()));
+			meterJList.setListData(meters.toArray());
 			//mainFrame.repaint();
 			
 		}

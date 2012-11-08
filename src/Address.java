@@ -22,7 +22,7 @@ public class Address {
 	private String state;
 	
 	//Default constructor
-	public Address(String l1, String l2, String city, String zip, String state){
+	public Address(String l1, String l2, String city, String state, String zip){
 		this.location1 = l1;
 		this.location2 = l2;
 		this.city=city;
