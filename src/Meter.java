@@ -2,12 +2,19 @@ import java.util.*;
 
 /**
  * 
- * @author Mark Duncan, James Sanderlin, Mudrekh Goderya
+ * @author Mark Duncan, James Sanderlin, Mudrekh Goderya, Avi Levy
  * 
  * The Meter class is the entity class for a real life meter. It stores important info such
  * as the location, type of meter and the unique meter ID number
  * 
- * @version 1.0
+ * Each meter generates a series of meter readings. Each month, a new meter reading is generated
+ * and stored with the meter information. The meter readings are stored in a hash map, with
+ * key representing the meter reading date
+ * 
+ * The hash map is used to ensure that no two readings with the same date are stored.
+ * This corresponds to Date being a primary key in the database model.
+ * 
+ * @version 1.5
  *
  */
 public class Meter
@@ -19,7 +26,8 @@ public class Meter
 	private int meterID;
 	
 	//Stores a list of readings for the meter instance
-	private ArrayList<Meter_Reading> readings = new ArrayList<Meter_Reading>(); 
+	private HashMap<Date,Meter_Reading> readings = new HashMap<Date,Meter_Reading>(); 
+	
 	
 	//Stores the rate for the meter
 	private Rate meterRate;
@@ -29,7 +37,7 @@ public class Meter
 	}
 	public void addReading(Meter_Reading r)
 	{
-		readings.add(r);
+		readings.put(r.getReadingDate(),r);
 	}
 	
 	public String getType() {
@@ -50,12 +58,15 @@ public class Meter
 	public void setMeterID(int meterID) {
 		this.meterID = meterID;
 	}
-	public ArrayList<Meter_Reading> getReadings() {
+	/*
+	 * I believe these are unnecessary - Avi
+	public HashMap<Date,Meter_Reading> getReadings() {
 		return readings;
 	}
-	public void setReadings(ArrayList<Meter_Reading> readings) {
+	public void setReadings(HashMap<Date, Meter_Reading> readings) {
 		this.readings = readings;
 	}
+	*/
 	public Rate getMeterRate() {
 		return meterRate;
 	}
