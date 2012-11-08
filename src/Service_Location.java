@@ -3,7 +3,8 @@ import java.util.*;
  * 
  * @author Mark Duncan, Mudrekh Goderya
  * 
- * Description
+ * This class stores the information necessary for a service location, such as where the meter is installed, and
+ * will also handle any applicable taxes.
  * 
  * @version 1.0
  *

@@ -2,7 +2,8 @@
  * 
  * @author Mark Duncan
  *
- *Description
+ *This class contains all of the information needed to store an address, to be used with the Service_Location
+ *class
  *
  *@version 1.0
  *

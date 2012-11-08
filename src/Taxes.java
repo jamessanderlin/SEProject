@@ -2,7 +2,8 @@
  * 
  * @author Mark Duncan
  *
- *Description
+ * This class stores the tax name and tax percentage to be used in the bill calculation, and is
+ * associated with a service location since this tax is assumed to be location based.
  *
  *@version 1.0
  *
