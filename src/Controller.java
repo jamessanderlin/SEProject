@@ -152,8 +152,8 @@ public class Controller
 		
 		public void refreshJList() {
 			System.out.println(Arrays.toString(accounts.toArray()));
-			accountJList = new JList(accounts.toArray());
-			mainFrame.repaint();
+			accountJList.setListData(accounts.toArray());
+			//mainFrame.repaint();
 			
 		}
 
