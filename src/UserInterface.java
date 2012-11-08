@@ -65,12 +65,11 @@ public class UserInterface
 
 				      int result = JOptionPane.showOptionDialog(null, myPanel, 
 				               "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-				      if (result == 0) {
-				    	 /* STUB - fill in saving code */
-				    	Controller.getInstance().meters.add(new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText()));
-				         System.out.println("saved!");
-				         
-				         refreshMeterJList();
+				      if (result == 0) 
+				      {
+				    	  Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText());
+				    	  Controller.getInstance().addMeter(temp);
+				    	  refreshMeterJList();
 				      }
 				}
 			});
@@ -79,6 +78,7 @@ public class UserInterface
 				public void actionPerformed(ActionEvent e){	
 					JTextField firstNameField = new JTextField(10);
 				    JTextField lastNameField = new JTextField(10);
+				    JTextField accountIDField = new JTextField(10);
 				    JTextField line1Field = new JTextField(10);
 				    JTextField line2Field = new JTextField(10);
 				    JTextField cityField = new JTextField(10);
@@ -93,6 +93,9 @@ public class UserInterface
 				      myPanel.add(Box.createHorizontalStrut(15)); // a spacer
 				      myPanel.add(new JLabel("Last Name"));
 				      myPanel.add(lastNameField);
+				      myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+				      myPanel.add(new JLabel("Account ID"));
+				      myPanel.add(accountIDField);
 				      myPanel.add(Box.createHorizontalStrut(15));
 				      myPanel.add(new JLabel("Address Line 1"));
 				      myPanel.add(line1Field);
@@ -111,14 +114,15 @@ public class UserInterface
 
 				      int result = JOptionPane.showOptionDialog(null, myPanel, 
 				               "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-				      if (result == 0) {
-				    	 /* STUB - fill in saving code */
-				    	 
-					    	 Controller.getInstance().accounts.add(new ResidentialAccount(
-					    			 firstNameField.getText(), lastNameField.getText(), Controller.getInstance().accounts.size() + 1, 0, false,
-					    			  new Date(), new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText())
-					    			 ));
-					    	 
+				      if (result == 0) 
+				      {
+				    	 Account temp = new ResidentialAccount(firstNameField.getText(), 
+				    			 								lastNameField.getText(), 
+				    			 								Integer.parseInt(accountIDField.getText()), 0, false,
+				    			 								new Date(), 
+				    			 								new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
+					    	 Controller.getInstance().addAccount(temp);
+					    	 /* TODO Error checking for duplicate accounts */
 					    	 refreshAccountJList();
 				         System.out.println("saved!");
 				      }
