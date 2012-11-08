@@ -42,6 +42,7 @@ public class Controller
 			String acc[] = new String[2];
 			acc[0] = "Mark Duncan";
 			acc[1] = "Avi Levy";
+			
 			JList accounts = new JList(acc);
 			JScrollPane accountScrollPane = new JScrollPane(accounts);
 			JPanel input = new JPanel();
@@ -75,7 +76,6 @@ public class Controller
 			input.add(addReading);
 			mainFrame.add(accounts, BorderLayout.WEST);
 			mainFrame.add(input, BorderLayout.EAST);
-			
 			
 			mainFrame.setVisible(true);
 		}
