@@ -11,7 +11,8 @@ import java.util.*;
  */
 public abstract class Account 
 {
-	protected String clientName;
+	protected String clientFirstName;
+	protected String clientLastName;
 	protected int accountID;
 	protected double balance;
 	protected boolean flag;
@@ -19,12 +20,17 @@ public abstract class Account
 	protected Address billingAddress;
 	protected Payment[] paymentHistory;
 		
-	
-	public String getClientName() {
-		return clientName;
+	public String getClientFirstName() {
+		return clientFirstName;
 	}
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
+	public void setClientFirstName(String clientFirstName) {
+		this.clientFirstName = clientFirstName;
+	}
+	public String getClientLastName() {
+		return clientLastName;
+	}
+	public void setClientLastName(String clientLastName) {
+		this.clientLastName = clientLastName;
 	}
 	public int getAccountID() {
 		return accountID;

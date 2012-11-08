@@ -59,7 +59,8 @@ public class Account_IO
 				{
 					CommercialAccount a = new CommercialAccount(name, accountId, balance, flag, deadline, address);
 					System.out.println("COMMERCIAL ACCOUNT INFO:");
-					System.out.println(a.clientName);
+					System.out.println(a.clientFirstName);
+					System.out.println(a.clientLastName);
 					System.out.println(a.accountID);
 					System.out.println(a.balance);
 					System.out.println(a.flag);
@@ -71,7 +72,8 @@ public class Account_IO
 				{
 					ResidentialAccount a = new ResidentialAccount(name, accountId, balance, flag, deadline, address);
 					System.out.println("RESIDENTIAL ACCOUNT INFO:");
-					System.out.println(a.clientName);
+					System.out.println(a.clientFirstName);
+					System.out.println(a.clientLastName);
 					System.out.println(a.accountID);
 					System.out.println(a.balance);
 					System.out.println(a.flag);
