@@ -109,7 +109,7 @@ public class Account_IO
 		
 		
 		for(Account a : accountlist) {
-			out.write("AccountInfo");
+			out.write("AccountInfo"+"\n");
 			out.write(a.getClientFirstName() +"\n" + a.getClientLastName() +"\n"+a.accountID+"\n"+a.balance+"\n"+a.flag+"\n"+a.deadline+"\n");
 		}
 			out.close();
