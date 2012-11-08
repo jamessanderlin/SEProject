@@ -85,7 +85,7 @@ public class Controller
 				               "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				      if (result == 0) {
 				    	 /* STUB - fill in saving code */
-				    	 //Controller.this.getInstance().meters.(new CommercialAccount("foo", "eiohg", 123, 1.3, true, new Date(), "myaddr"));
+				    	Controller.this.getInstance().meters.add(new Meter(123,"foo"));
 				         System.out.println("saved!");
 				      }
 				}
@@ -129,8 +129,10 @@ public class Controller
 				               "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				      if (result == 0) {
 				    	 /* STUB - fill in saving code */
-				    	 //Controller.this.getInstance().meters.(new CommercialAccount("foo", "eiohg", 123, 1.3, true, new Date(), "myaddr"));
 				    	 
+					    	 Controller.this.getInstance().accounts.add(new ResidentialAccount(
+					    			 "foo", "eiohg", 123, 1.3, true, new Date(), new Address()
+					    			 ));
 				         System.out.println("saved!");
 				      }
 				}
