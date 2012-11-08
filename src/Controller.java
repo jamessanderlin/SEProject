@@ -56,8 +56,8 @@ public class Controller
 			acc[1] = "Avi Levy";
 			acc[2] = "Donald Trump";
 			
-			JList accounts = new JList(acc);
-			JScrollPane accountScrollPane = new JScrollPane(accounts);
+			JList accountJList = new JList(acc);
+			JScrollPane accountScrollPane = new JScrollPane(accountJList);
 			JPanel input = new JPanel();
 			JButton addReading = new JButton("Enter Meter Reading");
 			JButton addAccount = new JButton("New Residential Account");
@@ -133,6 +133,7 @@ public class Controller
 					    	 Controller.this.getInstance().accounts.add(new ResidentialAccount(
 					    			 "foo", "eiohg", 123, 1.3, true, new Date(), new Address("l1","l2","city","zip","state")
 					    			 ));
+					    	 
 				         System.out.println("saved!");
 				      }
 				}
@@ -140,11 +141,27 @@ public class Controller
 			
 			input.add(addReading);
 			input.add(addAccount);
-			mainFrame.add(accounts, BorderLayout.WEST);
+			mainFrame.add(accountJList, BorderLayout.WEST);
 			mainFrame.add(input, BorderLayout.EAST);
 			
 			mainFrame.setVisible(true);
 		}
 
 	}
+	
+//	public class AccountListModel extends AbstractListModel<Account> {
+//
+//	    public void addElement(Account obj) {
+//	        accounts.add(obj);
+//	        fireIntervalAdded(this, accounts.size()-1, accounts.size()-1);
+//	    }
+//
+//	    @Override
+//	    public Account getElementAt(int index) { return accounts.get(index); }
+//
+//	    @Override
+//	    public int getSize() { return accounts.size(); }
+//	}
 }
+
+
