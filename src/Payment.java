@@ -33,4 +33,11 @@ public class Payment
 	public void setPaymentDate(Date paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+	
+	//Default Constructor
+	public Payment(double paidAmt, String paymentType, Date paymentDate){
+		this.paidAmount=paidAmt;
+		this.paymentType = paymentType;
+		this.paymentDate = paymentDate;
+	}
 }

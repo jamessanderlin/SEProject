@@ -100,7 +100,7 @@ public class Account_IO
 	}
 	
 	//This method writes the account information from the console out to a file for persisting
-	public static void AccountOut(ArrayList<Account> accountlist){
+	public static void AccountOut(Collection<Account> accountlist){
 		try{
 		
 		FileWriter fstream = new FileWriter("accounts.txt");
@@ -133,7 +133,7 @@ public class Account_IO
 	
 	
 	//This method writes the account information from the accounts file to the account list by reference
-		public static void AccountIn(ArrayList<Account> accountlist){
+		public static void AccountIn(Collection<Account> accountlist){
 			File accountFile = new File("accounts.txt");
 			
 			try
@@ -180,12 +180,15 @@ public class Account_IO
 						//System.out.println("Line " + line);
 						line = in.nextLine();
 					}
+
 					
 					if(isCommercial)
 					{
 						CommercialAccount a = new CommercialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressdummy);
-
+						//Payment p = new Payment();
+						//a.addPayment(p);
 						accountlist.add(a);
+						
 						
 						/*System.out.println("COMMERCIAL ACCOUNT INFO:");
 						System.out.println(a.clientFirstName);
@@ -202,6 +205,7 @@ public class Account_IO
 						ResidentialAccount a = new ResidentialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressdummy);
 						
 						accountlist.add(a);
+						//Payment pp = new Payment();
 						
 						/*TODO* We are need to redo the structure here for residential and commercial account names. Right now we read everything as a name but
 						it also needs to delineate between a company name and a name. They aren't separated right now.
