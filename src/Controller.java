@@ -131,7 +131,7 @@ public class Controller
 				    	 /* STUB - fill in saving code */
 				    	 
 					    	 Controller.this.getInstance().accounts.add(new ResidentialAccount(
-					    			 "foo", "eiohg", 123, 1.3, true, new Date(), new Address()
+					    			 "foo", "eiohg", 123, 1.3, true, new Date(), new Address("l1","l2","city","zip","state")
 					    			 ));
 				         System.out.println("saved!");
 				      }
