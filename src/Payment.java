@@ -1,4 +1,13 @@
 import java.util.*;
+/**
+ * 
+ * @author Mark Duncan, James Sanderlin, Avi Levi, Mudrekh Goderya
+ *
+ *Description
+ *
+ *@version 1.0
+ *
+ */
 public class Payment 
 {
 	private double paidAmount;
