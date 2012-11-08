@@ -13,7 +13,7 @@ import java.util.*;
 public class Meter
 {
 	//Specifies if the meter is Analog (manual reading) or digital (digital reading)
-	private String type; 
+	private Boolean isDigital; 
 	
 	// A unique meter ID number for referencing
 	private int meterID;
@@ -21,22 +21,28 @@ public class Meter
 	//Stores a list of readings for the meter instance
 	private ArrayList<Meter_Reading> readings = new ArrayList<Meter_Reading>(); 
 	
-	//Stores the physical location of the meter
-	private String physicalAddress; 
-	
 	//Stores the rate for the meter
 	private Rate meterRate;
-	
+	public Meter(int meterID, String type) {
+		this.meterID = meterID;
+		setType(type);
+	}
 	public void addReading(Meter_Reading r)
 	{
 		readings.add(r);
 	}
 	
 	public String getType() {
-		return type;
+		if(isDigital) {
+			return "Digital";
+		}
+		return "Analog";
 	}
 	public void setType(String type) {
-		this.type = type;
+		if(type.equals("Digital")) {
+			isDigital = true;
+		}
+		isDigital = false;
 	}
 	public int getMeterID() {
 		return meterID;
@@ -49,12 +55,6 @@ public class Meter
 	}
 	public void setReadings(ArrayList<Meter_Reading> readings) {
 		this.readings = readings;
-	}
-	public String getPhysicalAddress() {
-		return physicalAddress;
-	}
-	public void setPhysicalAddress(String physicalAddress) {
-		this.physicalAddress = physicalAddress;
 	}
 	public Rate getMeterRate() {
 		return meterRate;

@@ -63,6 +63,8 @@ public class Controller
 			
 			addReading.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
+					
+					
 					JTextField meterIDField = new JTextField(5);
 				    JTextField dateField = new JTextField(12);
 				    JTextField readingField = new JTextField(10);
@@ -82,7 +84,8 @@ public class Controller
 				               "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				      if (result == 0) {
 				    	 /* STUB - fill in saving code */
-				    	 Controller.this.getInstance().accounts.add(new CommercialAccount("foo","baz", 123, 1.3, true, new Date(), null));
+				    	 
+				    	 Controller.this.getInstance().meters.add(new CommercialAccount("foo","baz", 123, 1.3, true, new Date(), null));
 				         System.out.println("saved!");
 				      }
 				}
