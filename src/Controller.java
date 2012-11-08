@@ -192,6 +192,28 @@ public class Controller
 			meters.put(meterID, meter);
 		return true;
 	}
+	
+	/**
+	 * Returns an unmodifiable version of the meters
+	 * 
+	 * @return
+	 */
+	public Collection<Meter> getMeters()
+	{
+		return Collections.unmodifiableCollection(meters.values());
+	}
+	
+	/**
+	 * Returns an unmodifiable version of the accounts
+	 * 
+	 * @return
+	 */
+	public Collection<Account> getAccounts()
+	{
+		return Collections.unmodifiableCollection(accounts.values());
+	}
+	
+	
 	//Save to file
 
 }

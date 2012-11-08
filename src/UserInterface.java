@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -32,10 +33,14 @@ public class UserInterface
 			mainFrame.setJMenuBar(menuBar);
 			
 
-			accountJList = new JList();
-			meterJList = new JList();
+			accountJList = new JList<Account>();
+			meterJList = new JList<Meter>();
 			
 			JScrollPane accountScrollPane = new JScrollPane(accountJList);
+			accountScrollPane.setPreferredSize(new Dimension(200, 100));
+			JScrollPane meterScrollPane = new JScrollPane(meterJList);
+			meterScrollPane.setPreferredSize(new Dimension(200, 100));
+			
 			JPanel input = new JPanel();
 			JButton addMeter = new JButton("Enter Meter Information");
 			JButton addAccount = new JButton("New Residential Account");
@@ -43,7 +48,7 @@ public class UserInterface
 			
 			save.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
-					Account_IO.AccountOut(Controller.getInstance().accounts);
+					Account_IO.AccountOut(Controller.getInstance().getAccounts());
 				}
 			});
 					
@@ -132,23 +137,23 @@ public class UserInterface
 			input.add(addMeter);
 			input.add(addAccount);
 			input.add(save);
-			mainFrame.add(accountJList, BorderLayout.WEST);
+			mainFrame.add(accountScrollPane, BorderLayout.WEST);
 			mainFrame.add(input, BorderLayout.NORTH);
-			mainFrame.add(meterJList, BorderLayout.EAST);
+			mainFrame.add(meterScrollPane, BorderLayout.EAST);
 			
 			mainFrame.setVisible(true);
 		}
 		
 		public void refreshAccountJList() {
 			//System.out.println(Arrays.toString((Controller.getInstance().accounts.toArray()));
-			accountJList.setListData(Controller.getInstance().accounts.toArray());
+			accountJList.setListData(Controller.getInstance().getAccounts().toArray());
 			//mainFrame.repaint();
 			
 		}
 		
 		public void refreshMeterJList() {
 			//System.out.println(Arrays.toString(Controller.getInstance().accounts.toArray()));
-			meterJList.setListData(Controller.getInstance().meters.toArray());
+			meterJList.setListData(Controller.getInstance().getMeters().toArray());
 			//mainFrame.repaint();
 			
 		}
