@@ -53,10 +53,7 @@ public class Controller
 			menuBar.add(new JMenuItem("File"));
 			mainFrame.setJMenuBar(menuBar);
 			
-			String acc[] = new String[3];
-			acc[0] = "Mark Duncan";
-			acc[1] = "Avi Levy";
-			acc[2] = "Donald Trump";
+
 			accountJList = new JList();
 			
 			JScrollPane accountScrollPane = new JScrollPane(accountJList);
