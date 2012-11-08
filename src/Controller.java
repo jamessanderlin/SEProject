@@ -45,8 +45,8 @@ public class Controller
 		public UserInterface()
 		{	
 			final JFrame mainFrame = new JFrame();
-			mainFrame.setSize(1000, 1000);
-			
+			//mainFrame.setSize(1000, 1000);
+			mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			JMenuBar menuBar = new JMenuBar();
 			menuBar.add(new JMenuItem("File"));
 			mainFrame.setJMenuBar(menuBar);
