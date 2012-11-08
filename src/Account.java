@@ -18,7 +18,8 @@ public abstract class Account
 	protected boolean flag;
 	protected Date deadline;
 	protected Address billingAddress;
-	protected Payment[] paymentHistory;
+	protected ArrayList<Payment> paymentHistory;
+	
 		
 	public String getClientFirstName() {
 		return clientFirstName;
@@ -38,12 +39,17 @@ public abstract class Account
 	public void setAccountNum(int accountID) {
 		this.accountID = accountID;
 	}
-	public Payment[] getPaymentHistory() {
+	public ArrayList<Payment> getPaymentHistory() {
 		return paymentHistory;
 	}
-	public void setPaymentHistory(Payment[] paymentHistory) {
+	public void setPaymentHistory(ArrayList<Payment> paymentHistory) {
 		this.paymentHistory = paymentHistory;
 	}
+	
+	public void addPayment(Payment p){
+		paymentHistory.add(p);
+	}
+	
 	public double getBalance() {
 		return balance;
 	}
