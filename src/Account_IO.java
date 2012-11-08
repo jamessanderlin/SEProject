@@ -97,4 +97,26 @@ public class Account_IO
 			e.printStackTrace();
 		}
 	}
+	
+	public void AccountOut(ArrayList<Account> accountlist){
+		try{
+		
+		FileWriter fstream = new FileWriter("accounts_out.txt");
+		
+		BufferedWriter out = new BufferedWriter(fstream);
+
+		
+		
+		
+		for(Account a : accountlist) {
+			out.write("AccountInfo");
+			out.write(a.getClientFirstName() +"\n" + a.getClientLastName() +"\n"+a.accountID+"\n"+a.balance+"\n"+a.flag+"\n"+a.deadline+"\n");
+		}
+			out.close();
+		}
+		catch (Exception e){
+		
+		}
+	
 }	
+	}
