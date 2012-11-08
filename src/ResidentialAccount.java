@@ -3,7 +3,7 @@ public class ResidentialAccount extends Account
 {
 	private Service_Location location;
 	
-	public ResidentialAccount(String clientName, int accountID, double balance, boolean flag, Date deadline, String billingAddress)
+	public ResidentialAccount(String clientName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
 	{
 		this.clientName = clientName;
 		this.accountID = accountID;

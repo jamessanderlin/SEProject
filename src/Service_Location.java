@@ -13,12 +13,12 @@ import java.util.*;
 import java.util.*;
 public class Service_Location {
 	
-	//Describes the identification number related to the service locatiom
+	//Describes the identification number related to the service location
 	private int ID;
 
 	//Stores the physical address of the service location, different than the billing address stored
 	//in account
-	private Address address;
+	private Address physicalAddress;
 	
 	//Describes if the location is residential or commercial
 	private String type; 
@@ -41,11 +41,11 @@ public class Service_Location {
 	}
 
 	public Address getAddress() {
-		return address;
+		return physicalAddress;
 	}
 
 	public void setAddress(Address address) {
-		this.address = address;
+		this.physicalAddress = physicalAddress;
 	}
 
 	public String getType() {

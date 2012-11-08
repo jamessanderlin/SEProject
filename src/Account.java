@@ -16,7 +16,7 @@ public abstract class Account
 	protected double balance;
 	protected boolean flag;
 	protected Date deadline;
-	protected String billingAddress;
+	protected Address billingAddress;
 	protected Payment[] paymentHistory;
 		
 	
@@ -56,10 +56,14 @@ public abstract class Account
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
 	}
-	public String getBillingAddress() {
+	public Address getBillingAddress() {
 		return billingAddress;
 	}
-	public void setBillingAddress(String billingAddress) {
+	public void setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
 	}
+	public void setAccountID(int accountID) {
+		this.accountID = accountID;
+	}
+	
 }

@@ -35,6 +35,7 @@ public class Account_IO
 				String dateString = in.nextLine();
 				/*TODO Convert dateString into Date (or Calendar?) object */
 				Date deadline = new Date();
+				
 				String address = "";
 				
 				//Read address until you see "PAYMENTS:"
