@@ -105,12 +105,9 @@ public class Account_IO
 		
 		BufferedWriter out = new BufferedWriter(fstream);
 
-		
-		
-		
 		for(Account a : accountlist) {
 			out.write("AccountInfo"+"\n");
-			out.write(a.getClientFirstName() +"\n" + a.getClientLastName() +"\n"+a.accountID+"\n"+a.balance+"\n"+a.flag+"\n"+a.deadline+"\n");
+			out.write(a.getClientFirstName() +"\n" + a.getClientLastName() +"\n"+a.accountID+"\n"+a.balance+"\n"+a.flag+"\n"+a.deadline+"\n"+a.billingAddress.getLocation1()+"\n"+a.billingAddress.getLocation2()+a.billingAddress.getCity()+"\n"+a.billingAddress.getState()+"\n"+a.billingAddress.getZip());
 		}
 			out.close();
 		}
