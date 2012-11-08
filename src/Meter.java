@@ -27,6 +27,11 @@ public class Meter
 	//Stores the rate for the meter
 	private Rate meterRate;
 	
+	public void addReading(Meter_Reading r)
+	{
+		readings.add(r);
+	}
+	
 	public String getType() {
 		return type;
 	}

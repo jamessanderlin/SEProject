@@ -8,6 +8,7 @@ public class Controller
 	{
 		Account_IO dataAccount = new Account_IO();
 		Meter_IO dataMeter = new Meter_IO();
+		UserInterface ui = new UserInterface();
 	}
 	
 	public static void createAccount()
