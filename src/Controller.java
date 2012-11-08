@@ -9,11 +9,19 @@ public class Controller
 {
 	private ArrayList<Account> accounts;
 	
+	private static final Controller instance = new Controller();
+	 
+    private Controller() {}
+ 
+    public static Controller getInstance() {
+        return instance;
+    }
+    
 	public static void main(String[] args)
 	{
 		Account_IO dataAccount = new Account_IO();
 		Meter_IO dataMeter = new Meter_IO();
-		UserInterface ui = new UserInterface();
+		Controller.UserInterface ui = Controller.getInstance().new UserInterface();
 	}
 	
 	public static void createAccount()
