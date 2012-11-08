@@ -45,7 +45,7 @@ public class Service_Location {
 	}
 
 	public void setAddress(Address address) {
-		this.physicalAddress = physicalAddress;
+		this.physicalAddress = address;
 	}
 
 	public String getType() {

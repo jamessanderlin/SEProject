@@ -21,6 +21,15 @@ public class Address {
 	//Stores the state of the serviced address
 	private String state;
 	
+	//Default constructor
+	public Address(String l1, String l2, String city, String zip, String state){
+		this.location1 = l1;
+		this.location2 = l2;
+		this.city=city;
+		this.zip=zip;
+		this.state=state;
+	}
+	
 	public String getLocation1() {
 		return location1;
 	}
@@ -50,6 +59,15 @@ public class Address {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	public String toString(){
+		String output = "Location Line 1: " + this.location1 + '\n'
+						+ "Location Line 2: " + this.location2 + '\n'
+						+ "City: " + this.city + '\n'
+						+ "State: " + this.state + '\n'
+						+ "Zip: " + this.zip + '\n';
+		return output;
 	}
 	
 }
