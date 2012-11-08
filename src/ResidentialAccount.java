@@ -3,9 +3,10 @@ public class ResidentialAccount extends Account
 {
 	private Service_Location location;
 	
-	public ResidentialAccount(String clientName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
+	public ResidentialAccount(String clientFirstName, String clientLastName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
 	{
-		this.clientName = clientName;
+		this.clientFirstName = clientFirstName;
+		this.clientLastName = clientLastName;
 		this.accountID = accountID;
 		this.balance = balance;
 		this.flag = flag;
