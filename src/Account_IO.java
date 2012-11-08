@@ -22,7 +22,8 @@ public class Account_IO
 			//Parse the accounts file
 			while(in.hasNext())
 			{
-				String name = in.nextLine();
+				String fname = in.next();
+				String lname = in.nextLine();
 				//System.out.println(name);
 				int accountId = Integer.parseInt(in.nextLine());
 				//System.out.println(accountId);
@@ -57,7 +58,7 @@ public class Account_IO
 				
 				if(isCommercial)
 				{
-					CommercialAccount a = new CommercialAccount(name, accountId, balance, flag, deadline, address);
+					CommercialAccount a = new CommercialAccount(fname, lname, accountId, balance, flag, deadline, new Address());
 					System.out.println("COMMERCIAL ACCOUNT INFO:");
 					System.out.println(a.clientFirstName);
 					System.out.println(a.clientLastName);
@@ -70,7 +71,7 @@ public class Account_IO
 				}
 				else
 				{
-					ResidentialAccount a = new ResidentialAccount(name, accountId, balance, flag, deadline, address);
+					ResidentialAccount a = new ResidentialAccount(fname, lname, accountId, balance, flag, deadline, new Address());
 					System.out.println("RESIDENTIAL ACCOUNT INFO:");
 					System.out.println(a.clientFirstName);
 					System.out.println(a.clientLastName);

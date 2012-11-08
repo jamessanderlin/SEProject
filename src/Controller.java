@@ -82,7 +82,7 @@ public class Controller
 				               "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				      if (result == 0) {
 				    	 /* STUB - fill in saving code */
-				    	 Controller.this.getInstance().accounts.add(new CommercialAccount("foo", 123, 1.3, true, new Date(), "myaddr"));
+				    	 Controller.this.getInstance().accounts.add(new CommercialAccount("foo","baz", 123, 1.3, true, new Date(), null));
 				         System.out.println("saved!");
 				      }
 				}
