@@ -42,9 +42,11 @@ public class Controller
 	class UserInterface
 	{
 
+		public JList accountJList;
+		final JFrame mainFrame;
 		public UserInterface()
 		{	
-			final JFrame mainFrame = new JFrame();
+			mainFrame = new JFrame();
 			//mainFrame.setSize(1000, 1000);
 			mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			JMenuBar menuBar = new JMenuBar();
@@ -55,8 +57,8 @@ public class Controller
 			acc[0] = "Mark Duncan";
 			acc[1] = "Avi Levy";
 			acc[2] = "Donald Trump";
+			accountJList = new JList();
 			
-			JList accountJList = new JList(acc);
 			JScrollPane accountScrollPane = new JScrollPane(accountJList);
 			JPanel input = new JPanel();
 			JButton addReading = new JButton("Enter Meter Reading");
@@ -134,6 +136,7 @@ public class Controller
 					    			 "foo", "eiohg", 123, 1.3, true, new Date(), new Address("l1","l2","city","zip","state")
 					    			 ));
 					    	 
+					    	 refreshJList();
 				         System.out.println("saved!");
 				      }
 				}
@@ -145,6 +148,13 @@ public class Controller
 			mainFrame.add(input, BorderLayout.EAST);
 			
 			mainFrame.setVisible(true);
+		}
+		
+		public void refreshJList() {
+			System.out.println(Arrays.toString(accounts.toArray()));
+			accountJList = new JList(accounts.toArray());
+			mainFrame.repaint();
+			
 		}
 
 	}
