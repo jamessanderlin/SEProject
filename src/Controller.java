@@ -7,7 +7,8 @@ import java.awt.event.*;
 
 public class Controller 
 {
-	private ArrayList<Account> accounts;
+	protected ArrayList<Account> accounts;
+	protected ArrayList<Meter> meters;
 	
 	private static final Controller instance = new Controller();
 	 
@@ -17,10 +18,13 @@ public class Controller
         return instance;
     }
     
+    protected Meter_IO dataMeter;
+    protected Account_IO dataAccount;
+    
 	public static void main(String[] args)
 	{
-		Account_IO dataAccount = new Account_IO();
-		Meter_IO dataMeter = new Meter_IO();
+		Controller.getInstance().dataAccount = new Account_IO();
+		Controller.getInstance().dataMeter = new Meter_IO();
 		Controller.UserInterface ui = Controller.getInstance().new UserInterface();
 	}
 	
@@ -47,9 +51,11 @@ public class Controller
 			menuBar.add(new JMenuItem("File"));
 			mainFrame.setJMenuBar(menuBar);
 			
-			String acc[] = new String[2];
+			String acc[] = new String[3];
 			acc[0] = "Mark Duncan";
 			acc[1] = "Avi Levy";
+			acc[2] = "Donald Trump";
+			
 			JList accounts = new JList(acc);
 			JScrollPane accountScrollPane = new JScrollPane(accounts);
 			JPanel input = new JPanel();
@@ -75,7 +81,9 @@ public class Controller
 				      int result = JOptionPane.showOptionDialog(null, myPanel, 
 				               "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				      if (result == 0) {
-				         System.out.println("saved!");		 
+				    	 /* STUB - fill in saving code */
+				    	 Controller.this.getInstance().accounts.add(new CommercialAccount("foo", 123, 1.3, true, new Date(), "myaddr"));
+				         System.out.println("saved!");
 				      }
 				}
 			});
@@ -83,7 +91,6 @@ public class Controller
 			input.add(addReading);
 			mainFrame.add(accounts, BorderLayout.WEST);
 			mainFrame.add(input, BorderLayout.EAST);
-			
 			
 			mainFrame.setVisible(true);
 		}
