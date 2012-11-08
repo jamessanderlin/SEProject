@@ -137,6 +137,7 @@ public class Controller
 			});
 			
 			input.add(addReading);
+			input.add(addAccount);
 			mainFrame.add(accounts, BorderLayout.WEST);
 			mainFrame.add(input, BorderLayout.EAST);
 			
