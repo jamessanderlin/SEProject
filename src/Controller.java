@@ -133,7 +133,8 @@ public class Controller
 				    	 /* STUB - fill in saving code */
 				    	 
 					    	 Controller.this.getInstance().accounts.add(new ResidentialAccount(
-					    			 "foo", "eiohg", 123, 1.3, true, new Date(), new Address("l1","l2","city","zip","state")
+					    			 firstNameField.getText(), lastNameField.getText(), accounts.size() + 1, 0, false,
+					    			  new Date(), new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText())
 					    			 ));
 					    	 
 					    	 refreshJList();
