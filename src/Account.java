@@ -1,4 +1,14 @@
 import java.util.*;
+
+/**
+ * 
+ * @author James Sanderlin
+ * 
+ * The Account_IO class handles input and output of the current state of the program to accounts.txt
+ * 
+ * @ version 1.0
+ *
+ */
 public abstract class Account 
 {
 	protected String clientName;
