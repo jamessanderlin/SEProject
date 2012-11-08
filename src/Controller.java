@@ -8,7 +8,7 @@ import java.awt.event.*;
 public class Controller 
 {
 	protected ArrayList<Account> accounts = new ArrayList<Account>();
-	protected ArrayList<Meter> meters;
+	protected ArrayList<Meter> meters = new ArrayList<Meter>();
 	
 	private static final Controller instance = new Controller();
 	 
