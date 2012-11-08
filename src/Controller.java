@@ -62,7 +62,14 @@ public class Controller
 			JPanel input = new JPanel();
 			JButton addMeter = new JButton("Enter Meter Information");
 			JButton addAccount = new JButton("New Residential Account");
+			JButton save = new JButton("Save");
 			
+			save.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){	
+					Account_IO.AccountOut(accounts);
+				}
+			});
+					
 			addMeter.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
 					
@@ -143,6 +150,7 @@ public class Controller
 			
 			input.add(addMeter);
 			input.add(addAccount);
+			input.add(save);
 			mainFrame.add(accountJList, BorderLayout.WEST);
 			mainFrame.add(input, BorderLayout.NORTH);
 			mainFrame.add(meterJList, BorderLayout.EAST);
