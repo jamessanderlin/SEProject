@@ -1,7 +1,7 @@
 import java.util.*;
 /**
  * 
- * @author Mark Duncan, Mudrekh Goderya
+ * @author Mark Duncan, Mudrekh Goderya, Avi Levy
  * 
  * This class stores the information necessary for a service location, such as where the meter is installed, and
  * will also handle any applicable taxes.
@@ -9,6 +9,8 @@ import java.util.*;
  * @version 1.0
  *
  */
+
+import java.util.*;
 public class Service_Location {
 	
 	//Describes the identification number related to the service locatiom
