@@ -3,9 +3,10 @@ public class CommercialAccount extends Account
 {
 	private ArrayList<Service_Location> locations;
 
-	public CommercialAccount(String clientName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
+	public CommercialAccount(String clientFirstName, String clientLastName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
 	{
-		this.clientName = clientName;
+		this.clientFirstName = clientFirstName;
+		this.clientLastName = clientLastName;
 		this.accountID = accountID;
 		this.balance = balance;
 		this.flag = flag;
