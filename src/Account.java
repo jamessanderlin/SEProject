@@ -2,9 +2,9 @@ import java.util.*;
 
 /**
  * 
- * @author James Sanderlin
+ * @author James Sanderlin, Mudrekh Goderya
  * 
- * The Account_IO class handles input and output of the current state of the program to accounts.txt
+ * The Account class handles input and output of the current state of the program to accounts.txt
  * 
  * @ version 1.0
  *
@@ -70,6 +70,12 @@ public abstract class Account
 	}
 	public void setAccountID(int accountID) {
 		this.accountID = accountID;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return clientFirstName + " " + clientLastName;
 	}
 	
 }
