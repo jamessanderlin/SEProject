@@ -98,7 +98,7 @@ public class Account_IO
 		}
 	}
 	
-	public void AccountOut(ArrayList<Account> accountlist){
+	public static void AccountOut(ArrayList<Account> accountlist){
 		try{
 		
 		FileWriter fstream = new FileWriter("accounts_out.txt");
