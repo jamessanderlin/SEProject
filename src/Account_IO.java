@@ -158,15 +158,19 @@ public class Account_IO
 					String dateString = in.nextLine();
 					/*TODO Convert dateString into Date (or Calendar?) object */
 					Date deadline = new Date();
-					String l1=in.nextLine();
+					
+					
+					String l1 = "";
 					String l2 = "";
+					String temp = "";
 					
-					//*TODO* Add functionality for line 2 later...
-					/*if(foo.equals("LINE 2"))
-					{
-						l2 = in.nextLine();
-					}*/
-					
+					//Gets the first line of the address and stores it in String l1
+					l1 = in.nextLine();
+					//Holds the String "LINE 2:"
+					temp = in.nextLine();
+					//Holds the second line of the address and stores it in String l2
+					l2 = in.nextLine();
+
 					String city = in.nextLine();
 					String state = in.nextLine();
 					String zip = in.nextLine();
