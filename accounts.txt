@@ -5,7 +5,11 @@ John Doe
 0
 11-01-12
 1234 Wandering Way
-Richardson, TX 75080
+LINE 2:
+
+Richardson
+TX
+75080
 PAYMENTS:
 38.42
 Credit Card
@@ -21,7 +25,11 @@ Windrider Technology
 1
 11-01-12
 555 Main St.
-Plano, TX 77777
+LINE 2:
+Suite 550
+Plano
+TX
+77777
 PAYMENTS:
 254.21
 Credit Card
