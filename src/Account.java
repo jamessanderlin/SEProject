@@ -16,10 +16,11 @@ public abstract class Account
 	protected int accountID;
 	protected double balance;
 	protected boolean flag;
+	protected boolean isCommercial;
 	protected Date deadline;
 	protected Address billingAddress;
-	protected Payment[] paymentHistory;
-		
+	protected ArrayList<Payment> paymentHistory;
+	
 	public String getClientFirstName() {
 		return clientFirstName;
 	}
@@ -38,10 +39,11 @@ public abstract class Account
 	public void setAccountNum(int accountID) {
 		this.accountID = accountID;
 	}
-	public Payment[] getPaymentHistory() {
+	
+	public ArrayList<Payment> getPaymentHistory() {
 		return paymentHistory;
 	}
-	public void setPaymentHistory(Payment[] paymentHistory) {
+	public void setPaymentHistory(ArrayList<Payment> paymentHistory) {
 		this.paymentHistory = paymentHistory;
 	}
 	public double getBalance() {
@@ -55,6 +57,12 @@ public abstract class Account
 	}
 	public void setFlag(boolean flag) {
 		this.flag = flag;
+	}
+	public boolean isCommercial() {
+		return isCommercial;
+	}
+	public void setCommercial(boolean isCommercial) {
+		this.isCommercial = isCommercial;
 	}
 	public Date getDeadline() {
 		return deadline;
@@ -78,4 +86,16 @@ public abstract class Account
 		return clientFirstName + " " + clientLastName + " ID: " + accountID;
 	}
 	
+	public String isCommercialtoString(){
+		String s = "";
+		
+		if(isCommercial){
+			s = "1";
+		}
+		else{
+			s = "0";
+		}
+		
+		return s;
+	}
 }

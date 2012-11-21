@@ -1,43 +1,46 @@
-John Doe
-55555
-54.61
+Mark
+Duncan
+12345
+0.0
+1
 0
-0
-11-01-12
-1234 Wandering Way
-LINE 2:
-
-Richardson
-TX
-75080
+2/13/13 5:00 PM CST
+3208 Citadel Drive
+NULL
+Plano
+Texas
+75023
 PAYMENTS:
-38.42
-Credit Card
-10-01-12
-42.48
-Cash
-09-01-12
-
-Windrider Technology
-34343
-650.34
+23.45
+Mastercard
+11/13/12 4:55 PM CST
+45.36
+Visa
+12/13/12 4:55 PM CST
+53.89
+Check
+1/13/13 4:55 PM CST
+end
+Windrider 
+Technologies
+12346
+123.46
 0
 1
-11-01-12
-555 Main St.
-LINE 2:
-Suite 550
-Plano
-TX
-77777
+2/13/13 5:00 PM CST
+2345 Enterprise Drive
+Suite 345
+Dallas
+Texas
+75219
 PAYMENTS:
-254.21
-Credit Card
-10-01-12
-220.37
-Credit Card
-09-01-12
-243.98
-Credit Card
-08-01-12
-
+23.45
+Mastercard
+11/13/12 5:00 PM CST
+45.36
+Visa
+12/13/12 5:00 PM CST
+53.89
+Check
+1/13/13 5:00 PM CST
+end

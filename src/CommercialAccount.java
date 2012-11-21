@@ -12,6 +12,7 @@ public class CommercialAccount extends Account
 		this.flag = flag;
 		this.deadline = deadline;
 		this.billingAddress = billingAddress;
+		this.isCommercial = true;
 	}
 
 	public ArrayList<Service_Location> getLocations() {

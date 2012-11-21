@@ -33,4 +33,18 @@ public class Payment
 	public void setPaymentDate(Date paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+	
+	public Payment(double paidAmount, String paymentType, Date paymentDate){
+		this.paidAmount = paidAmount;
+		this.paymentType=paymentType;
+		this.paymentDate = paymentDate;
+	}
+	
+	public String toString(){
+		String s = "";		
+		String paymentDateString = this.paymentDate.toString();	
+		s = Double.toString(this.paidAmount)+"\n"+this.paymentType+"\n"+paymentDateString+"\n";			              
+		return s;
+		
+	}
 }

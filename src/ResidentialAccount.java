@@ -12,6 +12,7 @@ public class ResidentialAccount extends Account
 		this.flag = flag;
 		this.deadline = deadline;
 		this.billingAddress = billingAddress;
+		this.isCommercial = false;
 	}
 	 
 	public Service_Location getLocation() {
