@@ -116,8 +116,12 @@ public class Account_IO
 					System.out.println(a.billingAddress.getLocation2());
 					System.out.println(a.billingAddress.getState());
 					System.out.println(a.billingAddress.getZip());
-					//TODO Implement a nice printer for the payment history members
-					//System.out.println(a.paymentHistory.toString());
+						
+					for (int i = 0; i<a.paymentHistory.size();i++){
+						
+						System.out.println(a.paymentHistory.get(i).toString());					
+					}
+					
 					System.out.println("END COMMERCIAL ACCOUNT");
 				}
 				else
@@ -138,8 +142,12 @@ public class Account_IO
 					System.out.println(b.billingAddress.getLocation2());
 					System.out.println(b.billingAddress.getState());
 					System.out.println(b.billingAddress.getZip());
-					//TODO Implement a nice printer for the payment history members
-					//System.out.println(b.paymentHistory.toString());
+					
+					for (int i = 0; i<b.paymentHistory.size();i++){
+						
+						System.out.println(b.paymentHistory.get(i).toString());					
+					}
+					
 					System.out.println("END RESIDENTIAL ACCOUNT");
 				}
 			}
