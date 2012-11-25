@@ -110,6 +110,7 @@ public class Account_IO
 					System.out.println(a.accountID);
 					System.out.println(a.balance);
 					System.out.println(a.flag);
+					System.out.println(a.isCommercialtoString());
 					System.out.println(a.deadline);
 					System.out.println(a.billingAddress.getCity());
 					System.out.println(a.billingAddress.getLocation1());
@@ -119,7 +120,7 @@ public class Account_IO
 						
 					for (int i = 0; i<a.paymentHistory.size();i++){
 						
-						System.out.println(a.paymentHistory.get(i).toString());					
+						System.out.print(a.paymentHistory.get(i).toString());					
 					}
 					
 					System.out.println("END COMMERCIAL ACCOUNT");
@@ -136,6 +137,7 @@ public class Account_IO
 					System.out.println(b.accountID);
 					System.out.println(b.balance);
 					System.out.println(b.flag);
+					System.out.println(b.isCommercialtoString());
 					System.out.println(b.deadline);
 					System.out.println(b.billingAddress.getCity());
 					System.out.println(b.billingAddress.getLocation1());
@@ -145,7 +147,7 @@ public class Account_IO
 					
 					for (int i = 0; i<b.paymentHistory.size();i++){
 						
-						System.out.println(b.paymentHistory.get(i).toString());					
+						System.out.print(b.paymentHistory.get(i).toString());					
 					}
 					
 					System.out.println("END RESIDENTIAL ACCOUNT");
@@ -273,7 +275,8 @@ public class Account_IO
 			try{
 			
 				//TODO When comfortable with the writing format here, change the file below to be the same as
-				//the input file to link up the persisting function
+				//the input file to link up the persisting function. This will overwrite the existing accountsfile though
+				//so make sure you have a backup somewhere if we are still testing.
 			FileWriter fstream = new FileWriter("out_accounts.txt");
 			BufferedWriter out = new BufferedWriter(fstream);
 
@@ -289,12 +292,14 @@ public class Account_IO
 													 +"\n"+a.billingAddress.getLocation2()
 													 +"\n"+a.billingAddress.getCity()
 													 +"\n"+a.billingAddress.getState()
-													 +"\n"+a.billingAddress.getZip()+"\n"
+													 +"\n"+a.billingAddress.getZip()
+													 +"\n"
 							);
 					for (int i = 0; i<a.paymentHistory.size();i++){
 						
 						out.write(a.paymentHistory.get(i).toString());					
 					}
+					out.write("end");
 				}
 					out.close();
 			}

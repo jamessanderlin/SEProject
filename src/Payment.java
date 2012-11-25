@@ -40,6 +40,7 @@ public class Payment
 		this.paymentDate = paymentDate;
 	}
 	
+	//Function has newlines built in so no need to add when invoking.
 	public String toString(){
 		String s = "";		
 		String paymentDateString = this.paymentDate.toString();	
