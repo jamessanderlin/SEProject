@@ -1,10 +1,19 @@
-
 import java.util.*;
+
+/**
+ * 
+ * @author Mark Duncan, James Sanderlin, Mudrekh Goderya, Avi Levy
+ * 
+ * The Meter_Reading class is the entity class for a meter reading.
+ * 
+ * @version 1.0
+ *
+ */
 public class Meter_Reading
 {
 	private int reading;
 	private Date readingDate;
-	private int meterID;
+	private int meterReadingID;
 	
 	public int getReading() {
 		return reading;
@@ -18,11 +27,13 @@ public class Meter_Reading
 	public void setReadingDate(Date readingDate) {
 		this.readingDate = readingDate;
 	}
-	public int getMeterID() {
-		return meterID;
+	
+	public int getMeterReadingID() {
+		return meterReadingID;
 	}
-	public void setMeterID(int meterID) {
-		this.meterID = meterID;
+	public void setMeterReadingID(int meterID) {
+		this.meterReadingID = meterID;
 	}
+	
 }
 

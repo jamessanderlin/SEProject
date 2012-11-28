@@ -83,7 +83,7 @@ public abstract class Account
 	@Override
 	public String toString()
 	{
-		return clientFirstName + " " + clientLastName + " ID: " + accountID;
+		return clientFirstName + " " + clientLastName;
 	}
 	
 	public String isCommercialtoString(){
