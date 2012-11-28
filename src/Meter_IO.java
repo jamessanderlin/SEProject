@@ -30,105 +30,75 @@ public class Meter_IO
 	public static void write(String fileOut, Collection<Account> accountlist){
 		
 	}
-	public static TreeMap<Integer, Account> read(String fileIn){
-		TreeMap<Integer, Account> generated = new TreeMap<Integer, Account>();
+	/**
+	 * This method reads an input file to populate all the Meter-related information
+	 * The current accounts data is passed in as well. When a Meter object has been
+	 * built, it is passed in to the account it references. There is no return value.
+	 * 
+	 * TODO: This is currently a no-op because Account does not support storing a
+	 * Meter to it yet. Uncomment Line 96 of this file when implemented
+	 * 
+	 * @param fileIn The name of the input file to deserialize from
+	 * @param accountsReference The accounts data we reference
+	 * 
+	 */
+	public static void read(String fileIn, TreeMap<Integer, Account> accountsReference){
 		File meterFile = new File(fileIn);
 		try
 		{
 			Scanner in = new Scanner(meterFile);
 			//Parse the meters file
+			int meterID, accountID, rate;
+			boolean isDigital;
+			
+			//Variables for storing data from file for the meterReading object
+			int readingValue, readingID;
+			Date readingDate = new Date();
+
+			//Sets up the formatting of a date throughout the file
+			DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");			
+
+			//The list of meter readings that we build and pass to the meter object on the fly
+			Meter meter;
+			
 			while(in.hasNext())
 			{
-				//Stores the type
-				String clientFirstName = in.nextLine();
-				String clientLastName = in.nextLine();
+				//Stores the unique meterID of the meter
+				meterID = Integer.parseInt(in.nextLine());
+				accountID = Integer.parseInt(in.nextLine());
 
-				//Stores the unique account number of the account
-				int accountId = Integer.parseInt(in.nextLine());
-				//Stores the current balance of the account
-				double balance = Double.parseDouble(in.nextLine());
-				//Stores if there is a flag on the account or not
-				boolean flag = (in.nextInt() == 0) ? false : true;
-				//Indicates if the account is commercial or residential
-				boolean isCommercial = (in.nextInt() == 0) ? false : true; in.nextLine();
+				isDigital = (in.nextInt() == 0) ? false : true;
+				//Stores the rate of the meter
+				rate = Integer.parseInt(in.nextLine());
 				
-				//Sets up the formatting of a date throughout the file
-				DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
-				
-				//Reads in the date as a string, to be converted into a date object
-				String dateString = in.nextLine();
-				Date deadline = new Date();
-				try {
-					deadline = (Date)formatter.parse(dateString);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-					
-				//Gets the first line of the address and stores it in String l1
-				String l1 = in.nextLine();
-				//Holds the second line of the address and stores it in String l2
-				String l2 = in.nextLine();
-				//Holds the string for the city
-				String city = in.nextLine();
-				//Holds the string for the state
-				String state = in.nextLine();
-				//Holds the string for the zipcode
-				String zip = in.nextLine();
-				
-				//Creates address object and stores its info for storing into the account object
-				Address addressParam = new Address(l1,l2,city,state,zip);
-				
-				//Variables for storing data from file for the payment object
-				double amount = 0.0;
-				String paymentType = "";
-				String paymentDate ="";
-				ArrayList<Payment> paymentHist = new ArrayList<Payment>();
-				
-				//Advances the writer past the "Payments:" delimiter. (We may decide to remove this altogether)
-				@SuppressWarnings("unused")
-				String paymentsDelimiter = in.nextLine();
+				//Advances the writer past the "READINGS:" delimiter.
+				in.nextLine();
+
+				meter = new Meter(meterID, (isDigital) ? "Digital" : "Analog");
 				
 				while(!in.hasNext("end"))
 				{
-					amount = Double.parseDouble(in.nextLine());
-					paymentType = in.nextLine();
-					paymentDate = in.nextLine();
-					
-					//Creates a date object and parses the string paymentDate from the file
-					Date payDate = new Date();
+					readingValue = Integer.parseInt(in.nextLine());
 					try {
-						payDate = (Date)formatter.parse(paymentDate);
+						readingDate = (Date)formatter.parse(in.nextLine());
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					//Creates the payment object to be stored in the account object's paymentHistory list
-					Payment newPayment = new Payment(amount,paymentType,payDate);
-					paymentHist.add(newPayment);
+					readingID = Integer.parseInt(in.nextLine());
+
+					//Append to Meter
+					meter.addReading(new Meter_Reading(readingValue, readingDate, readingID));
 				}
+				
+				/* This is not implemented yet in Accounts
+				 * 
+				 * accountsReference.get(accountID).addMeter(meter);
+				 */
 				
 				//Advances the writer past the end delimiter if necessary to get new info
 				if(in.hasNext()){
-					@SuppressWarnings("unused")
-					String delimiter = in.nextLine();
-				}
-				
-				//Change this to writing to the accounts reference object, not the console
-				if(isCommercial)
-				{		
-					CommercialAccount a = new CommercialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
-					  				  a.paymentHistory = paymentHist;
-					  				  //accountlist.add(a);
-					  				  generated.put(accountId, a);
-				}
-				else
-				{
-					//*TODO* We are need to redo the structure here for residential and commercial account names. Right now we read everything as a name but
-					//it also needs to delineate between a company name and a name. They aren't separated right now.
-					ResidentialAccount b = new ResidentialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
-									   b.paymentHistory = paymentHist;
-									   generated.put(accountId, b);
+					in.nextLine();
 				}
 				
 			}
@@ -137,6 +107,5 @@ public class Meter_IO
 		{
 			e.printStackTrace();
 		}
-		return generated;
 	}
 }

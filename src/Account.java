@@ -2,9 +2,12 @@ import java.util.*;
 
 /**
  * 
- * @author James Sanderlin, Mudrekh Goderya
+ * @author James Sanderlin, Mudrekh Goderya, Avi Levy
  * 
  * The Account class handles input and output of the current state of the program to accounts.txt
+ * 
+ * TODO: Handle adding a meter or list of meters to an account
+ * Interface: will be called from Meter_IO as Account.addMeter(Meter meter)
  * 
  * @ version 1.0
  *

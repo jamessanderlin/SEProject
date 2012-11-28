@@ -15,6 +15,12 @@ public class Meter_Reading
 	private Date readingDate;
 	private int meterReadingID;
 	
+	public Meter_Reading(int reading, Date readingDate, int meterID) {
+		setReading(reading);
+		setReadingDate(readingDate);
+		setMeterReadingID(meterID);
+	}
+	
 	public int getReading() {
 		return reading;
 	}
