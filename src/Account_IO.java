@@ -16,8 +16,7 @@ import java.text.DateFormat;
 public class Account_IO 
 {
 	//This method reads data stored from a text file and prints the file contents to the console (for testing)
-	public Account_IO()
-	{
+	public static void Account_IO_Debug(){
 		File accountFile = new File("accounts.txt");
 		
 		try
@@ -158,13 +157,14 @@ public class Account_IO
 		{
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
 	//This method writes the account information from the accounts file to a list of accounts by reference
-		public static void AccountIn(ArrayList<Account> accountlist){
+		public static ArrayList<Account> AccountIn(){
 			File accountFile = new File("accounts.txt");
-			
+			ArrayList<Account> accountlist = new ArrayList<Account>();
 			try
 			{
 				Scanner in = new Scanner(accountFile);
@@ -268,6 +268,8 @@ public class Account_IO
 			{
 				e.printStackTrace();
 			}
+			
+			return accountlist;
 		}
 		
 		//This method persists the account information from a list by reference to a file for reading in later
