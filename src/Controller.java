@@ -7,18 +7,23 @@ import java.awt.event.*;
 
 public class Controller 
 {
-	//HashMap of the accounts
-	private static HashMap<Integer, Account> accounts = new HashMap<Integer, Account>();
-	//HashMap of the meters
-	private static HashMap<Integer, Meter> meters = new HashMap<Integer, Meter>();
-	private static Meter_IO dataMeter;
-    private static Account_IO dataAccount;
+	//TreeMap of the accounts
+	private TreeMap<Integer, Account> accounts = new TreeMap<Integer, Account>();
+	//TreeMap of the meters
+	private TreeMap<Integer, Meter> meters = new TreeMap<Integer, Meter>();
+	private Meter_IO dataMeter;
+    private Account_IO dataAccount;
 	//Singleton instance of the Controller. 
 	private static final Controller instance = new Controller();
 	/**
 	 * Private constructor to maintain singleton copy 
 	 */
-    private Controller() {}
+    private Controller() {
+    	dataAccount = new Account_IO();
+		dataMeter = new Meter_IO();
+		accounts = dataAccount.accountIn();
+		UserInterface ui = new UserInterface();
+    }
  
     /**
      * Method to return the singleton copy of the controller
@@ -37,10 +42,7 @@ public class Controller
      */
 	public static void main(String[] args)
 	{
-		dataAccount = new Account_IO();
-		dataMeter = new Meter_IO();
-		accounts = dataAccount.accountIn();
-		UserInterface ui = new UserInterface();
+		
 	}
 	
 	/**
@@ -199,7 +201,7 @@ public class Controller
 	 * 
 	 * @return
 	 */
-	public Collection<Meter> getMeters()
+	public Collection<Meter> getMeterCollection()
 	{
 		return Collections.unmodifiableCollection(meters.values());
 	}
@@ -209,10 +211,32 @@ public class Controller
 	 * 
 	 * @return
 	 */
-	public Collection<Account> getAccounts()
+	public Collection<Account> getAccountCollection()
 	{
 		return Collections.unmodifiableCollection(accounts.values());
 	}
+
+	public TreeMap<Integer, Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(TreeMap<Integer, Account> accounts) {
+		this.accounts = accounts;
+	}
+
+	public TreeMap<Integer, Meter> getMeters() {
+		return meters;
+	}
+
+	public void setMeters(TreeMap<Integer, Meter> meters) {
+		this.meters = meters;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	//Save to file

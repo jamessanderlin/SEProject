@@ -162,9 +162,9 @@ public class Account_IO
 	
 	
 	//This method writes the account information from the accounts file to a list of accounts by reference
-		public HashMap<Integer, Account> accountIn(){
+		public TreeMap<Integer, Account> accountIn(){
 			File accountFile = new File("accounts.txt");
-			HashMap<Integer, Account> accountlist = new HashMap<Integer, Account>();
+			TreeMap<Integer, Account> accountlist = new TreeMap<Integer, Account>();
 			try
 			{
 				Scanner in = new Scanner(accountFile);

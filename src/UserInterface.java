@@ -48,7 +48,7 @@ public class UserInterface
 			
 			save.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
-					Account_IO.AccountOut(Controller.getInstance().getAccounts());
+					Account_IO.AccountOut(Controller.getInstance().getAccountCollection());
 				}
 			});
 					
@@ -146,14 +146,14 @@ public class UserInterface
 		
 		public void refreshAccountJList() {
 			//System.out.println(Arrays.toString((Controller.getInstance().accounts.toArray()));
-			accountJList.setListData(Controller.getInstance().getAccounts().toArray());
+			accountJList.setListData(Controller.getInstance().getAccountCollection().toArray());
 			//mainFrame.repaint();
 			
 		}
 		
 		public void refreshMeterJList() {
 			//System.out.println(Arrays.toString(Controller.getInstance().accounts.toArray()));
-			meterJList.setListData(Controller.getInstance().getMeters().toArray());
+			meterJList.setListData(Controller.getInstance().getMeterCollection().toArray());
 			//mainFrame.repaint();
 			
 		}
