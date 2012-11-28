@@ -1,5 +1,14 @@
-
 import java.util.*;
+
+/**
+ * 
+ * @author Mark Duncan, James Sanderlin, Mudrekh Goderya, Avi Levy
+ * 
+ * The Meter_Reading class is the entity class for a meter reading.
+ * 
+ * @version 1.0
+ *
+ */
 public class Meter_Reading
 {
 	private int reading;

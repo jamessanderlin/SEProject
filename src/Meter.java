@@ -2,7 +2,7 @@ import java.util.*;
 
 /**
  * 
- * @author Mark Duncan, James Sanderlin, Mudrekh Goderya
+ * @author Mark Duncan, James Sanderlin, Mudrekh Goderya, Avi Levy
  * 
  * The Meter class is the entity class for a real life meter. It stores important info such
  * as the location, type of meter and the unique meter ID number

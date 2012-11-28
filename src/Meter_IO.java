@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-/* Format of meters.txt
+/* Format of meters.txt file:
  * 
  * meterId
  * accountid
