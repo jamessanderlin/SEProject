@@ -19,17 +19,19 @@ public class Meter
 	private int meterID;
 	
 	//Stores a list of readings for the meter instance
-	private ArrayList<Meter_Reading> readings = new ArrayList<Meter_Reading>(); 
+	private TreeMap<Integer, Meter_Reading> readings; 
 	
 	//Stores the rate for the meter
 	private Rate meterRate;
 	public Meter(int meterID, String type) {
 		this.meterID = meterID;
+		readings = new TreeMap<Integer, Meter_Reading>();
 		setType(type);
+		
 	}
 	public void addReading(Meter_Reading r)
 	{
-		readings.add(r);
+		readings.put(r.getMeterID(),r);
 	}
 	
 	public String getType() {
@@ -50,12 +52,10 @@ public class Meter
 	public void setMeterID(int meterID) {
 		this.meterID = meterID;
 	}
-	public ArrayList<Meter_Reading> getReadings() {
+	public TreeMap<Integer, Meter_Reading> getReadings() {
 		return readings;
 	}
-	public void setReadings(ArrayList<Meter_Reading> readings) {
-		this.readings = readings;
-	}
+
 	public Rate getMeterRate() {
 		return meterRate;
 	}
