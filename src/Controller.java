@@ -8,9 +8,11 @@ import java.awt.event.*;
 public class Controller 
 {
 	//HashMap of the accounts
-	private HashMap<Integer, Account> accounts = new HashMap<Integer, Account>();
+	private static HashMap<Integer, Account> accounts = new HashMap<Integer, Account>();
 	//HashMap of the meters
-	private HashMap<Integer, Meter> meters = new HashMap<Integer, Meter>();
+	private static HashMap<Integer, Meter> meters = new HashMap<Integer, Meter>();
+	private static Meter_IO dataMeter;
+    private static Account_IO dataAccount;
 	//Singleton instance of the Controller. 
 	private static final Controller instance = new Controller();
 	/**
@@ -27,8 +29,6 @@ public class Controller
         return instance;
     }
     
-    private Meter_IO dataMeter;
-    private Account_IO dataAccount;
     
     /**
      * Main class to drive the program.
@@ -37,8 +37,9 @@ public class Controller
      */
 	public static void main(String[] args)
 	{
-		Controller.getInstance().dataAccount = new Account_IO();
-		Controller.getInstance().dataMeter = new Meter_IO();
+		dataAccount = new Account_IO();
+		dataMeter = new Meter_IO();
+		accounts = dataAccount.accountIn();
 		UserInterface ui = new UserInterface();
 	}
 	

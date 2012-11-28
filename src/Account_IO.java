@@ -162,9 +162,9 @@ public class Account_IO
 	
 	
 	//This method writes the account information from the accounts file to a list of accounts by reference
-		public static ArrayList<Account> AccountIn(){
+		public HashMap<Integer, Account> accountIn(){
 			File accountFile = new File("accounts.txt");
-			ArrayList<Account> accountlist = new ArrayList<Account>();
+			HashMap<Integer, Account> accountlist = new HashMap<Integer, Account>();
 			try
 			{
 				Scanner in = new Scanner(accountFile);
@@ -251,7 +251,8 @@ public class Account_IO
 					{		
 						CommercialAccount a = new CommercialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
 						  				  a.paymentHistory = paymentHist;
-						  				  accountlist.add(a);
+						  				  //accountlist.add(a);
+						  				  accountlist.put(accountId, a);
 					}
 					else
 					{
@@ -259,7 +260,7 @@ public class Account_IO
 						//it also needs to delineate between a company name and a name. They aren't separated right now.
 						ResidentialAccount b = new ResidentialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
 										   b.paymentHistory = paymentHist;
-										   accountlist.add(b);
+										   accountlist.put(accountId, b);
 					}
 					
 				}
