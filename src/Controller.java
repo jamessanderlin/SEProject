@@ -232,12 +232,7 @@ public class Controller
 		this.meters = meters;
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	
 	//Save to file
 

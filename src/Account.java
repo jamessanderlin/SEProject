@@ -19,7 +19,7 @@ public abstract class Account
 	protected boolean isCommercial;
 	protected Date deadline;
 	protected Address billingAddress;
-	protected ArrayList<Payment> paymentHistory;
+	protected ArrayList<Payment> paymentHistory = new ArrayList<Payment>();
 	
 	public String getClientFirstName() {
 		return clientFirstName;
