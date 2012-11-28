@@ -6,7 +6,7 @@ import java.text.DateFormat;
 
 /**
  * 
- * @author Mark Duncan, James Sanderlin, Avi Levi, Mudrekh Goderya
+ * @author Mark Duncan, James Sanderlin, Avi Levy, Mudrekh Goderya
  * 
  * The Account_IO class handles input and output of the current state of the program to accounts.txt
  * 

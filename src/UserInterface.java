@@ -33,8 +33,8 @@ public class UserInterface
 			mainFrame.setJMenuBar(menuBar);
 			
 
-			accountJList = new JList<Account>();
-			meterJList = new JList<Meter>();
+			accountJList = new JList();
+			meterJList = new JList();
 			
 			JScrollPane accountScrollPane = new JScrollPane(accountJList);
 			accountScrollPane.setPreferredSize(new Dimension(200, 100));
