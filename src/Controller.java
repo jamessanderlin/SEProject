@@ -11,7 +11,7 @@ public class Controller
 	private TreeMap<Integer, Account> accounts = new TreeMap<Integer, Account>();
 	//TreeMap of the meters
 	private TreeMap<Integer, Meter> meters = new TreeMap<Integer, Meter>();
-	private Meter_IO dataMeter;
+	
     private Account_IO dataAccount;
 	//Singleton instance of the Controller. 
 	private static final Controller instance = new Controller();
@@ -20,7 +20,7 @@ public class Controller
 	 */
     private Controller() {
     	dataAccount = new Account_IO();
-		dataMeter = new Meter_IO();
+	
 		accounts = dataAccount.accountIn();
 		UserInterface ui = new UserInterface();
     }
