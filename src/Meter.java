@@ -23,11 +23,13 @@ public class Meter
 	
 	//Stores the rate for the meter
 	private Rate meterRate;
+	
 	public Meter(int meterID, String type) {
 		this.meterID = meterID;
 		readings = new TreeMap<Date, Meter_Reading>();
 		setType(type);
 	}
+	
 	public void addReading(Meter_Reading r)
 	{
 		readings.put(r.getReadingDate(),r);
