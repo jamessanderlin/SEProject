@@ -39,7 +39,10 @@ public class UserInterface extends javax.swing.JFrame {
         save = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         addAccount = new javax.swing.JMenuItem();
+        deleteAccount = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         addMeter = new javax.swing.JMenuItem();
+        deleteMeter = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +85,15 @@ public class UserInterface extends javax.swing.JFrame {
         });
         menuEdit.add(addAccount);
 
+        deleteAccount.setText("Delete Account");
+        deleteAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteAccountActionPerformed(evt);
+            }
+        });
+        menuEdit.add(deleteAccount);
+        menuEdit.add(jSeparator1);
+
         addMeter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         addMeter.setText("Add Meter");
         addMeter.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +102,14 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         menuEdit.add(addMeter);
+
+        deleteMeter.setText("Delete Meter");
+        deleteMeter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMeterActionPerformed(evt);
+            }
+        });
+        menuEdit.add(deleteMeter);
 
         menuBar.add(menuEdit);
 
@@ -202,45 +222,90 @@ public class UserInterface extends javax.swing.JFrame {
           }
     }//GEN-LAST:event_addMeterActionPerformed
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new UserInterface().setVisible(true);
-//            }
-//        });
-//    }
+    private void deleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountActionPerformed
+        JTextField accountID = new JTextField(12);
+        Object[] options = {"DELETE", "CANCEL"};
+
+          JPanel myPanel = new JPanel();
+          myPanel.add(new JLabel("Enter Account ID to Delete:"));
+          myPanel.add(accountID);
+
+          int result = JOptionPane.showOptionDialog(null, myPanel, 
+                   "Delete an account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+          if (result == 0) 
+          {
+              int ID = Integer.parseInt(accountID.getText());
+              Controller.getInstance().deleteAccount(ID);
+              if(accountTable.getModel() instanceof AbstractTableModel)
+              {
+                  ((AbstractTableModel)accountTable.getModel()).fireTableDataChanged();
+              }
+          }
+    }//GEN-LAST:event_deleteAccountActionPerformed
+
+    private void deleteMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMeterActionPerformed
+          JTextField meterID = new JTextField(12);
+          Object[] options = {"DELETE", "CANCEL"};
+
+          JPanel myPanel = new JPanel();
+          myPanel.add(new JLabel("Enter Meter ID to Delete:"));
+          myPanel.add(meterID);
+
+          int result = JOptionPane.showOptionDialog(null, myPanel, 
+                   "Delete an Meter", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+          if (result == 0) 
+          {
+              int ID = Integer.parseInt(meterID.getText());
+              Controller.getInstance().deleteMeter(ID);
+              if(meterTable.getModel() instanceof AbstractTableModel)
+              {
+                  ((AbstractTableModel)meterTable.getModel()).fireTableDataChanged();
+              }
+          }
+    }//GEN-LAST:event_deleteMeterActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new UserInterface().setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane accountScrollPane;
     private javax.swing.JTable accountTable;
     private javax.swing.JMenuItem addAccount;
     private javax.swing.JMenuItem addMeter;
+    private javax.swing.JMenuItem deleteAccount;
+    private javax.swing.JMenuItem deleteMeter;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
