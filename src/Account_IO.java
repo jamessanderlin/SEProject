@@ -176,10 +176,9 @@ public class Account_IO
 				}
 					out.write("PAYMENTS:"+"\n");
 					for (int i = 0; i<a.paymentHistory.size();i++){
-						
 						out.write(a.paymentHistory.get(i).toString());					
 					}
-					out.write("end");
+					out.write("end\n");
 				}
 					out.close();
 			}
