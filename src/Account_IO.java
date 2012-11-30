@@ -16,7 +16,7 @@ import java.text.DateFormat;
 public class Account_IO 
 {
 	//This method reads data stored from a text file and prints the file contents to the console (for testing)
-	public static void Account_IO_Debug(){
+	/*public static void Account_IO_Debug(){
 		File accountFile = new File("accounts.txt");
 		
 		try
@@ -101,11 +101,10 @@ public class Account_IO
 					
 				if(isCommercial)
 				{
-					CommercialAccount a = new CommercialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
+					CommercialAccount a = new CommercialAccount(companyName, accountId, balance, flag, deadline, addressParam);
 									  a.paymentHistory = paymentHist;
 					System.out.println("COMMERCIAL ACCOUNT");
-					System.out.println(a.clientFirstName);
-					System.out.println(a.clientLastName);
+					System.out.println(a.companyName);
 					System.out.println(a.accountID);
 					System.out.println(a.balance);
 					System.out.println(a.flag);
@@ -158,12 +157,12 @@ public class Account_IO
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
 	
 	//This method writes the account information from the accounts file to a list of accounts by reference
-		public TreeMap<Integer, Account> accountIn(){
-			File accountFile = new File("accounts.txt");
+		public TreeMap<Integer, Account> read(String fileinName){
+			File accountFile = new File(fileinName);
 			TreeMap<Integer, Account> accountlist = new TreeMap<Integer, Account>();
 			try
 			{
@@ -171,24 +170,34 @@ public class Account_IO
 				//Parse the accounts file
 				while(in.hasNext())
 				{
-					//Stores the type
-					String clientFirstName = in.nextLine();
-					String clientLastName = in.nextLine();
+					String companyName = "";
+					String clientFirstName="";
+					String clientLastName = "";
+					String dateString = "";
+					//Indicates if the account is commercial or residential
+					boolean isCommercial = (in.nextInt() == 0) ? false : true; in.nextLine();
 
+					if(isCommercial){
+						companyName = in.nextLine();						
+					}
+					else
+					{
+						clientFirstName = in.nextLine();
+						clientLastName = in.nextLine();
+					}
+					
 					//Stores the unique account number of the account
 					int accountId = Integer.parseInt(in.nextLine());
 					//Stores the current balance of the account
 					double balance = Double.parseDouble(in.nextLine());
 					//Stores if there is a flag on the account or not
 					boolean flag = (in.nextInt() == 0) ? false : true;
-					//Indicates if the account is commercial or residential
-					boolean isCommercial = (in.nextInt() == 0) ? false : true; in.nextLine();
-					
+					in.nextLine();
 					//Sets up the formatting of a date throughout the file
 					DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
 					
 					//Reads in the date as a string, to be converted into a date object
-					String dateString = in.nextLine();
+					dateString = in.nextLine();
 					Date deadline = new Date();
 					try {
 						deadline = (Date)formatter.parse(dateString);
@@ -246,18 +255,14 @@ public class Account_IO
 						String delimiter = in.nextLine();
 					}
 					
-					//Change this to writing to the accounts reference object, not the console
 					if(isCommercial)
 					{		
-						CommercialAccount a = new CommercialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
+						CommercialAccount a = new CommercialAccount(companyName, accountId, balance, flag, deadline, addressParam);
 						  				  a.paymentHistory = paymentHist;
-						  				  //accountlist.add(a);
 						  				  accountlist.put(accountId, a);
 					}
 					else
 					{
-						//*TODO* We are need to redo the structure here for residential and commercial account names. Right now we read everything as a name but
-						//it also needs to delineate between a company name and a name. They aren't separated right now.
 						ResidentialAccount b = new ResidentialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
 										   b.paymentHistory = paymentHist;
 										   accountlist.put(accountId, b);
@@ -274,30 +279,47 @@ public class Account_IO
 		}
 		
 		//This method persists the account information from a list by reference to a file for reading in later
-		public static void AccountOut(Collection<Account> accountlist){
+		public static void write(String writefileName, Collection<Account> accountlist){
 			try{
-			
-				//TODO When comfortable with the writing format here, change the file below to be the same as
-				//the input file to link up the persisting function. This will overwrite the existing accountsfile though
-				//so make sure you have a backup somewhere if we are still testing.
-			FileWriter fstream = new FileWriter("out_accounts.txt");
+				
+			FileWriter fstream = new FileWriter(writefileName);
 			BufferedWriter out = new BufferedWriter(fstream);
 
 				for(Account a : accountlist) 
-				{	
-					out.write(a.getClientFirstName() +"\n"+a.getClientLastName() 
-													 +"\n"+a.accountID
-													 +"\n"+a.balance
-													 +"\n"+a.flag 
-													 +"\n"+a.isCommercialtoString()
-													 +"\n"+a.deadline
-													 +"\n"+a.billingAddress.getLocation1()
-													 +"\n"+a.billingAddress.getLocation2()
-													 +"\n"+a.billingAddress.getCity()
-													 +"\n"+a.billingAddress.getState()
-													 +"\n"+a.billingAddress.getZip()
+				{	if(a.isCommercial()){
+					CommercialAccount ca = (CommercialAccount)a;
+					out.write(ca.getCompanyName()
+							 +"\n"+ca.accountID
+							 +"\n"+ca.balance
+							 +"\n"+ca.flag 
+							 +"\n"+ca.isCommercialtoString()
+							 +"\n"+ca.deadline
+							 +"\n"+ca.billingAddress.getLocation1()
+							 +"\n"+ca.billingAddress.getLocation2()
+							 +"\n"+ca.billingAddress.getCity()
+							 +"\n"+ca.billingAddress.getState()
+							 +"\n"+ca.billingAddress.getZip()
+							 +"\n"
+	);
+					
+				}
+				else{
+					ResidentialAccount ra = (ResidentialAccount)a;
+					out.write(ra.getClientFirstName() +"\n"+ra.getClientLastName() 
+													 +"\n"+ra.accountID
+													 +"\n"+ra.balance
+													 +"\n"+ra.flag 
+													 +"\n"+ra.isCommercialtoString()
+													 +"\n"+ra.deadline
+													 +"\n"+ra.billingAddress.getLocation1()
+													 +"\n"+ra.billingAddress.getLocation2()
+													 +"\n"+ra.billingAddress.getCity()
+													 +"\n"+ra.billingAddress.getState()
+													 +"\n"+ra.billingAddress.getZip()
 													 +"\n"
 							);
+				}
+					out.write("PAYMENTS:"+"\n");
 					for (int i = 0; i<a.paymentHistory.size();i++){
 						
 						out.write(a.paymentHistory.get(i).toString());					
