@@ -16,7 +16,8 @@ import java.io.*;
  * rate
  * READINGS:
  * readingvalue
- * readingDate (key)
+ * readingDate
+ * reading_id (partial key)
  * (Note: the previous lines repeat several times)
  * end
  */
@@ -51,7 +52,7 @@ public class Meter_IO
 			boolean isDigital;
 			
 			//Variables for storing data from file for the meterReading object
-			int readingValue;
+			int readingValue, readingID;
 			Date readingDate = new Date();
 
 			//Sets up the formatting of a date throughout the file
@@ -68,10 +69,9 @@ public class Meter_IO
 
 				isDigital = (in.nextInt() == 0) ? false : true;
 				//Stores the rate of the meter
-				//rate = Integer.parseInt(in.nextLine());
-				rate = in.nextInt();
+				rate = Integer.parseInt(in.nextLine());
+				
 				//Advances the writer past the "READINGS:" delimiter.
-				in.nextLine();
 				in.nextLine();
 
 				meter = new Meter(meterID, (isDigital) ? "Digital" : "Analog");
@@ -85,12 +85,16 @@ public class Meter_IO
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					readingID = Integer.parseInt(in.nextLine());
 
 					//Append to Meter
 					meter.addReading(new Meter_Reading(readingValue, readingDate));
 				}
 				
-				accountsReference.get(accountID).addServiceLocation(new Service_Location(meter));
+				/* This is not implemented yet in Accounts
+				 * 
+				 * accountsReference.get(accountID).addMeter(meter);
+				 */
 				
 				//Advances the writer past the end delimiter if necessary to get new info
 				if(in.hasNext()){
