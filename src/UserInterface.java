@@ -72,7 +72,7 @@ public class UserInterface
 				      
 
 				      int result = JOptionPane.showOptionDialog(null, myPanel, 
-				               "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+				               "Enter information for a meter", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 				      if (result == 0) 
 				      {
 				    	  Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText());
