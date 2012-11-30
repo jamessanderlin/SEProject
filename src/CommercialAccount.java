@@ -35,4 +35,9 @@ public class CommercialAccount extends Account
 	public void addServiceLocation(Service_Location s) {
 		this.locations.add(s);
 	}
+	
+	public String toString()
+	{
+		return companyName;
+	}
 }
