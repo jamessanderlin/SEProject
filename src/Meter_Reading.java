@@ -13,12 +13,10 @@ public class Meter_Reading
 {
 	private int reading;
 	private Date readingDate;
-	private int meterReadingID;
 	
-	public Meter_Reading(int reading, Date readingDate, int meterID) {
+	public Meter_Reading(int reading, Date readingDate) {
 		setReading(reading);
 		setReadingDate(readingDate);
-		setMeterReadingID(meterID);
 	}
 	
 	public int getReading() {
@@ -33,13 +31,5 @@ public class Meter_Reading
 	public void setReadingDate(Date readingDate) {
 		this.readingDate = readingDate;
 	}
-	
-	public int getMeterReadingID() {
-		return meterReadingID;
-	}
-	public void setMeterReadingID(int meterID) {
-		this.meterReadingID = meterID;
-	}
-	
 }
 
