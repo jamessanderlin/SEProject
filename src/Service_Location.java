@@ -1,4 +1,5 @@
 import java.util.*;
+
 /**
  * 
  * @author Mark Duncan, Mudrekh Goderya, Avi Levy
@@ -21,7 +22,7 @@ public class Service_Location {
 	private Address physicalAddress;
 	
 	//Describes if the location is residential or commercial
-	private String type; 
+	private String type;
 
 	//Boolean for if the location is taxable or not, for example in the case of non-profits
 	private boolean taxable;
@@ -32,6 +33,9 @@ public class Service_Location {
 	//The meter installed at the service location
 	private Meter meter;
 
+	public Service_Location(Meter m) {
+		setMeter(m);
+	}
 	public int getID() {
 		return ID;
 	}
