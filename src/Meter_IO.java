@@ -16,8 +16,7 @@ import java.io.*;
  * rate
  * READINGS:
  * readingvalue
- * readingDate
- * reading_id (partial key)
+ * readingDate (key)
  * (Note: the previous lines repeat several times)
  * end
  */
@@ -52,7 +51,7 @@ public class Meter_IO
 			boolean isDigital;
 			
 			//Variables for storing data from file for the meterReading object
-			int readingValue, readingID;
+			int readingValue;
 			Date readingDate = new Date();
 
 			//Sets up the formatting of a date throughout the file
@@ -85,10 +84,9 @@ public class Meter_IO
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					readingID = Integer.parseInt(in.nextLine());
 
 					//Append to Meter
-					meter.addReading(new Meter_Reading(readingValue, readingDate, readingID));
+					meter.addReading(new Meter_Reading(readingValue, readingDate));
 				}
 				
 				/* This is not implemented yet in Accounts
