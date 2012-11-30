@@ -23,5 +23,10 @@ public class ResidentialAccount extends Account
 	public void setLocation(Service_Location location) {
 		this.location = location;
 	}
-		
+	
+	@Override
+	public void addServiceLocation(Service_Location s) {
+		setLocation(s);
+	}
+	
 }

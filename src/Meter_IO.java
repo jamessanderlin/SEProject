@@ -89,10 +89,7 @@ public class Meter_IO
 					meter.addReading(new Meter_Reading(readingValue, readingDate));
 				}
 				
-				/* This is not implemented yet in Accounts
-				 * 
-				 * accountsReference.get(accountID).addMeter(meter);
-				 */
+				accountsReference.get(accountID).addServiceLocation(new Service_Location(meter));
 				
 				//Advances the writer past the end delimiter if necessary to get new info
 				if(in.hasNext()){

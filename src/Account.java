@@ -83,6 +83,8 @@ public abstract class Account
 		this.accountID = accountID;
 	}
 	
+	public abstract void addServiceLocation(Service_Location s);
+	
 	@Override
 	public String toString()
 	{

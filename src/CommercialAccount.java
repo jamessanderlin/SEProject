@@ -22,5 +22,10 @@ public class CommercialAccount extends Account
 	public void setLocations(ArrayList<Service_Location> locations) {
 		this.locations = locations;
 	}
+	
+	@Override
+	public void addServiceLocation(Service_Location s) {
+		this.locations.add(s);
+	}
 
 }
