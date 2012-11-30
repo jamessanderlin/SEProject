@@ -1,9 +1,9 @@
+0
 Mark
 Duncan
 12345
 0.0
 1
-0
 2/13/13 5:00 PM CST
 3208 Citadel Drive
 NULL
@@ -21,12 +21,11 @@ Visa
 Check
 1/13/13 4:55 PM CST
 end
-Windrider 
-Technologies
+1
+Windrider Technologies
 12346
 123.46
 0
-1
 2/13/13 5:00 PM CST
 2345 Enterprise Drive
 Suite 345

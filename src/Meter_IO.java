@@ -68,9 +68,10 @@ public class Meter_IO
 
 				isDigital = (in.nextInt() == 0) ? false : true;
 				//Stores the rate of the meter
-				rate = Integer.parseInt(in.nextLine());
-				
+				//rate = Integer.parseInt(in.nextLine());
+				rate = in.nextInt();
 				//Advances the writer past the "READINGS:" delimiter.
+				in.nextLine();
 				in.nextLine();
 
 				meter = new Meter(meterID, (isDigital) ? "Digital" : "Analog");

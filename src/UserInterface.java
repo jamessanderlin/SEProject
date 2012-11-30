@@ -51,7 +51,7 @@ public class UserInterface
 			
 			save.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
-					Account_IO.AccountOut(Controller.getInstance().getAccountCollection());
+					Controller.getInstance().save();
 				}
 			});
 					

@@ -20,8 +20,9 @@ public class Controller
 	 */
     private Controller() {
     	dataAccount = new Account_IO();
-	
-		accounts = dataAccount.accountIn();
+
+		accounts = dataAccount.read("accounts.txt");
+		Meter_IO.read("meters.txt", accounts);
 		UserInterface ui = new UserInterface();
     }
  
@@ -44,9 +45,9 @@ public class Controller
 	{
 		
 	}
-	
+
 	/**
-	 * Creates an account with the specified fields
+	 * Creates an residential account with the specified fields
 	 * 
 	 * @param clientFirstName 	First name of the client
 	 * @param clientLastName	Last name of the client
@@ -58,21 +59,39 @@ public class Controller
 	 * @param commercial	Boolean indicating whether the account is commercial
 	 * @return	 True if the new account was added. 
 	 */
-	public boolean createAccount(String clientFirstName, String clientLastName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress, boolean commercial)
+	public boolean createResidentialAccount(String clientFirstName, String clientLastName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress, boolean commercial)
 	{
 		if(accounts.containsKey(accountID))
 			return false;
-		else if(commercial)
-		{
-			accounts.put(accountID, new CommercialAccount(clientFirstName, clientLastName, accountID, balance, flag, deadline, billingAddress));
-			return true;
-		}
 		else
 		{
 			accounts.put(accountID, new ResidentialAccount(clientFirstName, clientLastName, accountID, balance, flag, deadline, billingAddress));
 			return true;
 		}
 		
+	}
+	
+	/**
+	 * Creates an commercial account with the specified fields
+	 * 
+	 * @param companyName The name of the company
+	 * @param accountID	The ID of the account
+	 * @param balance	The current balance of the account
+	 * @param flag	The current flag of the account
+	 * @param deadline	The deadline for the next payment
+	 * @param billingAddress	The billing address of the account
+	 * @param commercial	Boolean indicating whether the account is commercial
+	 * @return	 True if the new account was added. 
+	 */
+	public boolean createCommercialAccount(String companyName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress, boolean commercial)
+	{
+		if(accounts.containsKey(accountID))
+			return false;
+		else
+		{
+			accounts.put(accountID, new CommercialAccount(companyName, accountID, balance, flag, deadline, billingAddress));
+			return true;
+		}
 	}
 	
 	/**
@@ -232,10 +251,10 @@ public class Controller
 		this.meters = meters;
 	}
 	
-
-	
-	//Save to file
-
+	public void save() {
+		Account_IO.write("out_accounts.txt",getAccountCollection());
+		Meter_IO.write("out_meters.txt",getAccountCollection());
+	}
 }
 
 
