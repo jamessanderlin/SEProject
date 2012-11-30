@@ -1,16 +1,10 @@
+import java.util.*;
+
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
 
-
-/**
- * The Controller Class is the main driver for the program. It stores all of the main data, has the Main method, and creates
- * the UI.
- * 
- * @author Mudrekh Goderya
- * 
- */
 public class Controller 
 {
 	//TreeMap of the accounts
@@ -26,8 +20,10 @@ public class Controller
 	 */
     private Controller() {
     	dataAccount = new Account_IO();
+
 		accounts = dataAccount.read("accounts.txt");
 		Meter_IO.read("meters.txt", accounts);
+		UserInterface ui = new UserInterface();
     }
  
     /**
@@ -47,35 +43,7 @@ public class Controller
      */
 	public static void main(String[] args)
 	{
-      /* Set the Nimbus look and feel */
-      //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-      /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-       * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-       */
-      try {
-          for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-              if ("Nimbus".equals(info.getName())) {
-                  javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                  break;
-              }
-          }
-      } catch (ClassNotFoundException ex) {
-          java.util.logging.Logger.getLogger(UserInterfacePrototype.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      } catch (InstantiationException ex) {
-          java.util.logging.Logger.getLogger(UserInterfacePrototype.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      } catch (IllegalAccessException ex) {
-          java.util.logging.Logger.getLogger(UserInterfacePrototype.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-          java.util.logging.Logger.getLogger(UserInterfacePrototype.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      }
-      //</editor-fold>
-
-      /* Create and display the form */
-      java.awt.EventQueue.invokeLater(new Runnable() {
-          public void run() {
-              new UserInterface().setVisible(true);
-          }
-      });
+		
 	}
 
 	/**
@@ -267,46 +235,22 @@ public class Controller
 		return Collections.unmodifiableCollection(accounts.values());
 	}
 
-	/**
-	 * Returns the TreeMap for the accounts
-	 * 
-	 * @return the TreeMap for the accounts
-	 */
 	public TreeMap<Integer, Account> getAccounts() {
 		return accounts;
 	}
 
-	/**
-	 * Sets the Accounts to the specified account TreeMap
-	 * 
-	 * @param accounts The new account TreeMap
-	 */
 	public void setAccounts(TreeMap<Integer, Account> accounts) {
 		this.accounts = accounts;
 	}
 
-	/**
-	 * Returns the TreeMap for the meteres
-	 * 
-	 * @return the TreeMap for the meters
-	 */
 	public TreeMap<Integer, Meter> getMeters() {
 		return meters;
 	}
 
-	/**
-	 * Sets the meters to the specified account TreeMap
-	 * 
-	 * @param accounts The new meter TreeMap
-	 */
 	public void setMeters(TreeMap<Integer, Meter> meters) {
 		this.meters = meters;
 	}
 	
-	/**
-	 * Causes the program to write to the output files.
-	 * 
-	 */
 	public void save() {
 		Account_IO.write("out_accounts.txt",getAccountCollection());
 		Meter_IO.write("out_meters.txt",getAccountCollection());
