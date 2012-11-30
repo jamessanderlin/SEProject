@@ -14,8 +14,6 @@ import java.util.*;
  */
 public abstract class Account 
 {
-	protected String clientFirstName;
-	protected String clientLastName;
 	protected int accountID;
 	protected double balance;
 	protected boolean flag;
@@ -24,18 +22,6 @@ public abstract class Account
 	protected Address billingAddress;
 	protected ArrayList<Payment> paymentHistory = new ArrayList<Payment>();
 	
-	public String getClientFirstName() {
-		return clientFirstName;
-	}
-	public void setClientFirstName(String clientFirstName) {
-		this.clientFirstName = clientFirstName;
-	}
-	public String getClientLastName() {
-		return clientLastName;
-	}
-	public void setClientLastName(String clientLastName) {
-		this.clientLastName = clientLastName;
-	}
 	public int getAccountID() {
 		return accountID;
 	}
@@ -84,12 +70,6 @@ public abstract class Account
 	}
 	
 	public abstract void addServiceLocation(Service_Location s);
-	
-	@Override
-	public String toString()
-	{
-		return clientFirstName + " " + clientLastName;
-	}
 	
 	public String isCommercialtoString(){
 		String s = "";

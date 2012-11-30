@@ -2,11 +2,11 @@ import java.util.*;
 public class CommercialAccount extends Account
 {
 	private ArrayList<Service_Location> locations;
+	private String companyName;
 
-	public CommercialAccount(String clientFirstName, String clientLastName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
+	public CommercialAccount(String compName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
 	{
-		this.clientFirstName = clientFirstName;
-		this.clientLastName = clientLastName;
+		this.companyName = compName;
 		this.accountID = accountID;
 		this.balance = balance;
 		this.flag = flag;
@@ -22,10 +22,17 @@ public class CommercialAccount extends Account
 	public void setLocations(ArrayList<Service_Location> locations) {
 		this.locations = locations;
 	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 	
 	@Override
 	public void addServiceLocation(Service_Location s) {
 		this.locations.add(s);
 	}
-
 }
