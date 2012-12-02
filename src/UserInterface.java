@@ -49,6 +49,7 @@ public class UserInterface extends javax.swing.JFrame {
         deleteMeter = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Utility Billing Program");
 
         splitPane.setDividerLocation(435);
 
