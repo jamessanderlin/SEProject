@@ -136,6 +136,7 @@ public class UserInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAccountActionPerformed
+    	
         JTextField firstNameField = new JTextField(10);
         JTextField lastNameField = new JTextField(10);
         JTextField accountIDField = new JTextField(10);
@@ -143,34 +144,41 @@ public class UserInterface extends javax.swing.JFrame {
         JTextField line2Field = new JTextField(10);
         JTextField cityField = new JTextField(10);
         JTextField stateField = new JTextField(10);
-        JTextField zipField = new JTextField(10);
-
+        JTextField zipField = new JTextField(5);
+        
         Object[] options = {"SAVE", "CANCEL"};
 
           JPanel myPanel = new JPanel();
-          myPanel.add(new JLabel("First Name"));
-          myPanel.add(firstNameField);
-          myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-          myPanel.add(new JLabel("Last Name"));
-          myPanel.add(lastNameField);
-          myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-          myPanel.add(new JLabel("Account ID"));
-          myPanel.add(accountIDField);
-          myPanel.add(Box.createHorizontalStrut(15));
-          myPanel.add(new JLabel("Address Line 1"));
-          myPanel.add(line1Field);
-          myPanel.add(Box.createHorizontalStrut(15));
-          myPanel.add(new JLabel("Address Line 2"));
-          myPanel.add(line2Field);
-          myPanel.add(Box.createHorizontalStrut(15));
-          myPanel.add(new JLabel("City"));
-          myPanel.add(cityField);
-          myPanel.add(Box.createHorizontalStrut(15));
-          myPanel.add(new JLabel("State"));
-          myPanel.add(stateField);
-          myPanel.add(Box.createHorizontalStrut(15));
-          myPanel.add(new JLabel("Zip"));
-          myPanel.add(zipField);
+          myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+          JPanel namePanel = new JPanel();
+          namePanel.add(new JLabel("First Name"));
+          namePanel.add(firstNameField);
+          namePanel.add(Box.createHorizontalStrut(15));
+          namePanel.add(new JLabel("Last Name"));
+          namePanel.add(lastNameField);
+          myPanel.add(namePanel);
+          JPanel accountIdPanel = new JPanel();
+          accountIdPanel.add(new JLabel("Account ID"));
+          accountIdPanel.add(accountIDField);
+          accountIdPanel.add(Box.createHorizontalStrut(230));
+          myPanel.add(accountIdPanel);
+          JPanel addressPanel = new JPanel();
+          addressPanel.add(new JLabel("Address Line 1"));
+          addressPanel.add(line1Field);
+          addressPanel.add(Box.createHorizontalStrut(15));
+          addressPanel.add(new JLabel("Address Line 2"));
+          addressPanel.add(line2Field);
+          myPanel.add(addressPanel);
+          JPanel cszPanel = new JPanel();
+          cszPanel.add(new JLabel("City"));
+          cszPanel.add(cityField);
+          cszPanel.add(Box.createHorizontalStrut(15));
+          cszPanel.add(new JLabel("State"));
+          cszPanel.add(stateField);
+          cszPanel.add(Box.createHorizontalStrut(15));
+          cszPanel.add(new JLabel("Zip"));
+          cszPanel.add(zipField);
+          myPanel.add(cszPanel);
 
           int result = JOptionPane.showOptionDialog(null, myPanel, 
                    "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
