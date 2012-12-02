@@ -46,6 +46,5 @@ public class Payment
 		String paymentDateString = this.paymentDate.toString();	
 		s = Double.toString(this.paidAmount)+"\n"+this.paymentType+"\n"+paymentDateString+"\n";			              
 		return s;
-		
 	}
 }
