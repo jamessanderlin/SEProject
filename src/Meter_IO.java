@@ -27,9 +27,7 @@ public class Meter_IO
 	// Suppress default constructor for noninstantiability		
 		throw new AssertionError();
 	}
-	public static void write(String fileOut, Collection<Account> accountlist){
-		
-	}
+	
 	/**
 	 * This method reads an input file to populate all the Meter-related information
 	 * The current accounts data is passed in as well. When a Meter object has been
@@ -112,5 +110,19 @@ public class Meter_IO
 		}
 		
 		return meters;
+	}
+	
+	/**
+	 * This method writes current meter data to an output file to save all of the data related to the meters
+	 * There is no return value.
+	 * 
+	 * 
+	 * @param fileIn The name of the input file to deserialize from
+	 * @param accountsReference The accounts data we reference
+	 * 
+	 */
+	public static void write(String writeFileName, Collection<Account> meterlist){
+		
+		
 	}
 }

@@ -2,7 +2,7 @@
 import java.util.*;
 public class ResidentialAccount extends Account
 {
-	private Service_Location location;
+	private Meter meter;
 	
 	private String clientFirstName;
 	private String clientLastName;
@@ -18,14 +18,13 @@ public class ResidentialAccount extends Account
 		this.billingAddress = billingAddress;
 		this.isCommercial = false;
 	}
-	 
-	public Service_Location getLocation() {
-		return location;
+
+	public Meter getMeter() {
+		return meter;
 	}
 
-
-	public void setLocation(Service_Location location) {
-		this.location = location;
+	public void setMeter(Meter meter) {
+		this.meter = meter;
 	}
 
 	public String getClientFirstName() {
@@ -51,8 +50,8 @@ public class ResidentialAccount extends Account
 	}
 	
 	@Override
-	public void addServiceLocation(Service_Location s) {
-		setLocation(s);
+	public void addMeter(Meter m){
+		meter = m;
 	}
 
 		

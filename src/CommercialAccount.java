@@ -1,7 +1,7 @@
 import java.util.*;
 public class CommercialAccount extends Account
 {
-	private ArrayList<Service_Location> locations;
+	private ArrayList<Meter> meters = new ArrayList<Meter>();
 	private String companyName;
 
 	public CommercialAccount(String compName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
@@ -15,12 +15,12 @@ public class CommercialAccount extends Account
 		this.isCommercial = true;
 	}
 
-	public ArrayList<Service_Location> getLocations() {
-		return locations;
+	public ArrayList<Meter> getMeters() {
+		return meters;
 	}
 
-	public void setLocations(ArrayList<Service_Location> locations) {
-		this.locations = locations;
+	public void setMeters(ArrayList<Meter> meters) {
+		this.meters = meters;
 	}
 
 	public String getCompanyName() {
@@ -31,13 +31,14 @@ public class CommercialAccount extends Account
 		this.companyName = companyName;
 	}
 	
-	@Override
-	public void addServiceLocation(Service_Location s) {
-		this.locations.add(s);
-	}
-	
 	public String toString()
 	{
 		return companyName;
 	}
+	
+	@Override
+	public void addMeter(Meter m){
+		meters.add(m);
+	}
+	
 }
