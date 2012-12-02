@@ -14,9 +14,9 @@ import java.awt.event.*;
 public class Controller 
 {
 	//TreeMap of the accounts
-	private TreeMap<Integer, Account> accounts = new TreeMap<Integer, Account>();
+	private TreeMap<Integer, Account> accounts;// = new TreeMap<Integer, Account>();
 	//TreeMap of the meters
-	private TreeMap<Integer, Meter> meters = new TreeMap<Integer, Meter>();
+	private TreeMap<Integer, Meter> meters;// = new TreeMap<Integer, Meter>();
 	
     private Account_IO dataAccount;
 	//Singleton instance of the Controller. 
@@ -27,7 +27,7 @@ public class Controller
     private Controller() {
     	dataAccount = new Account_IO();
 		accounts = dataAccount.read("accounts.txt");
-		Meter_IO.read("meters.txt", accounts);
+		meters = Meter_IO.read("meters.txt", accounts);
     }
  
     /**
