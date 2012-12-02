@@ -51,7 +51,8 @@ public class UserInterface extends javax.swing.JFrame {
         menuFile = new javax.swing.JMenu();
         save = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
-        addAccount = new javax.swing.JMenuItem();
+        addResidentialAccount = new javax.swing.JMenuItem();
+        addCommercialAccount = new javax.swing.JMenuItem();
         deleteAccount = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         addMeter = new javax.swing.JMenuItem();
@@ -90,14 +91,23 @@ public class UserInterface extends javax.swing.JFrame {
 
         menuEdit.setText("Edit");
 
-        addAccount.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        addAccount.setText("Add Account");
-        addAccount.addActionListener(new java.awt.event.ActionListener() {
+        addResidentialAccount.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        addResidentialAccount.setText("Add Residential Account");
+        addResidentialAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addAccountActionPerformed(evt);
+                addResidentialAccountActionPerformed(evt);
             }
         });
-        menuEdit.add(addAccount);
+        menuEdit.add(addResidentialAccount);
+
+        addCommercialAccount.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        addCommercialAccount.setText("Add Commercial Account");
+        addCommercialAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCommercialAccountActionPerformed(evt);
+            }
+        });
+        menuEdit.add(addCommercialAccount);
 
         deleteAccount.setText("Delete Account");
         deleteAccount.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +159,7 @@ public class UserInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAccountActionPerformed
+    private void addResidentialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addResidentialAccountActionPerformed
 JTextField firstNameField = new JTextField(10);
         JTextField lastNameField = new JTextField(10);
         JTextField accountIDField = new JTextField(10);
@@ -197,14 +207,6 @@ JTextField firstNameField = new JTextField(10);
                    "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
           if (result == 0) 
           {
-        	  
-        	//Sets the text field to the string "null" for saving it to the file in
-	    	  //the correct format
-	    	  if(line2Field.getText().isEmpty())
-	    	 	{
-	 				line2Field.setText("NULL");
-	    	 	}
-	    	  
                 Account temp = new ResidentialAccount(firstNameField.getText(), 
                                                         lastNameField.getText(), 
                                                         Integer.parseInt(accountIDField.getText()), 0, false,
@@ -214,9 +216,9 @@ JTextField firstNameField = new JTextField(10);
                     accountTableModel.fireTableDataChanged();
                      /* TODO Error checking for duplicate accounts */
                     // refreshAccountJList();
-                System.out.println("NEW ACCOUNT ADDED");
+                System.out.println("NEW RESIDENTIAL ACCOUNT ADDED");
           }
-    }//GEN-LAST:event_addAccountActionPerformed
+    }//GEN-LAST:event_addResidentialAccountActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         Controller.getInstance().save();
@@ -284,6 +286,62 @@ JTextField firstNameField = new JTextField(10);
           }
     }//GEN-LAST:event_deleteMeterActionPerformed
 
+    private void addCommercialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCommercialAccountActionPerformed
+        JTextField companyName = new JTextField(20);
+        JTextField accountIDField = new JTextField(10);
+        JTextField line1Field = new JTextField(10);
+        JTextField line2Field = new JTextField(10);
+        JTextField cityField = new JTextField(10);
+        JTextField stateField = new JTextField(10);
+        JTextField zipField = new JTextField(5);
+        
+        Object[] options = {"SAVE", "CANCEL"};
+
+          JPanel myPanel = new JPanel();
+          myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+          JPanel namePanel = new JPanel();
+          namePanel.add(new JLabel("Company Name"));
+          namePanel.add(companyName);
+          myPanel.add(namePanel);
+          JPanel accountIdPanel = new JPanel();
+          accountIdPanel.add(new JLabel("Account ID"));
+          accountIdPanel.add(accountIDField);
+          accountIdPanel.add(Box.createHorizontalStrut(230));
+          myPanel.add(accountIdPanel);
+          JPanel addressPanel = new JPanel();
+          addressPanel.add(new JLabel("Address Line 1"));
+          addressPanel.add(line1Field);
+          addressPanel.add(Box.createHorizontalStrut(15));
+          addressPanel.add(new JLabel("Address Line 2"));
+          addressPanel.add(line2Field);
+          myPanel.add(addressPanel);
+          JPanel cszPanel = new JPanel();
+          cszPanel.add(new JLabel("City"));
+          cszPanel.add(cityField);
+          cszPanel.add(Box.createHorizontalStrut(15));
+          cszPanel.add(new JLabel("State"));
+          cszPanel.add(stateField);
+          cszPanel.add(Box.createHorizontalStrut(15));
+          cszPanel.add(new JLabel("Zip"));
+          cszPanel.add(zipField);
+          myPanel.add(cszPanel);
+
+          int result = JOptionPane.showOptionDialog(null, myPanel, 
+                   "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+          if (result == 0) 
+          {
+                Account temp = new CommercialAccount(companyName.getText(), 
+                                                        Integer.parseInt(accountIDField.getText()), 0, false,
+                                                        new Date(), 
+                                                        new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
+                    Controller.getInstance().addAccount(temp);
+                    accountTableModel.fireTableDataChanged();
+                     /* TODO Error checking for duplicate accounts */
+                    // refreshAccountJList();
+                System.out.println("NEW COMMERCIAL ACCOUNT ADDED");
+          }// TODO add your handling code here:
+    }//GEN-LAST:event_addCommercialAccountActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -321,8 +379,9 @@ JTextField firstNameField = new JTextField(10);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane accountScrollPane;
     private javax.swing.JTable accountTable;
-    private javax.swing.JMenuItem addAccount;
+    private javax.swing.JMenuItem addCommercialAccount;
     private javax.swing.JMenuItem addMeter;
+    private javax.swing.JMenuItem addResidentialAccount;
     private javax.swing.JMenuItem deleteAccount;
     private javax.swing.JMenuItem deleteMeter;
     private javax.swing.JPopupMenu.Separator jSeparator1;
