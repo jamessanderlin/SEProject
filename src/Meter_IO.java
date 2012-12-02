@@ -68,6 +68,7 @@ public class Meter_IO
 				accountID = Integer.parseInt(in.nextLine());
 
 				isDigital = (in.nextInt() == 0) ? false : true;
+				in.nextLine();
 				//Stores the rate of the meter
 				rate = Integer.parseInt(in.nextLine());
 				
@@ -85,7 +86,6 @@ public class Meter_IO
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					readingID = Integer.parseInt(in.nextLine());
 
 					//Append to Meter
 					meter.addReading(new Meter_Reading(readingValue, readingDate));
