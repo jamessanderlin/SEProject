@@ -1,4 +1,7 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
 /**
  * 
  * @author Mark Duncan, James Sanderlin, Avi Levi, Mudrekh Goderya
@@ -43,9 +46,9 @@ public class Payment
 	//Function has newlines built in so no need to add when invoking.
 	public String toString(){
 		String s = "";		
-		String paymentDateString = this.paymentDate.toString();	
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
+		String paymentDateString = formatter.format(this.paymentDate);	
 		s = Double.toString(this.paidAmount)+"\n"+this.paymentType+"\n"+paymentDateString+"\n";			              
 		return s;
-		
 	}
 }

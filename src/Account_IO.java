@@ -50,7 +50,6 @@ public class Account_IO
 					in.nextLine();
 					//Sets up the formatting of a date throughout the file
 					DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
-					
 					//Reads in the date as a string, to be converted into a date object
 					dateString = in.nextLine();
 					Date deadline = new Date();
@@ -143,34 +142,50 @@ public class Account_IO
 				for(Account a : accountlist) 
 				{	if(a.isCommercial()){
 					CommercialAccount ca = (CommercialAccount)a;
-					out.write(ca.getCompanyName()
-							 +"\n"+ca.accountID
-							 +"\n"+ca.balance
-							 +"\n"+ca.flag 
-							 +"\n"+ca.isCommercialtoString()
-							 +"\n"+ca.deadline
-							 +"\n"+ca.billingAddress.getLocation1()
-							 +"\n"+ca.billingAddress.getLocation2()
-							 +"\n"+ca.billingAddress.getCity()
-							 +"\n"+ca.billingAddress.getState()
-							 +"\n"+ca.billingAddress.getZip()
+					//Format Date back to the correct format
+					DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
+					Date deadline = ca.getDeadline();
+								
+					String deadlineString = formatter.format(deadline);
+								
+					out.write(
+								   ca.isCommercialToString()
+							 +"\n"+ca.getCompanyName()
+							 +"\n"+ca.getAccountID()
+							 +"\n"+ca.getBalance()
+							 +"\n"+ca.getFlagToString()
+							 +"\n"+deadlineString
+							 +"\n"+ca.getBillingAddress().getLocation1()
+							 +"\n"+ca.getBillingAddress().getLocation2()
+							 +"\n"+ca.getBillingAddress().getCity()
+							 +"\n"+ca.getBillingAddress().getState()
+							 +"\n"+ca.getBillingAddress().getZip()
 							 +"\n"
 	);
 					
 				}
 				else{
 					ResidentialAccount ra = (ResidentialAccount)a;
-					out.write(ra.getClientFirstName() +"\n"+ra.getClientLastName() 
-													 +"\n"+ra.accountID
-													 +"\n"+ra.balance
-													 +"\n"+ra.flag 
-													 +"\n"+ra.isCommercialtoString()
-													 +"\n"+ra.deadline
-													 +"\n"+ra.billingAddress.getLocation1()
-													 +"\n"+ra.billingAddress.getLocation2()
-													 +"\n"+ra.billingAddress.getCity()
-													 +"\n"+ra.billingAddress.getState()
-													 +"\n"+ra.billingAddress.getZip()
+					
+					//Format Date back to the correct format
+					DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
+					Date deadline = ra.getDeadline();
+					
+					String deadlineString = formatter.format(deadline);
+					
+					out.write(
+							  							   ra.isCommercialToString()
+							  						 +"\n"+ra.getClientFirstName() 
+							  						 +"\n"+ra.getClientLastName() 
+													 +"\n"+ra.getAccountID()
+													 +"\n"+ra.getBalance()
+													 +"\n"+ra.getFlagToString() 
+													 +"\n"+ deadlineString
+													 +"\n"+ra.getBillingAddress().getLocation1()
+													 +"\n"+ra.getBillingAddress().getLocation2()
+													 +"\n"+ra.getBillingAddress().getCity()
+													 +"\n"+ra.getBillingAddress().getState()
+													 +"\n"+ra.getBillingAddress().getZip()
 													 +"\n"
 							);
 				}

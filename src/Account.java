@@ -71,7 +71,7 @@ public abstract class Account
 	
 	public abstract void addServiceLocation(Service_Location s);
 	
-	public String isCommercialtoString(){
+	public String isCommercialToString(){
 		String s = "";
 		
 		if(isCommercial){
@@ -79,6 +79,20 @@ public abstract class Account
 		}
 		else{
 			s = "0";
+		}
+		
+		return s;
+	}
+	
+	public String getFlagToString(){
+		String s = "";
+		
+		if(flag){
+			s = "1";
+		}
+		else
+		{
+			s="0";
 		}
 		
 		return s;

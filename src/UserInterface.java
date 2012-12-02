@@ -197,6 +197,14 @@ JTextField firstNameField = new JTextField(10);
                    "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
           if (result == 0) 
           {
+        	  
+        	//Sets the text field to the string "null" for saving it to the file in
+	    	  //the correct format
+	    	  if(line2Field.getText().isEmpty())
+	    	 	{
+	 				line2Field.setText("NULL");
+	    	 	}
+	    	  
                 Account temp = new ResidentialAccount(firstNameField.getText(), 
                                                         lastNameField.getText(), 
                                                         Integer.parseInt(accountIDField.getText()), 0, false,
