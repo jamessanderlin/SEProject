@@ -24,10 +24,27 @@ public class Meter
 	//Stores the rate for the meter
 	private Rate meterRate;
 	
+	private Address physicalAddress;
+	private boolean taxable;
+	private ArrayList<Taxes> taxes;
+	
+	
 	public Meter(int meterID, String type) {
 		this.meterID = meterID;
 		readings = new TreeMap<Date, Meter_Reading>();
 		setType(type);
+	}
+	public Meter(int meterID, String type, Address physicalAddress, boolean taxable)
+	{
+		this.meterID = meterID;
+		setType(type);
+		this.physicalAddress = physicalAddress;
+		this.taxable = taxable;
+	}
+	
+	public void addTax(Taxes t)
+	{
+		taxes.add(t);
 	}
 	
 	public void addReading(Meter_Reading r)
@@ -64,6 +81,42 @@ public class Meter
 		this.meterRate = meterRate;
 	}
 	
+	public Boolean getIsDigital() {
+		return isDigital;
+	}
+
+	public void setIsDigital(Boolean isDigital) {
+		this.isDigital = isDigital;
+	}
+
+	public Address getPhysicalAddress() {
+		return physicalAddress;
+	}
+
+	public void setPhysicalAddress(Address physicalAddress) {
+		this.physicalAddress = physicalAddress;
+	}
+
+	public boolean isTaxable() {
+		return taxable;
+	}
+
+	public void setTaxable(boolean taxable) {
+		this.taxable = taxable;
+	}
+
+	public ArrayList<Taxes> getTaxes() {
+		return taxes;
+	}
+
+	public void setTaxes(ArrayList<Taxes> taxes) {
+		this.taxes = taxes;
+	}
+
+	public void setReadings(TreeMap<Date, Meter_Reading> readings) {
+		this.readings = readings;
+	}
+
 	public String toString()
 	{
 		return "ID: " + meterID;
