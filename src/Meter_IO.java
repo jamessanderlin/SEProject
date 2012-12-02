@@ -42,7 +42,8 @@ public class Meter_IO
 	 * @param accountsReference The accounts data we reference
 	 * 
 	 */
-	public static void read(String fileIn, TreeMap<Integer, Account> accountsReference){
+	public static TreeMap<Integer, Meter> read(String fileIn, TreeMap<Integer, Account> accountsReference){
+		TreeMap<Integer, Meter> meters = new TreeMap<Integer, Meter>();
 		File meterFile = new File(fileIn);
 		try
 		{
@@ -91,6 +92,8 @@ public class Meter_IO
 					meter.addReading(new Meter_Reading(readingValue, readingDate));
 				}
 				
+				meters.put(meterID, meter);
+				
 				/* This is not implemented yet in Accounts
 				 * 
 				 * accountsReference.get(accountID).addMeter(meter);
@@ -107,5 +110,7 @@ public class Meter_IO
 		{
 			e.printStackTrace();
 		}
+		
+		return meters;
 	}
 }
