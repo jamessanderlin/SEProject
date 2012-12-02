@@ -13,10 +13,14 @@ import java.util.*;
  */
 public class UserInterface extends javax.swing.JFrame {
 
+    MapTableModel accountTableModel;
+    MeterTableModel meterTableModel;
     /**
      * Creates new form UserInterfacePrototype
      */
     public UserInterface() {
+        accountTableModel = new MapTableModel(Controller.getInstance().getAccounts(), "Account ID", "Account Name");
+        meterTableModel = new MeterTableModel(Controller.getInstance().getMeters(), "Meter ID");
         initComponents();
     }
 
@@ -48,14 +52,14 @@ public class UserInterface extends javax.swing.JFrame {
 
         splitPane.setDividerLocation(435);
 
-        accountTable.setModel(new MapTableModel(Controller.getInstance().getAccounts(), "Account ID", "Account Name"));
+        accountTable.setModel(accountTableModel);
         accountTable.setDefaultRenderer(Account.class, new LeftCellRenderer());
         accountTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
         accountScrollPane.setViewportView(accountTable);
 
         splitPane.setLeftComponent(accountScrollPane);
 
-        meterTable.setModel(new MeterTableModel(Controller.getInstance().getMeters(), "Meter ID"));
+        meterTable.setModel(meterTableModel);
         meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
         meterScrollPane.setViewportView(meterTable);
 
@@ -136,8 +140,7 @@ public class UserInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAccountActionPerformed
-    	
-        JTextField firstNameField = new JTextField(10);
+JTextField firstNameField = new JTextField(10);
         JTextField lastNameField = new JTextField(10);
         JTextField accountIDField = new JTextField(10);
         JTextField line1Field = new JTextField(10);
@@ -190,10 +193,7 @@ public class UserInterface extends javax.swing.JFrame {
                                                         new Date(), 
                                                         new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
                     Controller.getInstance().addAccount(temp);
-                    if(accountTable.getModel() instanceof AbstractTableModel)
-                    {
-                        ((AbstractTableModel)accountTable.getModel()).fireTableDataChanged();
-                    }
+                    accountTableModel.fireTableDataChanged();
                      /* TODO Error checking for duplicate accounts */
                     // refreshAccountJList();
              System.out.println("saved!");
@@ -223,10 +223,7 @@ public class UserInterface extends javax.swing.JFrame {
           {
               Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText());
               Controller.getInstance().addMeter(temp);
-              if(meterTable.getModel() instanceof AbstractTableModel)
-              {
-                  ((AbstractTableModel)meterTable.getModel()).fireTableDataChanged();
-              }
+              meterTableModel.fireTableDataChanged();
           }
     }//GEN-LAST:event_addMeterActionPerformed
 
@@ -244,10 +241,7 @@ public class UserInterface extends javax.swing.JFrame {
           {
               int ID = Integer.parseInt(accountID.getText());
               Controller.getInstance().deleteAccount(ID);
-              if(accountTable.getModel() instanceof AbstractTableModel)
-              {
-                  ((AbstractTableModel)accountTable.getModel()).fireTableDataChanged();
-              }
+              accountTableModel.fireTableDataChanged();
           }
     }//GEN-LAST:event_deleteAccountActionPerformed
 
@@ -265,10 +259,7 @@ public class UserInterface extends javax.swing.JFrame {
           {
               int ID = Integer.parseInt(meterID.getText());
               Controller.getInstance().deleteMeter(ID);
-              if(meterTable.getModel() instanceof AbstractTableModel)
-              {
-                  ((AbstractTableModel)meterTable.getModel()).fireTableDataChanged();
-              }
+              meterTableModel.fireTableDataChanged();
           }
     }//GEN-LAST:event_deleteMeterActionPerformed
 

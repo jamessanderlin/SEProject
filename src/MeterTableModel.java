@@ -23,7 +23,7 @@ public class MeterTableModel extends MapTableModel {
      * Creates a new instance of MapTableModel.
      */
     public MeterTableModel(Map map) {
-        this(map, "entry");
+        this(map, "Meter ID");
     }
 
     /**
