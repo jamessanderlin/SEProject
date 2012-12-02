@@ -12,6 +12,22 @@ import java.text.DateFormat;
  * 
  * @version 1.0
  *
+ *
+ *Format of accounts.txt:
+ *
+ *isCommercial
+ *First Name (or just Company name)
+ *Last Name
+ *Account ID
+ *Account Balance
+ *Account Flagged
+ *Deadline
+ *Address Line 1
+ *Address Line 2
+ *City
+ *State
+ *Zip
+ *
  */
 public class Account_IO 
 {	
