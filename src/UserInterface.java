@@ -6,6 +6,8 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -22,6 +24,13 @@ public class UserInterface extends javax.swing.JFrame {
         accountTableModel = new MapTableModel(Controller.getInstance().getAccounts(), "Account ID", "Account Name");
         meterTableModel = new MeterTableModel(Controller.getInstance().getMeters(), "Meter ID");
         initComponents();
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                    Controller.getInstance().save();
+                    System.exit(0);
+                }
+        });
     }
 
     /**
@@ -197,7 +206,7 @@ JTextField firstNameField = new JTextField(10);
                     accountTableModel.fireTableDataChanged();
                      /* TODO Error checking for duplicate accounts */
                     // refreshAccountJList();
-             System.out.println("saved!");
+                System.out.println("NEW ACCOUNT ADDED");
           }
     }//GEN-LAST:event_addAccountActionPerformed
 
@@ -225,6 +234,7 @@ JTextField firstNameField = new JTextField(10);
               Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText());
               Controller.getInstance().addMeter(temp);
               meterTableModel.fireTableDataChanged();
+              System.out.println("NEW METER ADDED");
           }
     }//GEN-LAST:event_addMeterActionPerformed
 
@@ -243,6 +253,7 @@ JTextField firstNameField = new JTextField(10);
               int ID = Integer.parseInt(accountID.getText());
               Controller.getInstance().deleteAccount(ID);
               accountTableModel.fireTableDataChanged();
+              System.out.println("ACCOUNT DELETED");
           }
     }//GEN-LAST:event_deleteAccountActionPerformed
 
@@ -261,6 +272,7 @@ JTextField firstNameField = new JTextField(10);
               int ID = Integer.parseInt(meterID.getText());
               Controller.getInstance().deleteMeter(ID);
               meterTableModel.fireTableDataChanged();
+              System.out.println("METER DELETED");
           }
     }//GEN-LAST:event_deleteMeterActionPerformed
 
