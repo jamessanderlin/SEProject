@@ -12,24 +12,31 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- *
- * @author Mudrekh
+ * UserInterface is the main class for handling user input.
+ * 
+ * @author Mudrekh Goderya, James Sanderlin
  */
 public class UserInterface extends javax.swing.JFrame {
 
+    //The table models for the JTables displayed in the UserInterface
     MapTableModel accountTableModel;
     MeterTableModel meterTableModel;
     
+    //Constant ints for easy of identifying arguments;
     public static final int RESIDENTIAL = 0;
     public static final int COMMERCIAL = 1;
+    
     /**
      * Creates new form UserInterfacePrototype
      */
     public UserInterface() {
+        //Instantiation of the table models
         accountTableModel = new MapTableModel(Controller.getInstance().getAccounts(), "Account ID", "Account Name");
         meterTableModel = new MeterTableModel(Controller.getInstance().getMeters(), "Meter ID");
+        
         initComponents();
         
+        //Window listener to force saving on exit.
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                     Controller.getInstance().save();
@@ -206,19 +213,35 @@ public class UserInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Action to handle adding a new Residential Account to the program.
+     * 
+     * @param evt The event passed to this action.
+     */
     private void addResidentialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addResidentialAccountActionPerformed
         Account temp = promptForAccount(RESIDENTIAL);
     	if(temp != null)
     	{
     		Controller.getInstance().addAccount(temp);
+                //Call to tell the table to update
     		accountTableModel.fireTableDataChanged();
     	}
     }//GEN-LAST:event_addResidentialAccountActionPerformed
 
+    /**
+     * Action to handle force saving the status of the program
+     * 
+     * @param evt The event passed to this action.
+     */
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         Controller.getInstance().save();
     }//GEN-LAST:event_saveActionPerformed
 
+    /**
+     * Action to handle adding a new meter to the program.
+     * 
+     * @param evt The event passed to this action.
+     */
     private void addMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeterActionPerformed
         JTextField meterIDField = new JTextField(5);
         JTextField meterTypeField = new JTextField(12);
@@ -238,11 +261,17 @@ public class UserInterface extends javax.swing.JFrame {
           {
               Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText(), 0.0, new Address("a", "b", "c", "d", "e"));
               Controller.getInstance().addMeter(temp);
+              //Call to tell the table to update
               meterTableModel.fireTableDataChanged();
               System.out.println("NEW METER ADDED");
           }
     }//GEN-LAST:event_addMeterActionPerformed
 
+    /**
+     * Action to handle deleting an account from the edit menu
+     * 
+     * @param evt The event passed to this action.
+     */
     private void deleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountActionPerformed
         JTextField accountID = new JTextField(12);
         Object[] options = {"DELETE", "CANCEL"};
@@ -257,11 +286,17 @@ public class UserInterface extends javax.swing.JFrame {
           {
               int ID = Integer.parseInt(accountID.getText());
               Controller.getInstance().deleteAccount(ID);
+              //Call to tell the table to update
               accountTableModel.fireTableDataChanged();
               System.out.println("ACCOUNT DELETED");
           }
     }//GEN-LAST:event_deleteAccountActionPerformed
 
+    /**
+     * Action to handle deleting a meter from the edit menu
+     * 
+     * @param evt The event passed to this action.
+     */
     private void deleteMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMeterActionPerformed
           JTextField meterID = new JTextField(12);
           Object[] options = {"DELETE", "CANCEL"};
@@ -276,29 +311,52 @@ public class UserInterface extends javax.swing.JFrame {
           {
               int ID = Integer.parseInt(meterID.getText());
               Controller.getInstance().deleteMeter(ID);
+              //Call to tell the table to update
               meterTableModel.fireTableDataChanged();
               System.out.println("METER DELETED");
           }
     }//GEN-LAST:event_deleteMeterActionPerformed
 
+    /**
+     * Action to handle adding a commercial account from the edit menu.
+     * 
+     * @param evt The event passed to this action.
+     */
     private void addCommercialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCommercialAccountActionPerformed
         Account temp = promptForAccount(COMMERCIAL);
     	if(temp != null)
     	{
     		Controller.getInstance().addAccount(temp);
+                //Call to tell the table to update
     		accountTableModel.fireTableDataChanged();
     	}
 
     }//GEN-LAST:event_addCommercialAccountActionPerformed
 
+    /**
+     * Event to detect popup
+     * 
+     * @param evt The event passed to this action.
+     */
     private void accountTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMousePressed
         doAccountPopup(evt);
     }//GEN-LAST:event_accountTableMousePressed
 
+    /**
+     * Event to detect popup
+     * 
+     * @param evt The event passed to this action.
+     */
     private void accountTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseReleased
         doAccountPopup(evt);
     }//GEN-LAST:event_accountTableMouseReleased
 
+    /**
+     * Actual method to respond to a call for a popup even. Checks if the event is the
+     * popup trigger and then responds accordingly.
+     * 
+     * @param evt The event passed to this action.
+     */
     private void doAccountPopup(java.awt.event.MouseEvent evt)
     {
         if(evt.isPopupTrigger())
@@ -306,11 +364,16 @@ public class UserInterface extends javax.swing.JFrame {
             Point p = evt.getPoint();
             int row = accountTable.rowAtPoint(p);
             accountTable.getSelectionModel().setSelectionInterval(row, row);
-            System.out.println("Selected");
             accountPopup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
     
+    /**
+     * Returns the currently selected row in the account table. Returns -1 if
+     * for some reason the accountTable does not return an Integer
+     * 
+     * @return 
+     */
     private int getSelectedAccountID()
     {
         int row = accountTable.getSelectedRow();
@@ -321,62 +384,79 @@ public class UserInterface extends javax.swing.JFrame {
         return accID;
     }
     
+    /**
+     * Action to handle calls from the popup to edit the currently selected account.
+     * 
+     * @param evt The event passed to this action.
+     */
     private void editAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAccountActionPerformed
+        //Get the account and remove it from the Controller.
         int accID = getSelectedAccountID();   
         Account acc = Controller.getInstance().deleteAccount(accID);
         Address address = acc.getBillingAddress();
         
+        //Handle Residential and Commercial accounts slightly differently
+        Account newAccount;
         if(acc instanceof ResidentialAccount)
         {
-            ResidentialAccount resAcc = (ResidentialAccount)acc;
-//            Account newResAcc = promptForResidentialAccount(resAcc.getClientFirstName(), resAcc.getClientLastName(), 
-//                                                            accID, address.getLocation1() , address.getLocation2(), 
-//                                                            address.getCity(), address.getState(), address.getZip());
-            Account newResAcc = promptForAccount(resAcc, RESIDENTIAL);
-            if(newResAcc == null)
-            {
-                Controller.getInstance().addAccount(acc);
-            }
-            else
-            {
-                Controller.getInstance().addAccount(newResAcc);
-            }
+            newAccount = promptForAccount((ResidentialAccount)acc, RESIDENTIAL);
         }
         else if(acc instanceof CommercialAccount)
         {
-            CommercialAccount comAcc = (CommercialAccount)acc;
-//            Account newComAcc = promptForCommercialAccount(comAcc.getCompanyName(), 
-//                                                            accID, address.getLocation1() , address.getLocation2(), 
-//                                                            address.getCity(), address.getState(), address.getZip());
-            Account newComAcc = promptForAccount(comAcc, COMMERCIAL);
-            if(newComAcc == null)
-            {
-                Controller.getInstance().addAccount(acc);
-            }
-            else
-            {
-                Controller.getInstance().addAccount(newComAcc);
-            }
+            newAccount = promptForAccount((CommercialAccount)acc, COMMERCIAL);
         }
+        else
+        {
+            newAccount = null;
+        }
+        
+        //Updates the account if the new account isnt null, otherwise uses the old
+        //account. 
+        if(newAccount == null)
+        {
+            Controller.getInstance().addAccount(acc);
+        }
+        else
+        {
+            Controller.getInstance().addAccount(newAccount);
+        }
+        
         accountTableModel.fireTableDataChanged();
     }//GEN-LAST:event_editAccountActionPerformed
 
+    /**
+     * Action called when the user wants to view the information for an account.
+     * 
+     * @param evt The event passed to this action.
+     */
     private void viewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAccountActionPerformed
         int accID = getSelectedAccountID();
         Account acc = Controller.getInstance().getAccount(accID);
         displayViewAccountDialog(acc);
     }//GEN-LAST:event_viewAccountActionPerformed
 
+    /**
+     * Action called when the user wants to delete an account from the popup menu
+     * 
+     * @param evt The event passed to this action.
+     */
     private void deleteAccountPopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountPopupActionPerformed
         int accID = getSelectedAccountID();
         Controller.getInstance().deleteAccount(accID);
         accountTableModel.fireTableDataChanged();
     }//GEN-LAST:event_deleteAccountPopupActionPerformed
 
+    /**
+     * Helper method to display the account information. This creates the popup
+     * that displays the information. 
+     * 
+     * @param acc 
+     */
     private void displayViewAccountDialog(Account acc)
     {
         Address address = acc.getBillingAddress();
         
+        //Display the name panel for the different accounts slightly differently
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         if(acc instanceof CommercialAccount)
         {
@@ -394,6 +474,7 @@ public class UserInterface extends javax.swing.JFrame {
             namePanel.add(new JLabel(resAcc.getClientLastName()));
         }  
         
+        //Construct the rest of the panel. 
         Object[] options = {"OK"};
 
 		JPanel myPanel = new JPanel();
@@ -426,17 +507,34 @@ public class UserInterface extends javax.swing.JFrame {
                          "View Account Information", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
     
+    /**
+     * Convinience method for promptForAccount. Calls the normal method with a null
+     * account parameter. Note this will create a popup that has empty fields.
+     * 
+     * @param type The type of the account
+     * @return The new/edited account.
+     */
     private Account promptForAccount(int type)
     {
         return promptForAccount(null, type);
     }
     
+    /**
+     * Method to create or edit an account. If the method is passed an account,
+     * it will use the account information to populate the fields in the dialog.
+     * 
+     * @param acc The account with which to populate the fields.
+     * @param type The type of the Account. 
+     * @return 
+     */
     private Account promptForAccount(Account acc, int type)
-    {        
+    {   
+        //Fields for the name panel.
         JTextField firstNameField = new JTextField(10);
         JTextField lastNameField = new JTextField(10);           
         JTextField companyName = new JTextField(30);
-            
+          
+        //Fields for the rest of the panels.
         JTextField accountIDField = new JTextField(10);
         JTextField line1Field = new JTextField(10);
         JTextField line2Field = new JTextField(10);
@@ -444,7 +542,7 @@ public class UserInterface extends javax.swing.JFrame {
         JTextField stateField = new JTextField(10);
         JTextField zipField = new JTextField(5);
             
-            
+        //Populate the fields with the current account if it is not null    
         if(acc != null)
         {
             Address address = acc.getBillingAddress();
@@ -460,7 +558,9 @@ public class UserInterface extends javax.swing.JFrame {
                 companyName.setText(comAcc.getCompanyName());
             }
             else
+            {
                 return null;
+            }
             
             accountIDField.setText(Integer.toString(acc.getAccountID()));
             line1Field.setText(address.getLocation1());
@@ -470,6 +570,7 @@ public class UserInterface extends javax.swing.JFrame {
             zipField.setText(address.getZip());
         }
         
+        //Handle the name panel depending on the type of account. 
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         if(type == COMMERCIAL)
         {
@@ -484,9 +585,13 @@ public class UserInterface extends javax.swing.JFrame {
             namePanel.add(new JLabel("Last Name:"));
             namePanel.add(firstNameField);
         }
+        //Return null for a unhandled account. 
         else
+        {
             return null;
+        }
         
+        //Create the other standard fields for the dialog
         JPanel myPanel = new JPanel();
         myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
         myPanel.add(namePanel);
@@ -513,11 +618,13 @@ public class UserInterface extends javax.swing.JFrame {
         cszPanel.add(zipField);
         myPanel.add(cszPanel);
         
+        //Display the dialog.
         Object[] options = {"SAVE", "CANCEL"};
         int result = JOptionPane.showOptionDialog(null, myPanel, "Enter information for the new account", 
                                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
                                                     null, options, options[0]);
         
+        //If the user clicks ok, create the new account based on the parameters
         if (result == 0) 
         {
             try
@@ -551,7 +658,9 @@ public class UserInterface extends javax.swing.JFrame {
             }
         }
         else
+        {
             return null;
+        }
     }
     /**
      * @param args the command line arguments

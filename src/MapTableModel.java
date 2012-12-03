@@ -1,4 +1,7 @@
 /*
+ * NOTE: THIS CLASS WAS PULLED FROM THE INTERNET AS A TABLE MODEL WRAPPER FOR
+ * A JTABLE
+ * 
  * Project: Gulden Utilies
  * Class:   de.gulden.util.swing.MapTableModel
  * Version: snapshot-beautyj-1.1

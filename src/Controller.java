@@ -9,7 +9,7 @@ import java.io.*;
  * The Controller Class is the main driver for the program. It stores all of the main data, has the Main method, and creates
  * the UI.
  * 
- * @author Mudrekh Goderya
+ * @author Mudrekh Goderya, James Sanderlin
  * 
  */
 public class Controller 

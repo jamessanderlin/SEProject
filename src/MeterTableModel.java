@@ -8,10 +8,6 @@ import javax.swing.table.AbstractTableModel;
  * @author  Mudrekh Goderya
  */
 public class MeterTableModel extends MapTableModel {
-    // ------------------------------------------------------------------------
-    // --- constructors                                                     ---
-    // ------------------------------------------------------------------------
-
     /**
      * Creates a new instance of MapTableModel.
      */
@@ -43,11 +39,6 @@ public class MeterTableModel extends MapTableModel {
         this(map, keyName);
     }
 
-
-    // ------------------------------------------------------------------------
-    // --- methods                                                          ---
-    // ------------------------------------------------------------------------
-
     /**
      * Returns the column count.
      * @Override
@@ -68,7 +59,7 @@ public class MeterTableModel extends MapTableModel {
 //        } else if (column==1) { // column==1
 //            return entry.getValue();
         } else {
-            throw new IndexOutOfBoundsException("MapTableModel provides a 2-column table, column-index "+column+" is illegal.");
+            throw new IndexOutOfBoundsException("MeterTableModel provides a 1-column table, column-index "+column+" is illegal.");
         }
     }
 
