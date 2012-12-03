@@ -19,6 +19,9 @@ public class UserInterface extends javax.swing.JFrame {
 
     MapTableModel accountTableModel;
     MeterTableModel meterTableModel;
+    
+    public static final int RESIDENTIAL = 0;
+    public static final int COMMERCIAL = 1;
     /**
      * Creates new form UserInterfacePrototype
      */
@@ -47,6 +50,7 @@ public class UserInterface extends javax.swing.JFrame {
         accountPopup = new javax.swing.JPopupMenu();
         viewAccount = new javax.swing.JMenuItem();
         editAccount = new javax.swing.JMenuItem();
+        deleteAccountPopup = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         addMeterToAccount = new javax.swing.JMenuItem();
         splitPane = new javax.swing.JSplitPane();
@@ -80,6 +84,14 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         accountPopup.add(editAccount);
+
+        deleteAccountPopup.setText("Delete Account");
+        deleteAccountPopup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteAccountPopupActionPerformed(evt);
+            }
+        });
+        accountPopup.add(deleteAccountPopup);
         accountPopup.add(jSeparator2);
 
         addMeterToAccount.setText("Add Meter To Account");
@@ -195,7 +207,7 @@ public class UserInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addResidentialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addResidentialAccountActionPerformed
-    	Account temp = promptForResidentialAccount();
+        Account temp = promptForAccount(RESIDENTIAL);
     	if(temp != null)
     	{
     		Controller.getInstance().addAccount(temp);
@@ -270,7 +282,7 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteMeterActionPerformed
 
     private void addCommercialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCommercialAccountActionPerformed
-    	Account temp = promptForCommercialAccount();
+        Account temp = promptForAccount(COMMERCIAL);
     	if(temp != null)
     	{
     		Controller.getInstance().addAccount(temp);
@@ -299,21 +311,28 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
-    private void editAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAccountActionPerformed
+    private int getSelectedAccountID()
+    {
         int row = accountTable.getSelectedRow();
         Object temp = accountTable.getValueAt(row, 0);
         if(!(temp instanceof Integer))
-            return;
+            return -1;
         int accID = ((Integer)temp).intValue();
-        
+        return accID;
+    }
+    
+    private void editAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAccountActionPerformed
+        int accID = getSelectedAccountID();   
         Account acc = Controller.getInstance().deleteAccount(accID);
         Address address = acc.getBillingAddress();
+        
         if(acc instanceof ResidentialAccount)
         {
             ResidentialAccount resAcc = (ResidentialAccount)acc;
-            Account newResAcc = promptForResidentialAccount(resAcc.getClientFirstName(), resAcc.getClientLastName(), 
-                                                            accID, address.getLocation1() , address.getLocation2(), 
-                                                            address.getCity(), address.getState(), address.getZip());
+//            Account newResAcc = promptForResidentialAccount(resAcc.getClientFirstName(), resAcc.getClientLastName(), 
+//                                                            accID, address.getLocation1() , address.getLocation2(), 
+//                                                            address.getCity(), address.getState(), address.getZip());
+            Account newResAcc = promptForAccount(resAcc, RESIDENTIAL);
             if(newResAcc == null)
             {
                 Controller.getInstance().addAccount(acc);
@@ -326,9 +345,10 @@ public class UserInterface extends javax.swing.JFrame {
         else if(acc instanceof CommercialAccount)
         {
             CommercialAccount comAcc = (CommercialAccount)acc;
-            Account newComAcc = promptForCommercialAccount(comAcc.getCompanyName(), 
-                                                            accID, address.getLocation1() , address.getLocation2(), 
-                                                            address.getCity(), address.getState(), address.getZip());
+//            Account newComAcc = promptForCommercialAccount(comAcc.getCompanyName(), 
+//                                                            accID, address.getLocation1() , address.getLocation2(), 
+//                                                            address.getCity(), address.getState(), address.getZip());
+            Account newComAcc = promptForAccount(comAcc, COMMERCIAL);
             if(newComAcc == null)
             {
                 Controller.getInstance().addAccount(acc);
@@ -342,15 +362,16 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_editAccountActionPerformed
 
     private void viewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAccountActionPerformed
-        int row = accountTable.getSelectedRow();
-        Object temp = accountTable.getValueAt(row, 0);
-        if(!(temp instanceof Integer))
-            return;
-        int accID = ((Integer)temp).intValue();
-        
+        int accID = getSelectedAccountID();
         Account acc = Controller.getInstance().getAccount(accID);
         displayViewAccountDialog(acc);
     }//GEN-LAST:event_viewAccountActionPerformed
+
+    private void deleteAccountPopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountPopupActionPerformed
+        int accID = getSelectedAccountID();
+        Controller.getInstance().deleteAccount(accID);
+        accountTableModel.fireTableDataChanged();
+    }//GEN-LAST:event_deleteAccountPopupActionPerformed
 
     private void displayViewAccountDialog(Account acc)
     {
@@ -405,123 +426,69 @@ public class UserInterface extends javax.swing.JFrame {
                          "View Account Information", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
     
-    private Account promptForCommercialAccount()
+    private Account promptForAccount(int type)
     {
-        return promptForCommercialAccount("", -1, "", "", "", "", "");
+        return promptForAccount(null, type);
     }
     
-    private Account promptForCommercialAccount(String compName, int accID,
-                                                    String add1, String add2, String city,
-                                                    String state, String zip)
-    {
-    	JTextField companyName = new JTextField(30);
-            companyName.setText(compName);
+    private Account promptForAccount(Account acc, int type)
+    {        
+        JTextField firstNameField = new JTextField(10);
+        JTextField lastNameField = new JTextField(10);           
+        JTextField companyName = new JTextField(30);
+            
         JTextField accountIDField = new JTextField(10);
-            if(accID > 0)
-            {
-                accountIDField.setText(Integer.toString(accID));
-            }
         JTextField line1Field = new JTextField(10);
-            line1Field.setText(add1);
         JTextField line2Field = new JTextField(10);
-            line2Field.setText(add2);
         JTextField cityField = new JTextField(10);
-            cityField.setText(city);
         JTextField stateField = new JTextField(10);
-            stateField.setText(state);
         JTextField zipField = new JTextField(5);
-            zipField.setText(zip);
-        
-        Object[] options = {"SAVE", "CANCEL"};
-
-		JPanel myPanel = new JPanel();
-		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-		JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		namePanel.add(new JLabel("Company Name"));
-		namePanel.add(companyName);
-		myPanel.add(namePanel);
-		JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		accountIdPanel.add(new JLabel("Account ID"));
-		accountIdPanel.add(accountIDField);
-		accountIdPanel.add(Box.createHorizontalStrut(230));
-		myPanel.add(accountIdPanel);
-		JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		addressPanel.add(new JLabel("Address Line 1"));
-		addressPanel.add(line1Field);
-		addressPanel.add(Box.createHorizontalStrut(15));
-		addressPanel.add(new JLabel("Address Line 2"));
-		addressPanel.add(line2Field);
-		myPanel.add(addressPanel);
-		JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		cszPanel.add(new JLabel("City"));
-		cszPanel.add(cityField);
-		cszPanel.add(Box.createHorizontalStrut(15));
-		cszPanel.add(new JLabel("State"));
-		cszPanel.add(stateField);
-		cszPanel.add(Box.createHorizontalStrut(15));
-		cszPanel.add(new JLabel("Zip"));
-		cszPanel.add(zipField);
-		myPanel.add(cszPanel);
-			  int result = JOptionPane.showOptionDialog(null, myPanel, 
-		         "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-		if (result == 0) 
-		{
-			try
-			{  
-				Account temp = new CommercialAccount(companyName.getText(), 
-			                                              Integer.parseInt(accountIDField.getText()), 0, false,
-			                                              new Date(), 
-			                                              new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
-			      return temp;
-			}
-			catch(Exception e)
-			{
-				return null;
-			}
-		}
-		  else
-			  return null;
-    }
-    
-    private Account promptForResidentialAccount()
-    {
-        return promptForResidentialAccount("", "", -1, "", "", "", "", "");
-    }
-    
-    private Account promptForResidentialAccount(String fName, String lName, int accID,
-                                                    String add1, String add2, String city,
-                                                    String state, String zip)
-    {
-    	JTextField firstNameField = new JTextField(10);
-            firstNameField.setText(fName);
-        JTextField lastNameField = new JTextField(10);
-            lastNameField.setText(lName);
-        JTextField accountIDField = new JTextField(10);
-            if(accID > 0)
+            
+            
+        if(acc != null)
+        {
+            Address address = acc.getBillingAddress();
+            if(type == RESIDENTIAL && acc instanceof ResidentialAccount)
             {
-                accountIDField.setText(Integer.toString(accID));
+                ResidentialAccount resAcc = (ResidentialAccount)acc;
+                firstNameField.setText(resAcc.getClientFirstName());
+                lastNameField.setText(resAcc.getClientLastName());
             }
-        JTextField line1Field = new JTextField(10);
-            line1Field.setText(add1);
-        JTextField line2Field = new JTextField(10);
-            line2Field.setText(add2);
-        JTextField cityField = new JTextField(10);
-            cityField.setText(city);
-        JTextField stateField = new JTextField(10);
-            stateField.setText(state);
-        JTextField zipField = new JTextField(5);
-            zipField.setText(zip);
+            else if(type == COMMERCIAL && acc instanceof CommercialAccount)
+            {
+                CommercialAccount comAcc = (CommercialAccount)acc;
+                companyName.setText(comAcc.getCompanyName());
+            }
+            else
+                return null;
+            
+            accountIDField.setText(Integer.toString(acc.getAccountID()));
+            line1Field.setText(address.getLocation1());
+            line2Field.setText(address.getLocation2());
+            cityField.setText(address.getCity());
+            stateField.setText(address.getState());
+            zipField.setText(address.getZip());
+        }
         
-        Object[] options = {"SAVE", "CANCEL"};
-
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        if(type == COMMERCIAL)
+        {
+            namePanel.add(new JLabel("Company Name:"));
+            namePanel.add(companyName);
+        }
+        else if(type == RESIDENTIAL)
+        {
+            namePanel.add(new JLabel("First Name:"));
+            namePanel.add(lastNameField);
+            namePanel.add(Box.createHorizontalStrut(15));
+            namePanel.add(new JLabel("Last Name:"));
+            namePanel.add(firstNameField);
+        }
+        else
+            return null;
+        
         JPanel myPanel = new JPanel();
         myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        namePanel.add(new JLabel("First Name"));
-        namePanel.add(firstNameField);
-        namePanel.add(Box.createHorizontalStrut(15));
-        namePanel.add(new JLabel("Last Name"));
-        namePanel.add(lastNameField);
         myPanel.add(namePanel);
         JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         accountIdPanel.add(new JLabel("Account ID"));
@@ -545,27 +512,46 @@ public class UserInterface extends javax.swing.JFrame {
         cszPanel.add(new JLabel("Zip"));
         cszPanel.add(zipField);
         myPanel.add(cszPanel);
-        int result = JOptionPane.showOptionDialog(null, myPanel, 
-                 "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        
+        Object[] options = {"SAVE", "CANCEL"};
+        int result = JOptionPane.showOptionDialog(null, myPanel, "Enter information for the new account", 
+                                                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
+                                                    null, options, options[0]);
         
         if (result == 0) 
-		{
-			try
-			{  
-				Account temp = new ResidentialAccount(firstNameField.getText(),
-														lastNameField.getText(),	
-			                                            Integer.parseInt(accountIDField.getText()), 0, false,
-			                                            new Date(), 
-			                                            new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
-			      return temp;
-			}
-			catch(Exception e)
-			{
-				return null;
-			}
-		}
-		  else
-			  return null;
+        {
+            try
+            {  
+                Account temp;
+                if(type == RESIDENTIAL)
+                {
+                    temp = new ResidentialAccount(firstNameField.getText(), lastNameField.getText(),	
+                                                        Integer.parseInt(accountIDField.getText()), 0, false,
+                                                        new Date(), new Address(line1Field.getText(), 
+                                                        line2Field.getText(), cityField.getText(), 
+                                                        stateField.getText(), zipField.getText()));
+                }
+                else if(type == COMMERCIAL)
+                {
+                    temp = new CommercialAccount(companyName.getText(), 
+                                                        Integer.parseInt(accountIDField.getText()), 0, false, 
+                                                        new Date(), new Address(line1Field.getText(), 
+                                                        line2Field.getText(), cityField.getText(), 
+                                                        stateField.getText(), zipField.getText()));
+                }
+                else
+                {
+                    temp = null;
+                }
+                return temp;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+        else
+            return null;
     }
     /**
      * @param args the command line arguments
@@ -610,6 +596,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem addMeterToAccount;
     private javax.swing.JMenuItem addResidentialAccount;
     private javax.swing.JMenuItem deleteAccount;
+    private javax.swing.JMenuItem deleteAccountPopup;
     private javax.swing.JMenuItem deleteMeter;
     private javax.swing.JMenuItem editAccount;
     private javax.swing.JPopupMenu.Separator jSeparator1;
