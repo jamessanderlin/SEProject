@@ -316,14 +316,30 @@ public class UserInterface extends javax.swing.JFrame {
                    "Delete an account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
           if (result == 0) 
           {
-              int ID = Integer.parseInt(accountID.getText());
-              Controller.getInstance().deleteAccount(ID);
-              //Call to tell the table to update
-              accountTableModel.fireTableDataChanged();
-              System.out.println("ACCOUNT DELETED");
+             int ID = Integer.parseInt(accountID.getText()); 
+             confirmAccountDelete(ID);
           }
     }//GEN-LAST:event_deleteAccountActionPerformed
 
+    
+    private void confirmAccountDelete(int accountID)
+    {
+        Object[] options = {"YES", "NO"};
+        JPanel myPanel = new JPanel();
+        myPanel.add(new JLabel("Delete Account with the ID:" +  accountID + "?"));
+        
+        int result = JOptionPane.showOptionDialog(null, myPanel, 
+                   "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        
+        if(result != 0)
+            return;
+        
+        Controller.getInstance().deleteAccount(accountID);
+        //Call to tell the table to update
+        accountTableModel.fireTableDataChanged();
+        System.out.println("ACCOUNT DELETED");
+    }
+    
     /**
      * Action to handle deleting a meter from the edit menu
      * 
@@ -474,8 +490,7 @@ public class UserInterface extends javax.swing.JFrame {
      */
     private void deleteAccountPopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountPopupActionPerformed
         int accID = getSelectedAccountID();
-        Controller.getInstance().deleteAccount(accID);
-        accountTableModel.fireTableDataChanged();
+        confirmAccountDelete(accID);
     }//GEN-LAST:event_deleteAccountPopupActionPerformed
 
     private void addMeterToAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeterToAccountActionPerformed
