@@ -69,7 +69,10 @@ public class Meter
 	public TreeMap<Date, Meter_Reading> getReadings() {
 		return readings;
 	}
-
+	public void setReadings(TreeMap<Date, Meter_Reading> readings) {
+		this.readings = readings;
+	}
+	
 	public double getMeterRate() {
 		return meterRate;
 	}
@@ -92,9 +95,8 @@ public class Meter
 	public void setPhysicalAddress(Address physicalAddress) {
 		this.physicalAddress = physicalAddress;
 	}
-
-	public void setReadings(TreeMap<Date, Meter_Reading> readings) {
-		this.readings = readings;
+	public TreeMap<String, Taxes> getTaxes() {
+		return taxes;
 	}
 
 	public String toString()

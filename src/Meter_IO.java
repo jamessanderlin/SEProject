@@ -10,8 +10,9 @@ import java.io.*;
  *  
  * Format of meters.txt file:
  * 
- * meterId
  * accountid
+ * meterId
+ * 
  * isdigital - 0 means not digital, 1 means digital 
  * rate - the double that represents the cost per kilowatt
  * address - this is stored over 5 lines
@@ -27,6 +28,7 @@ import java.io.*;
  */
 public class Meter_IO 
 {
+	private static DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
 	private Meter_IO() {
 	// Suppress default constructor for noninstantiability		
 		throw new AssertionError();
@@ -68,8 +70,8 @@ public class Meter_IO
 			while(in.hasNext())
 			{
 				//Stores the unique meterID of the meter
-				meterID = Integer.parseInt(in.nextLine());
 				accountID = Integer.parseInt(in.nextLine());
+				meterID = Integer.parseInt(in.nextLine());
 
 				isDigital = (in.nextInt() == 0) ? false : true;
 				in.nextLine();
@@ -126,6 +128,26 @@ public class Meter_IO
 		
 		return meters;
 	}
+
+	public static void writeMeter(BufferedWriter out, Meter m) throws IOException {
+		out.write(m.getMeterID()+"\n" + (m.getIsDigital() ? 1 : 0) + "\n" + m.getMeterRate() + "\n"
+				 +m.getPhysicalAddress().getLocation1()
+				 +"\n"+m.getPhysicalAddress().getLocation2()
+				 +"\n"+m.getPhysicalAddress().getCity()
+				 +"\n"+m.getPhysicalAddress().getState()
+				 +"\n"+m.getPhysicalAddress().getZip()+"\n");
+
+		out.write("READINGS:\n");
+		for(Date d : m.getReadings().keySet()) {
+			out.write(m.getReadings().get(d).getReading()+"\n" + formatter.format(d) + "\n");
+		}
+		out.write("ENDREADINGS\n");
+		out.write("TAXES:\n");
+		for(String s : m.getTaxes().keySet()) {
+			out.write(s+"\n" + m.getTaxes().get(s).getRate() + "\n");
+		}
+		out.write("ENDTAXES\n");		
+	}
 	
 	/**
 	 * This method writes current meter data to an output file to save all of the data related to the meters
@@ -136,8 +158,29 @@ public class Meter_IO
 	 * @param accountsReference The accounts data we reference
 	 * 
 	 */
-	public static void write(String writeFileName, Collection<Account> meterlist){
-		
-		
-	}
+	public static void write(String writeFileName, Collection<Account> accountList){
+		try{
+			FileWriter fstream = new FileWriter(writeFileName);
+			BufferedWriter out = new BufferedWriter(fstream);
+	
+			for(Account a : accountList) 
+			{
+				if(a.isCommercial()){
+					CommercialAccount ca = (CommercialAccount)a;
+	
+					for(Meter m : ca.getMeters()) {
+						out.write(a.getAccountID()+"\n");
+						writeMeter(out, m);
+					}
+				} else {
+					ResidentialAccount ra = (ResidentialAccount)a;
+					out.write(a.getAccountID()+"\n");
+					writeMeter(out, ra.getMeter());
+				}
+			}
+			out.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}	
 }
