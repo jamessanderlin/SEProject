@@ -2,7 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
-
+import java.text.*;
+import java.io.*;
 
 /**
  * The Controller Class is the main driver for the program. It stores all of the main data, has the Main method, and creates
@@ -135,6 +136,39 @@ public class Controller
 	public Account deleteAccount(int accountID)
 	{
 		return accounts.remove(accountID);
+	}
+	
+	/*Method to generate a bill for an account*/
+	public void generateBill(int accountID)
+	{
+		Account a = accounts.get(accountID);
+		try{
+			File file = new File("bill.txt");
+			FileWriter fstream = new FileWriter(file);
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write("Billing Statement for:\n");
+			if(a.isCommercial())
+			{
+				CommercialAccount ca = (CommercialAccount)a;
+				out.write(ca.getCompanyName() + "\n");
+			}
+			else
+			{
+				ResidentialAccount ra = (ResidentialAccount)a;
+				out.write(ra.getClientFirstName() + " " + ra.getClientLastName() + "\n");
+			}
+			out.write(a.getBillingAddress().toString() + "\n\n");
+			out.write("JAMM UC\n");
+			out.write("Account #" + a.getAccountID() + "\n");
+			DateFormat f = new SimpleDateFormat("MM/dd/yy");
+			out.write("Please pay by: " + f.format(a.getDeadline()) + "\n");
+			out.write("Amount: " + a.getBalance() + "\n\n");
+			out.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	/**
