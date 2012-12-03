@@ -168,7 +168,7 @@ public class Meter_IO
 				if(a.isCommercial()){
 					CommercialAccount ca = (CommercialAccount)a;
 	
-					for(Meter m : ca.getMeters()) {
+					for(Meter m : ca.getMeters().values()) {
 						if(m != null) {
 						out.write(a.getAccountID()+"\n");
 						writeMeter(out, m);

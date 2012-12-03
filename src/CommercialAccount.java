@@ -1,7 +1,7 @@
 import java.util.*;
 public class CommercialAccount extends Account
 {
-	private ArrayList<Meter> meters = new ArrayList<Meter>();
+	private TreeMap<Integer, Meter> meters = new TreeMap<Integer, Meter>();
 	private String companyName;
 
 	public CommercialAccount(String compName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
@@ -15,11 +15,11 @@ public class CommercialAccount extends Account
 		this.isCommercial = true;
 	}
 
-	public ArrayList<Meter> getMeters() {
+	public TreeMap<Integer, Meter> getMeters() {
 		return meters;
 	}
 
-	public void setMeters(ArrayList<Meter> meters) {
+	public void setMeters(TreeMap<Integer, Meter> meters) {
 		this.meters = meters;
 	}
 
@@ -38,7 +38,13 @@ public class CommercialAccount extends Account
 	
 	@Override
 	public void addMeter(Meter m){
-		meters.add(m);
+		meters.put(m.getMeterID(), m);
 	}
+        
+        @Override
+        public Meter deleteMeter(int meterID)
+        {
+           return meters.remove(meterID);
+        }
 	
 }

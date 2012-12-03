@@ -70,6 +70,7 @@ public abstract class Account
 	}
 	
 	public abstract void addMeter(Meter m);
+        public abstract Meter deleteMeter(int meterID);
 	
 	public String isCommercialToString(){
 		String s = "";

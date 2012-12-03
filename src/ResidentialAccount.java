@@ -53,6 +53,26 @@ public class ResidentialAccount extends Account
 	public void addMeter(Meter m){
 		meter = m;
 	}
+        
+        @Override
+        public Meter deleteMeter(int meterID)
+        {
+            if(meterID == meter.getMeterID())
+            {
+                Meter temp = meter;
+                meter = null;
+                return meter;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        public Meter deleteMeter()
+        {
+            return deleteMeter(meter.getMeterID());
+        }
 
 		
 }

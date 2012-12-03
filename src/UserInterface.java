@@ -583,10 +583,10 @@ public class UserInterface extends javax.swing.JFrame {
         else if(type == RESIDENTIAL)
         {
             namePanel.add(new JLabel("First Name:"));
-            namePanel.add(lastNameField);
+            namePanel.add(firstNameField);
             namePanel.add(Box.createHorizontalStrut(15));
             namePanel.add(new JLabel("Last Name:"));
-            namePanel.add(firstNameField);
+            namePanel.add(lastNameField);
         }
         //Return null for a unhandled account. 
         else
