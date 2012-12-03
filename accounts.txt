@@ -4,7 +4,7 @@ Duncan
 12345
 0.0
 1
-2/13/13 5:00 PM CST
+02/13/13 5:00 PM CST
 3208 Citadel Drive
 NULL
 Plano
@@ -19,14 +19,14 @@ Visa
 12/13/12 4:55 PM CST
 53.89
 Check
-1/13/13 4:55 PM CST
+01/13/13 4:55 PM CST
 end
 1
 Windrider Technologies
 12346
 123.46
 0
-2/13/13 5:00 PM CST
+02/13/13 5:00 PM CST
 2345 Enterprise Drive
 Suite 345
 Dallas
@@ -41,5 +41,5 @@ Visa
 12/13/12 5:00 PM CST
 53.89
 Check
-1/13/13 5:00 PM CST
+01/13/13 5:00 PM CST
 end
