@@ -112,6 +112,7 @@ public class UserInterface extends javax.swing.JFrame {
         accountTable.setModel(accountTableModel);
         accountTable.setDefaultRenderer(Account.class, new LeftCellRenderer());
         accountTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
+        accountTable.setAutoCreateRowSorter(true);
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 accountTableMouseReleased(evt);
