@@ -10,6 +10,6 @@ public class LeftCellRenderer extends DefaultTableCellRenderer{
 	public LeftCellRenderer()
 	{
             super();
-            this.setHorizontalAlignment(CENTER);
+            this.setHorizontalAlignment(LEFT);
 	}
 }

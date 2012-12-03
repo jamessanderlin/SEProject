@@ -66,6 +66,9 @@ public class UserInterface extends javax.swing.JFrame {
         meterViewDialog = new javax.swing.JDialog();
         meterViewSrollPane = new javax.swing.JScrollPane();
         meterViewTable = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        addMeter = new javax.swing.JMenuItem();
+        deleteMeter = new javax.swing.JMenuItem();
         accountScrollPane = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
@@ -75,9 +78,6 @@ public class UserInterface extends javax.swing.JFrame {
         addResidentialAccount = new javax.swing.JMenuItem();
         addCommercialAccount = new javax.swing.JMenuItem();
         deleteAccount = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        addMeter = new javax.swing.JMenuItem();
-        deleteMeter = new javax.swing.JMenuItem();
 
         viewAccount.setText("View Account");
         viewAccount.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +127,7 @@ public class UserInterface extends javax.swing.JFrame {
         meterViewDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
         meterViewTable.setModel(new MeterViewTableModel());
+        meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         meterViewSrollPane.setViewportView(meterViewTable);
 
         javax.swing.GroupLayout meterViewDialogLayout = new javax.swing.GroupLayout(meterViewDialog.getContentPane());
@@ -146,12 +147,26 @@ public class UserInterface extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        addMeter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        addMeter.setText("Add Meter");
+        addMeter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addMeterActionPerformed(evt);
+            }
+        });
+
+        deleteMeter.setText("Delete Meter");
+        deleteMeter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMeterActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
 
         accountTable.setModel(accountTableModel);
-        accountTable.setDefaultRenderer(Account.class, new LeftCellRenderer());
-        accountTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
+        accountTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 accountTableMouseReleased(evt);
@@ -202,24 +217,6 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         menuEdit.add(deleteAccount);
-        menuEdit.add(jSeparator1);
-
-        addMeter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        addMeter.setText("Add Meter");
-        addMeter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addMeterActionPerformed(evt);
-            }
-        });
-        menuEdit.add(addMeter);
-
-        deleteMeter.setText("Delete Meter");
-        deleteMeter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteMeterActionPerformed(evt);
-            }
-        });
-        menuEdit.add(deleteMeter);
 
         menuBar.add(menuEdit);
 
