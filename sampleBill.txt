@@ -1,0 +1,14 @@
+Billing Statement for:
+James Sanderlin
+2452 Overland Rd
+Laramie, WY 82070
+
+JAMM UC
+Account #123213
+Please Pay By: December 15, 2012
+Amount: $256.02
+
+Meter usage for the past month:
+54.1 kWh 
+
+Taxes applied: $12.54
