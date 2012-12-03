@@ -66,7 +66,7 @@ public class Address {
 						+ this.location2 + '\n'
 						+ this.city + '\n'
 						+ this.state + '\n'
-						+ this.zip + '\n';
+						+ this.zip;
 		return output;
 	}
 	

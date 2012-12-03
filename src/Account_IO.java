@@ -193,7 +193,8 @@ public class Account_IO
 													 +"\n"+ra.getBalance()
 													 +"\n"+ra.getFlagToString() 
 													 +"\n"+ deadlineString
-													 +"\n"+ra.getBillingAddress().toString()
+													 +"\n"+ra.getBillingAddress().toString() 
+													 +"\n"
 							);
 				}
 					out.write("PAYMENTS:"+"\n");
