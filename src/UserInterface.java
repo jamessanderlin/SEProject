@@ -6,6 +6,7 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
+import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -66,6 +67,14 @@ public class UserInterface extends javax.swing.JFrame {
         accountTable.setModel(accountTableModel);
         accountTable.setDefaultRenderer(Account.class, new LeftCellRenderer());
         accountTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
+        accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                accountTableMouseReleased(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                accountTableMousePressed(evt);
+            }
+        });
         accountScrollPane.setViewportView(accountTable);
 
         splitPane.setLeftComponent(accountScrollPane);
@@ -160,64 +169,12 @@ public class UserInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addResidentialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addResidentialAccountActionPerformed
-JTextField firstNameField = new JTextField(10);
-        JTextField lastNameField = new JTextField(10);
-        JTextField accountIDField = new JTextField(10);
-        JTextField line1Field = new JTextField(10);
-        JTextField line2Field = new JTextField(10);
-        JTextField cityField = new JTextField(10);
-        JTextField stateField = new JTextField(10);
-        JTextField zipField = new JTextField(5);
-        
-        Object[] options = {"SAVE", "CANCEL"};
-
-          JPanel myPanel = new JPanel();
-          myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-          JPanel namePanel = new JPanel();
-          namePanel.add(new JLabel("First Name"));
-          namePanel.add(firstNameField);
-          namePanel.add(Box.createHorizontalStrut(15));
-          namePanel.add(new JLabel("Last Name"));
-          namePanel.add(lastNameField);
-          myPanel.add(namePanel);
-          JPanel accountIdPanel = new JPanel();
-          accountIdPanel.add(new JLabel("Account ID"));
-          accountIdPanel.add(accountIDField);
-          accountIdPanel.add(Box.createHorizontalStrut(230));
-          myPanel.add(accountIdPanel);
-          JPanel addressPanel = new JPanel();
-          addressPanel.add(new JLabel("Address Line 1"));
-          addressPanel.add(line1Field);
-          addressPanel.add(Box.createHorizontalStrut(15));
-          addressPanel.add(new JLabel("Address Line 2"));
-          addressPanel.add(line2Field);
-          myPanel.add(addressPanel);
-          JPanel cszPanel = new JPanel();
-          cszPanel.add(new JLabel("City"));
-          cszPanel.add(cityField);
-          cszPanel.add(Box.createHorizontalStrut(15));
-          cszPanel.add(new JLabel("State"));
-          cszPanel.add(stateField);
-          cszPanel.add(Box.createHorizontalStrut(15));
-          cszPanel.add(new JLabel("Zip"));
-          cszPanel.add(zipField);
-          myPanel.add(cszPanel);
-
-          int result = JOptionPane.showOptionDialog(null, myPanel, 
-                   "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-          if (result == 0) 
-          {
-                Account temp = new ResidentialAccount(firstNameField.getText(), 
-                                                        lastNameField.getText(), 
-                                                        Integer.parseInt(accountIDField.getText()), 0, false,
-                                                        new Date(), 
-                                                        new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
-                    Controller.getInstance().addAccount(temp);
-                    accountTableModel.fireTableDataChanged();
-                     /* TODO Error checking for duplicate accounts */
-                    // refreshAccountJList();
-                System.out.println("NEW RESIDENTIAL ACCOUNT ADDED");
-          }
+    	Account temp = promptForResidentialAccount();
+    	if(temp != null)
+    	{
+    		Controller.getInstance().addAccount(temp);
+    		accountTableModel.fireTableDataChanged();
+    	}
     }//GEN-LAST:event_addResidentialAccountActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
@@ -241,7 +198,7 @@ JTextField firstNameField = new JTextField(10);
                    "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
           if (result == 0) 
           {
-              Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText(), 0.0, new Address("a","b","c","d","e"));
+              Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText(), 0.0, new Address("a", "b", "c", "d", "e"));
               Controller.getInstance().addMeter(temp);
               meterTableModel.fireTableDataChanged();
               System.out.println("NEW METER ADDED");
@@ -287,6 +244,37 @@ JTextField firstNameField = new JTextField(10);
     }//GEN-LAST:event_deleteMeterActionPerformed
 
     private void addCommercialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCommercialAccountActionPerformed
+    	Account temp = promptForCommercialAccount();
+    	if(temp != null)
+    	{
+    		Controller.getInstance().addAccount(temp);
+    		accountTableModel.fireTableDataChanged();
+    	}
+
+    }//GEN-LAST:event_addCommercialAccountActionPerformed
+
+    private void accountTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMousePressed
+        if(evt.isPopupTrigger())
+        {
+            Point p = evt.getPoint();
+            int row = accountTable.rowAtPoint(p);
+            accountTable.getSelectionModel().setSelectionInterval(row, row);
+            System.out.println("Selected");
+        }
+    }//GEN-LAST:event_accountTableMousePressed
+
+    private void accountTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseReleased
+        if(evt.isPopupTrigger())
+        {
+            Point p = evt.getPoint();
+            int row = accountTable.rowAtPoint(p);
+            accountTable.getSelectionModel().setSelectionInterval(row, row);
+            System.out.println("Selected");
+        }
+    }//GEN-LAST:event_accountTableMouseReleased
+
+    private Account promptForCommercialAccount()
+    {
         JTextField companyName = new JTextField(20);
         JTextField accountIDField = new JTextField(10);
         JTextField line1Field = new JTextField(10);
@@ -297,51 +285,121 @@ JTextField firstNameField = new JTextField(10);
         
         Object[] options = {"SAVE", "CANCEL"};
 
-          JPanel myPanel = new JPanel();
-          myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-          JPanel namePanel = new JPanel();
-          namePanel.add(new JLabel("Company Name"));
-          namePanel.add(companyName);
-          myPanel.add(namePanel);
-          JPanel accountIdPanel = new JPanel();
-          accountIdPanel.add(new JLabel("Account ID"));
-          accountIdPanel.add(accountIDField);
-          accountIdPanel.add(Box.createHorizontalStrut(230));
-          myPanel.add(accountIdPanel);
-          JPanel addressPanel = new JPanel();
-          addressPanel.add(new JLabel("Address Line 1"));
-          addressPanel.add(line1Field);
-          addressPanel.add(Box.createHorizontalStrut(15));
-          addressPanel.add(new JLabel("Address Line 2"));
-          addressPanel.add(line2Field);
-          myPanel.add(addressPanel);
-          JPanel cszPanel = new JPanel();
-          cszPanel.add(new JLabel("City"));
-          cszPanel.add(cityField);
-          cszPanel.add(Box.createHorizontalStrut(15));
-          cszPanel.add(new JLabel("State"));
-          cszPanel.add(stateField);
-          cszPanel.add(Box.createHorizontalStrut(15));
-          cszPanel.add(new JLabel("Zip"));
-          cszPanel.add(zipField);
-          myPanel.add(cszPanel);
+		JPanel myPanel = new JPanel();
+		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+		JPanel namePanel = new JPanel();
+		namePanel.add(new JLabel("Company Name"));
+		namePanel.add(companyName);
+		myPanel.add(namePanel);
+		JPanel accountIdPanel = new JPanel();
+		accountIdPanel.add(new JLabel("Account ID"));
+		accountIdPanel.add(accountIDField);
+		accountIdPanel.add(Box.createHorizontalStrut(230));
+		myPanel.add(accountIdPanel);
+		JPanel addressPanel = new JPanel();
+		addressPanel.add(new JLabel("Address Line 1"));
+		addressPanel.add(line1Field);
+		addressPanel.add(Box.createHorizontalStrut(15));
+		addressPanel.add(new JLabel("Address Line 2"));
+		addressPanel.add(line2Field);
+		myPanel.add(addressPanel);
+		JPanel cszPanel = new JPanel();
+		cszPanel.add(new JLabel("City"));
+		cszPanel.add(cityField);
+		cszPanel.add(Box.createHorizontalStrut(15));
+		cszPanel.add(new JLabel("State"));
+		cszPanel.add(stateField);
+		cszPanel.add(Box.createHorizontalStrut(15));
+		cszPanel.add(new JLabel("Zip"));
+		cszPanel.add(zipField);
+		myPanel.add(cszPanel);
+			  int result = JOptionPane.showOptionDialog(null, myPanel, 
+		         "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		if (result == 0) 
+		{
+			try
+			{  
+				Account temp = new CommercialAccount(companyName.getText(), 
+			                                              Integer.parseInt(accountIDField.getText()), 0, false,
+			                                              new Date(), 
+			                                              new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
+			      return temp;
+			}
+			catch(Exception e)
+			{
+				return null;
+			}
+		}
+		  else
+			  return null;
+    }
+    
+    private Account promptForResidentialAccount()
+    {
+    	JTextField firstNameField = new JTextField(10);
+        JTextField lastNameField = new JTextField(10);
+        JTextField accountIDField = new JTextField(10);
+        JTextField line1Field = new JTextField(10);
+        JTextField line2Field = new JTextField(10);
+        JTextField cityField = new JTextField(10);
+        JTextField stateField = new JTextField(10);
+        JTextField zipField = new JTextField(5);
+        
+        Object[] options = {"SAVE", "CANCEL"};
 
-          int result = JOptionPane.showOptionDialog(null, myPanel, 
-                   "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-          if (result == 0) 
-          {
-                Account temp = new CommercialAccount(companyName.getText(), 
-                                                        Integer.parseInt(accountIDField.getText()), 0, false,
-                                                        new Date(), 
-                                                        new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
-                    Controller.getInstance().addAccount(temp);
-                    accountTableModel.fireTableDataChanged();
-                     /* TODO Error checking for duplicate accounts */
-                    // refreshAccountJList();
-                System.out.println("NEW COMMERCIAL ACCOUNT ADDED");
-          }// TODO add your handling code here:
-    }//GEN-LAST:event_addCommercialAccountActionPerformed
-
+        JPanel myPanel = new JPanel();
+        myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+        JPanel namePanel = new JPanel();
+        namePanel.add(new JLabel("First Name"));
+        namePanel.add(firstNameField);
+        namePanel.add(Box.createHorizontalStrut(15));
+        namePanel.add(new JLabel("Last Name"));
+        namePanel.add(lastNameField);
+        myPanel.add(namePanel);
+        JPanel accountIdPanel = new JPanel();
+        accountIdPanel.add(new JLabel("Account ID"));
+        accountIdPanel.add(accountIDField);
+        accountIdPanel.add(Box.createHorizontalStrut(230));
+        myPanel.add(accountIdPanel);
+        JPanel addressPanel = new JPanel();
+        addressPanel.add(new JLabel("Address Line 1"));
+        addressPanel.add(line1Field);
+        addressPanel.add(Box.createHorizontalStrut(15));
+        addressPanel.add(new JLabel("Address Line 2"));
+        addressPanel.add(line2Field);
+        myPanel.add(addressPanel);
+        JPanel cszPanel = new JPanel();
+        cszPanel.add(new JLabel("City"));
+        cszPanel.add(cityField);
+        cszPanel.add(Box.createHorizontalStrut(15));
+        cszPanel.add(new JLabel("State"));
+        cszPanel.add(stateField);
+        cszPanel.add(Box.createHorizontalStrut(15));
+        cszPanel.add(new JLabel("Zip"));
+        cszPanel.add(zipField);
+        myPanel.add(cszPanel);
+        int result = JOptionPane.showOptionDialog(null, myPanel, 
+                 "Enter information for the new residential account", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        
+        if (result == 0) 
+		{
+			try
+			{  
+				Account temp = new ResidentialAccount(firstNameField.getText(),
+														lastNameField.getText(),	
+			                                            Integer.parseInt(accountIDField.getText()), 0, false,
+			                                            new Date(), 
+			                                            new Address(line1Field.getText(), line2Field.getText(), cityField.getText(), zipField.getText(), stateField.getText()));
+			      return temp;
+			}
+			catch(Exception e)
+			{
+				return null;
+			}
+		}
+		  else
+			  return null;
+    }
     /**
      * @param args the command line arguments
      */
