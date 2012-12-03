@@ -169,13 +169,17 @@ public class Meter_IO
 					CommercialAccount ca = (CommercialAccount)a;
 	
 					for(Meter m : ca.getMeters()) {
+						if(m != null) {
 						out.write(a.getAccountID()+"\n");
 						writeMeter(out, m);
+						}
 					}
 				} else {
 					ResidentialAccount ra = (ResidentialAccount)a;
+					if(ra.getMeter() != null) {
 					out.write(a.getAccountID()+"\n");
 					writeMeter(out, ra.getMeter());
+					}
 				}
 			}
 			out.close();
