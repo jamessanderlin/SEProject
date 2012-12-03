@@ -185,11 +185,11 @@ public class Controller
 	 * @param type A string denoting the type of the meter. 
 	 * @return A boolean indicating whether the meter was created or not. 
 	 */
-	public boolean createMeter(int meterID, String type)
+	public boolean createMeter(int meterID, String type, double rate, Address physicalAddress)
 	{
 		if(!meters.containsKey(meterID))
 		{
-			meters.put(meterID, new Meter(meterID, type));
+			meters.put(meterID, new Meter(meterID, type, rate, physicalAddress));
 			return true;
 		}
 		else

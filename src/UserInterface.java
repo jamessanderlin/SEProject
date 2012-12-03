@@ -241,7 +241,7 @@ JTextField firstNameField = new JTextField(10);
                    "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
           if (result == 0) 
           {
-              Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText());
+              Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText(), 0.0, new Address("a","b","c","d","e"));
               Controller.getInstance().addMeter(temp);
               meterTableModel.fireTableDataChanged();
               System.out.println("NEW METER ADDED");

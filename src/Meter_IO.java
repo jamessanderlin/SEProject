@@ -13,13 +13,17 @@ import java.io.*;
  * meterId
  * accountid
  * isdigital - 0 means not digital, 1 means digital 
- * rate
+ * rate - the double that represents the cost per kilowatt
+ * address - this is stored over 5 lines
  * READINGS:
  * readingvalue
  * readingDate
- * reading_id (partial key)
  * (Note: the previous lines repeat several times)
- * end
+ * END READINGS
+ * TAXES:
+ * taxName
+ * taxRate
+ * END TAXES
  */
 public class Meter_IO 
 {
@@ -47,11 +51,12 @@ public class Meter_IO
 		{
 			Scanner in = new Scanner(meterFile);
 			//Parse the meters file
-			int meterID, accountID, rate;
+			int meterID, accountID;
+			
 			boolean isDigital;
 			
 			//Variables for storing data from file for the meterReading object
-			int readingValue, readingID;
+			int readingValue;
 			Date readingDate = new Date();
 
 			//Sets up the formatting of a date throughout the file
@@ -59,7 +64,7 @@ public class Meter_IO
 
 			//The list of meter readings that we build and pass to the meter object on the fly
 			Meter meter;
-			
+
 			while(in.hasNext())
 			{
 				//Stores the unique meterID of the meter
@@ -68,15 +73,14 @@ public class Meter_IO
 
 				isDigital = (in.nextInt() == 0) ? false : true;
 				in.nextLine();
-				//Stores the rate of the meter
-				rate = Integer.parseInt(in.nextLine());
+				
+				//Parses the address and generates the meter in one step
+				meter = new Meter(meterID, (isDigital) ? "Digital" : "Analog", Double.parseDouble(in.nextLine()), new Address( in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
 				
 				//Advances the writer past the "READINGS:" delimiter.
 				in.nextLine();
-
-				meter = new Meter(meterID, (isDigital) ? "Digital" : "Analog");
 				
-				while(!in.hasNext("end"))
+				while(!in.hasNext("ENDREADINGS"))
 				{
 					readingValue = Integer.parseInt(in.nextLine());
 					try {
@@ -87,10 +91,21 @@ public class Meter_IO
 					}
 
 					//Append to Meter
-					meter.addReading(new Meter_Reading(readingValue, readingDate));
+					meter.addReading(new Meter_Reading(readingValue, readingDate));					
 				}
+				//Advances the writer past the "TAXES:" delimiter.
+				in.nextLine();
+				in.nextLine();
+				
+				while(!in.hasNext("ENDTAXES"))
+				//while(!in.nextLine().equals("ENDTAXES"))
+				{
+					//Parse the tax from its name and rate; add it to the meter
+					meter.addTax(new Taxes(in.nextLine(),Double.parseDouble(in.nextLine())));
+				}				
 				
 				meters.put(meterID, meter);
+				accountsReference.get(accountID).addMeter(meter);
 				
 				/* This is not implemented yet in Accounts
 				 * 

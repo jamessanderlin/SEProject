@@ -1,7 +1,12 @@
 404
 12345
 0
-10
+167.3
+sampleadr1
+sampleadr1
+Richardson
+TX
+75080
 READINGS:
 200
 1/13/13 4:55 PM CST
@@ -13,4 +18,10 @@ READINGS:
 4/12/13 4:55 PM CST
 410
 5/12/13 4:55 PM CST
-end
+ENDREADINGS
+TAXES:
+tax1
+13.5
+tax2
+12.7
+ENDTAXES

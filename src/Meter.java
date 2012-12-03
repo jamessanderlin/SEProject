@@ -22,29 +22,25 @@ public class Meter
 	private TreeMap<Date, Meter_Reading> readings; 
 	
 	//Stores the rate for the meter
-	private Rate meterRate;
+	private double meterRate;
 	
 	private Address physicalAddress;
-	private boolean taxable;
-	private ArrayList<Taxes> taxes;
+
+	private TreeMap<String, Taxes> taxes;
 	
-	
-	public Meter(int meterID, String type) {
-		this.meterID = meterID;
-		readings = new TreeMap<Date, Meter_Reading>();
-		setType(type);
-	}
-	public Meter(int meterID, String type, Address physicalAddress, boolean taxable)
+	public Meter(int meterID, String type, double rate, Address physicalAddress)
 	{
 		this.meterID = meterID;
 		setType(type);
 		this.physicalAddress = physicalAddress;
-		this.taxable = taxable;
+		readings = new TreeMap<Date, Meter_Reading>();
+		taxes = new TreeMap<String, Taxes>();
+		meterRate = rate;
 	}
 	
 	public void addTax(Taxes t)
 	{
-		taxes.add(t);
+		taxes.put(t.getName(),t);
 	}
 	
 	public void addReading(Meter_Reading r)
@@ -74,10 +70,10 @@ public class Meter
 		return readings;
 	}
 
-	public Rate getMeterRate() {
+	public double getMeterRate() {
 		return meterRate;
 	}
-	public void setMeterRate(Rate meterRate) {
+	public void setMeterRate(double meterRate) {
 		this.meterRate = meterRate;
 	}
 	
@@ -95,22 +91,6 @@ public class Meter
 
 	public void setPhysicalAddress(Address physicalAddress) {
 		this.physicalAddress = physicalAddress;
-	}
-
-	public boolean isTaxable() {
-		return taxable;
-	}
-
-	public void setTaxable(boolean taxable) {
-		this.taxable = taxable;
-	}
-
-	public ArrayList<Taxes> getTaxes() {
-		return taxes;
-	}
-
-	public void setTaxes(ArrayList<Taxes> taxes) {
-		this.taxes = taxes;
 	}
 
 	public void setReadings(TreeMap<Date, Meter_Reading> readings) {
