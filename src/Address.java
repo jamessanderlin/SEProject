@@ -62,11 +62,11 @@ public class Address {
 	}
 	
 	public String toString(){
-		String output = "Location Line 1: " + this.location1 + '\n'
-						+ "Location Line 2: " + this.location2 + '\n'
-						+ "City: " + this.city + '\n'
-						+ "State: " + this.state + '\n'
-						+ "Zip: " + this.zip + '\n';
+		String output =   this.location1 + '\n'
+						+ this.location2 + '\n'
+						+ this.city + '\n'
+						+ this.state + '\n'
+						+ this.zip + '\n';
 		return output;
 	}
 	

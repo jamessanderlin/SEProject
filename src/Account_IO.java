@@ -171,11 +171,7 @@ public class Account_IO
 							 +"\n"+ca.getBalance()
 							 +"\n"+ca.getFlagToString()
 							 +"\n"+deadlineString
-							 +"\n"+ca.getBillingAddress().getLocation1()
-							 +"\n"+ca.getBillingAddress().getLocation2()
-							 +"\n"+ca.getBillingAddress().getCity()
-							 +"\n"+ca.getBillingAddress().getState()
-							 +"\n"+ca.getBillingAddress().getZip()
+							 +"\n"+ca.getBillingAddress().toString()
 							 +"\n"
 	);
 					
@@ -197,12 +193,7 @@ public class Account_IO
 													 +"\n"+ra.getBalance()
 													 +"\n"+ra.getFlagToString() 
 													 +"\n"+ deadlineString
-													 +"\n"+ra.getBillingAddress().getLocation1()
-													 +"\n"+ra.getBillingAddress().getLocation2()
-													 +"\n"+ra.getBillingAddress().getCity()
-													 +"\n"+ra.getBillingAddress().getState()
-													 +"\n"+ra.getBillingAddress().getZip()
-													 +"\n"
+													 +"\n"+ra.getBillingAddress().toString()
 							);
 				}
 					out.write("PAYMENTS:"+"\n");
