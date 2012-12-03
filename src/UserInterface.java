@@ -126,6 +126,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         meterViewDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
+        meterViewTable.setAutoCreateRowSorter(true);
         meterViewTable.setModel(new MeterViewTableModel());
         meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         meterViewSrollPane.setViewportView(meterViewTable);
@@ -165,6 +166,7 @@ public class UserInterface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
 
+        accountTable.setAutoCreateRowSorter(true);
         accountTable.setModel(accountTableModel);
         accountTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {

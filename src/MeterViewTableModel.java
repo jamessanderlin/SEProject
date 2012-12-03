@@ -70,6 +70,10 @@ class MeterViewTableModel extends AbstractTableModel {
     }
 
     public Class getColumnClass(int c) {
+        if(meters.size() == 0)
+        {
+            return Object.class;
+        }
         return getValueAt(0, c).getClass();
     }
 

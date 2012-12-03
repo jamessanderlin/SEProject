@@ -142,7 +142,8 @@ public class Account_IO
 			}
 			catch(FileNotFoundException e)
 			{
-				e.printStackTrace();
+                            //e.printStackTrace();
+                            System.out.println("NO ACCOUNT FILE FOUND");
 			}
 			
 			return accountlist;

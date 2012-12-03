@@ -107,7 +107,11 @@ public class Meter_IO
 				}				
 				
 				meters.put(meterID, meter);
-				accountsReference.get(accountID).addMeter(meter);
+				Account temp = accountsReference.get(accountID);
+                                if(temp != null)
+                                    temp.addMeter(meter);
+                                else
+                                    System.out.println("Could not find account for meter " + meterID);
 				
 				/* This is not implemented yet in Accounts
 				 * 

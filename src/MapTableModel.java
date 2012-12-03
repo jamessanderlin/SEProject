@@ -137,6 +137,14 @@ public class MapTableModel extends AbstractTableModel {
     public void setMap(Map _map) {
         map = _map;
     }
+    
+    public Class getColumnClass(int c) {
+        if(map.size() == 0)
+        {
+            return Object.class;
+        }
+        return getValueAt(0, c).getClass();
+    }
 
 } // end MapTableModel
 
