@@ -43,6 +43,11 @@ public class UserInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        accountPopup = new javax.swing.JPopupMenu();
+        viewAccount = new javax.swing.JMenuItem();
+        editAccount = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        addMeterToAccount = new javax.swing.JMenuItem();
         splitPane = new javax.swing.JSplitPane();
         accountScrollPane = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
@@ -58,6 +63,21 @@ public class UserInterface extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         addMeter = new javax.swing.JMenuItem();
         deleteMeter = new javax.swing.JMenuItem();
+
+        viewAccount.setText("View Account");
+        accountPopup.add(viewAccount);
+
+        editAccount.setText("Edit Account");
+        editAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAccountActionPerformed(evt);
+            }
+        });
+        accountPopup.add(editAccount);
+        accountPopup.add(jSeparator2);
+
+        addMeterToAccount.setText("Add Meter To Account");
+        accountPopup.add(addMeterToAccount);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
@@ -254,34 +274,94 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addCommercialAccountActionPerformed
 
     private void accountTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMousePressed
-        if(evt.isPopupTrigger())
-        {
-            Point p = evt.getPoint();
-            int row = accountTable.rowAtPoint(p);
-            accountTable.getSelectionModel().setSelectionInterval(row, row);
-            System.out.println("Selected");
-        }
+        doAccountPopup(evt);
     }//GEN-LAST:event_accountTableMousePressed
 
     private void accountTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseReleased
+        doAccountPopup(evt);
+    }//GEN-LAST:event_accountTableMouseReleased
+
+    private void doAccountPopup(java.awt.event.MouseEvent evt)
+    {
         if(evt.isPopupTrigger())
         {
             Point p = evt.getPoint();
             int row = accountTable.rowAtPoint(p);
             accountTable.getSelectionModel().setSelectionInterval(row, row);
             System.out.println("Selected");
+            accountPopup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_accountTableMouseReleased
+    }
+    
+    private void editAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAccountActionPerformed
+        int row = accountTable.getSelectedRow();
+        Object temp = accountTable.getValueAt(row, 0);
+        if(!(temp instanceof Integer))
+            return;
+        int accID = ((Integer)temp).intValue();
+        
+        Account acc = Controller.getInstance().deleteAccount(accID);
+        Address address = acc.getBillingAddress();
+        if(acc instanceof ResidentialAccount)
+        {
+            ResidentialAccount resAcc = (ResidentialAccount)acc;
+            Account newResAcc = promptForResidentialAccount(resAcc.getClientFirstName(), resAcc.getClientLastName(), 
+                                                            accID, address.getLocation1() , address.getLocation2(), 
+                                                            address.getCity(), address.getState(), address.getZip());
+            if(newResAcc == null)
+            {
+                Controller.getInstance().addAccount(acc);
+            }
+            else
+            {
+                Controller.getInstance().addAccount(newResAcc);
+            }
+        }
+        else if(acc instanceof CommercialAccount)
+        {
+            CommercialAccount comAcc = (CommercialAccount)acc;
+            Account newComAcc = promptForCommercialAccount(comAcc.getCompanyName(), 
+                                                            accID, address.getLocation1() , address.getLocation2(), 
+                                                            address.getCity(), address.getState(), address.getZip());
+            if(newComAcc == null)
+            {
+                Controller.getInstance().addAccount(acc);
+            }
+            else
+            {
+                Controller.getInstance().addAccount(newComAcc);
+            }
+        }
+        accountTableModel.fireTableDataChanged();
+    }//GEN-LAST:event_editAccountActionPerformed
 
+    
     private Account promptForCommercialAccount()
     {
-        JTextField companyName = new JTextField(20);
+        return promptForCommercialAccount("", -1, "", "", "", "", "");
+    }
+    
+    private Account promptForCommercialAccount(String compName, int accID,
+                                                    String add1, String add2, String city,
+                                                    String state, String zip)
+    {
+    	JTextField companyName = new JTextField(30);
+            companyName.setText(compName);
         JTextField accountIDField = new JTextField(10);
+            if(accID > 0)
+            {
+                accountIDField.setText(Integer.toString(accID));
+            }
         JTextField line1Field = new JTextField(10);
+            line1Field.setText(add1);
         JTextField line2Field = new JTextField(10);
+            line2Field.setText(add2);
         JTextField cityField = new JTextField(10);
+            cityField.setText(city);
         JTextField stateField = new JTextField(10);
+            stateField.setText(state);
         JTextField zipField = new JTextField(5);
+            zipField.setText(zip);
         
         Object[] options = {"SAVE", "CANCEL"};
 
@@ -336,14 +416,32 @@ public class UserInterface extends javax.swing.JFrame {
     
     private Account promptForResidentialAccount()
     {
+        return promptForResidentialAccount("", "", -1, "", "", "", "", "");
+    }
+    
+    private Account promptForResidentialAccount(String fName, String lName, int accID,
+                                                    String add1, String add2, String city,
+                                                    String state, String zip)
+    {
     	JTextField firstNameField = new JTextField(10);
+            firstNameField.setText(fName);
         JTextField lastNameField = new JTextField(10);
+            lastNameField.setText(lName);
         JTextField accountIDField = new JTextField(10);
+            if(accID > 0)
+            {
+                accountIDField.setText(Integer.toString(accID));
+            }
         JTextField line1Field = new JTextField(10);
+            line1Field.setText(add1);
         JTextField line2Field = new JTextField(10);
+            line2Field.setText(add2);
         JTextField cityField = new JTextField(10);
+            cityField.setText(city);
         JTextField stateField = new JTextField(10);
+            stateField.setText(state);
         JTextField zipField = new JTextField(5);
+            zipField.setText(zip);
         
         Object[] options = {"SAVE", "CANCEL"};
 
@@ -435,14 +533,18 @@ public class UserInterface extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu accountPopup;
     private javax.swing.JScrollPane accountScrollPane;
     private javax.swing.JTable accountTable;
     private javax.swing.JMenuItem addCommercialAccount;
     private javax.swing.JMenuItem addMeter;
+    private javax.swing.JMenuItem addMeterToAccount;
     private javax.swing.JMenuItem addResidentialAccount;
     private javax.swing.JMenuItem deleteAccount;
     private javax.swing.JMenuItem deleteMeter;
+    private javax.swing.JMenuItem editAccount;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -450,5 +552,6 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JTable meterTable;
     private javax.swing.JMenuItem save;
     private javax.swing.JSplitPane splitPane;
+    private javax.swing.JMenuItem viewAccount;
     // End of variables declaration//GEN-END:variables
 }
