@@ -59,12 +59,15 @@ public class UserInterface extends javax.swing.JFrame {
         editAccount = new javax.swing.JMenuItem();
         deleteAccountPopup = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        viewMeters = new javax.swing.JMenuItem();
         addMeterToAccount = new javax.swing.JMenuItem();
-        splitPane = new javax.swing.JSplitPane();
-        accountScrollPane = new javax.swing.JScrollPane();
-        accountTable = new javax.swing.JTable();
         meterScrollPane = new javax.swing.JScrollPane();
         meterTable = new javax.swing.JTable();
+        meterViewDialog = new javax.swing.JDialog();
+        meterViewSrollPane = new javax.swing.JScrollPane();
+        meterViewTable = new javax.swing.JTable();
+        accountScrollPane = new javax.swing.JScrollPane();
+        accountTable = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         save = new javax.swing.JMenuItem();
@@ -101,18 +104,54 @@ public class UserInterface extends javax.swing.JFrame {
         accountPopup.add(deleteAccountPopup);
         accountPopup.add(jSeparator2);
 
+        viewMeters.setText("View Meters");
+        viewMeters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewMetersActionPerformed(evt);
+            }
+        });
+        accountPopup.add(viewMeters);
+
         addMeterToAccount.setText("Add Meter To Account");
+        addMeterToAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addMeterToAccountActionPerformed(evt);
+            }
+        });
         accountPopup.add(addMeterToAccount);
+
+        meterTable.setModel(meterTableModel);
+        meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
+        meterScrollPane.setViewportView(meterTable);
+
+        meterViewDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+
+        meterViewTable.setModel(new MeterViewTableModel());
+        meterViewSrollPane.setViewportView(meterViewTable);
+
+        javax.swing.GroupLayout meterViewDialogLayout = new javax.swing.GroupLayout(meterViewDialog.getContentPane());
+        meterViewDialog.getContentPane().setLayout(meterViewDialogLayout);
+        meterViewDialogLayout.setHorizontalGroup(
+            meterViewDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(meterViewDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(meterViewSrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        meterViewDialogLayout.setVerticalGroup(
+            meterViewDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(meterViewDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(meterViewSrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
 
-        splitPane.setDividerLocation(435);
-
         accountTable.setModel(accountTableModel);
         accountTable.setDefaultRenderer(Account.class, new LeftCellRenderer());
         accountTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
-        accountTable.setAutoCreateRowSorter(true);
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 accountTableMouseReleased(evt);
@@ -122,14 +161,6 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         accountScrollPane.setViewportView(accountTable);
-
-        splitPane.setLeftComponent(accountScrollPane);
-
-        meterTable.setModel(meterTableModel);
-        meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
-        meterScrollPane.setViewportView(meterTable);
-
-        splitPane.setRightComponent(meterScrollPane);
 
         menuFile.setText("File");
 
@@ -200,14 +231,14 @@ public class UserInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
+                .addComponent(accountScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                .addComponent(accountScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -446,6 +477,26 @@ public class UserInterface extends javax.swing.JFrame {
         Controller.getInstance().deleteAccount(accID);
         accountTableModel.fireTableDataChanged();
     }//GEN-LAST:event_deleteAccountPopupActionPerformed
+
+    private void addMeterToAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeterToAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addMeterToAccountActionPerformed
+
+    private void viewMetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMetersActionPerformed
+        int accountID = getSelectedAccountID();
+        Account acc = Controller.getInstance().getAccount(accountID);
+        if(acc instanceof CommercialAccount)
+        {
+            meterViewTable.setModel(new MeterViewTableModel(((CommercialAccount)acc).getMeters()));
+        }
+        else
+        {
+            meterViewTable.setModel(new MeterViewTableModel(((ResidentialAccount)acc).getMeter()));
+        }
+        meterViewDialog.pack();
+        meterViewDialog.setLocationRelativeTo(this);
+        meterViewDialog.setVisible(true);
+    }//GEN-LAST:event_viewMetersActionPerformed
 
     /**
      * Helper method to display the account information. This creates the popup
@@ -719,8 +770,11 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane meterScrollPane;
     private javax.swing.JTable meterTable;
+    private javax.swing.JDialog meterViewDialog;
+    private javax.swing.JScrollPane meterViewSrollPane;
+    private javax.swing.JTable meterViewTable;
     private javax.swing.JMenuItem save;
-    private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenuItem viewAccount;
+    private javax.swing.JMenuItem viewMeters;
     // End of variables declaration//GEN-END:variables
 }

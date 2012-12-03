@@ -74,7 +74,9 @@ public class Controller
       /* Create and display the form */
       java.awt.EventQueue.invokeLater(new Runnable() {
           public void run() {
-              new UserInterface().setVisible(true);
+              UserInterface UI = new UserInterface();
+              UI.setLocationRelativeTo(null);
+              UI.setVisible(true);
           }
       });
 	}
