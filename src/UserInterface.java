@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 
+import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
@@ -65,6 +66,11 @@ public class UserInterface extends javax.swing.JFrame {
         deleteMeter = new javax.swing.JMenuItem();
 
         viewAccount.setText("View Account");
+        viewAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewAccountActionPerformed(evt);
+            }
+        });
         accountPopup.add(viewAccount);
 
         editAccount.setText("Edit Account");
@@ -335,6 +341,69 @@ public class UserInterface extends javax.swing.JFrame {
         accountTableModel.fireTableDataChanged();
     }//GEN-LAST:event_editAccountActionPerformed
 
+    private void viewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAccountActionPerformed
+        int row = accountTable.getSelectedRow();
+        Object temp = accountTable.getValueAt(row, 0);
+        if(!(temp instanceof Integer))
+            return;
+        int accID = ((Integer)temp).intValue();
+        
+        Account acc = Controller.getInstance().getAccount(accID);
+        displayViewAccountDialog(acc);
+    }//GEN-LAST:event_viewAccountActionPerformed
+
+    private void displayViewAccountDialog(Account acc)
+    {
+        Address address = acc.getBillingAddress();
+        
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        if(acc instanceof CommercialAccount)
+        {
+            CommercialAccount comAcc = (CommercialAccount)acc;
+            namePanel.add(new JLabel("Company Name:"));
+            namePanel.add(new JLabel(comAcc.getCompanyName()));
+        }
+        else
+        {
+            ResidentialAccount resAcc = (ResidentialAccount)acc;
+            namePanel.add(new JLabel("First Name:"));
+            namePanel.add(new JLabel(resAcc.getClientFirstName()));
+            namePanel.add(Box.createHorizontalStrut(15));
+            namePanel.add(new JLabel("Last Name:"));
+            namePanel.add(new JLabel(resAcc.getClientLastName()));
+        }  
+        
+        Object[] options = {"OK"};
+
+		JPanel myPanel = new JPanel();
+		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
+
+		myPanel.add(namePanel);
+		JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		accountIdPanel.add(new JLabel("Account ID:"));
+		accountIdPanel.add(new JLabel("" + acc.getAccountID()));
+		accountIdPanel.add(Box.createHorizontalStrut(230));
+		myPanel.add(accountIdPanel);
+		JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		addressPanel.add(new JLabel("Address Line 1:"));
+		addressPanel.add(new JLabel(address.getLocation1()));
+		addressPanel.add(Box.createHorizontalStrut(15));
+		addressPanel.add(new JLabel("Address Line 2:"));
+		addressPanel.add(new JLabel(address.getLocation2()));
+		myPanel.add(addressPanel);
+		JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		cszPanel.add(new JLabel("City:"));
+		cszPanel.add(new JLabel(address.getCity()));
+		cszPanel.add(Box.createHorizontalStrut(15));
+		cszPanel.add(new JLabel("State:"));
+		cszPanel.add(new JLabel(address.getState()));
+		cszPanel.add(Box.createHorizontalStrut(15));
+		cszPanel.add(new JLabel("Zip:"));
+		cszPanel.add(new JLabel(address.getZip()));
+		myPanel.add(cszPanel);
+                JOptionPane.showOptionDialog(null, myPanel, 
+                         "View Account Information", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    }
     
     private Account promptForCommercialAccount()
     {
@@ -367,23 +436,23 @@ public class UserInterface extends javax.swing.JFrame {
 
 		JPanel myPanel = new JPanel();
 		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-		JPanel namePanel = new JPanel();
+		JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		namePanel.add(new JLabel("Company Name"));
 		namePanel.add(companyName);
 		myPanel.add(namePanel);
-		JPanel accountIdPanel = new JPanel();
+		JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		accountIdPanel.add(new JLabel("Account ID"));
 		accountIdPanel.add(accountIDField);
 		accountIdPanel.add(Box.createHorizontalStrut(230));
 		myPanel.add(accountIdPanel);
-		JPanel addressPanel = new JPanel();
+		JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		addressPanel.add(new JLabel("Address Line 1"));
 		addressPanel.add(line1Field);
 		addressPanel.add(Box.createHorizontalStrut(15));
 		addressPanel.add(new JLabel("Address Line 2"));
 		addressPanel.add(line2Field);
 		myPanel.add(addressPanel);
-		JPanel cszPanel = new JPanel();
+		JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		cszPanel.add(new JLabel("City"));
 		cszPanel.add(cityField);
 		cszPanel.add(Box.createHorizontalStrut(15));
@@ -447,26 +516,26 @@ public class UserInterface extends javax.swing.JFrame {
 
         JPanel myPanel = new JPanel();
         myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-        JPanel namePanel = new JPanel();
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         namePanel.add(new JLabel("First Name"));
         namePanel.add(firstNameField);
         namePanel.add(Box.createHorizontalStrut(15));
         namePanel.add(new JLabel("Last Name"));
         namePanel.add(lastNameField);
         myPanel.add(namePanel);
-        JPanel accountIdPanel = new JPanel();
+        JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         accountIdPanel.add(new JLabel("Account ID"));
         accountIdPanel.add(accountIDField);
         accountIdPanel.add(Box.createHorizontalStrut(230));
         myPanel.add(accountIdPanel);
-        JPanel addressPanel = new JPanel();
+        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         addressPanel.add(new JLabel("Address Line 1"));
         addressPanel.add(line1Field);
         addressPanel.add(Box.createHorizontalStrut(15));
         addressPanel.add(new JLabel("Address Line 2"));
         addressPanel.add(line2Field);
         myPanel.add(addressPanel);
-        JPanel cszPanel = new JPanel();
+        JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         cszPanel.add(new JLabel("City"));
         cszPanel.add(cityField);
         cszPanel.add(Box.createHorizontalStrut(15));
