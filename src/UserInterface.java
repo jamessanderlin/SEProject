@@ -487,12 +487,14 @@ public class UserInterface extends javax.swing.JFrame {
 		accountIdPanel.add(Box.createHorizontalStrut(230));
 		myPanel.add(accountIdPanel);
 		JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                JPanel addressPanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		addressPanel.add(new JLabel("Address Line 1:"));
 		addressPanel.add(new JLabel(address.getLocation1()));
 		addressPanel.add(Box.createHorizontalStrut(15));
-		addressPanel.add(new JLabel("Address Line 2:"));
-		addressPanel.add(new JLabel(address.getLocation2()));
+		addressPanel2.add(new JLabel("Address Line 2:"));
+		addressPanel2.add(new JLabel(address.getLocation2()));
 		myPanel.add(addressPanel);
+                myPanel.add(addressPanel2);
 		JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		cszPanel.add(new JLabel("City:"));
 		cszPanel.add(new JLabel(address.getCity()));
@@ -536,8 +538,8 @@ public class UserInterface extends javax.swing.JFrame {
           
         //Fields for the rest of the panels.
         JTextField accountIDField = new JTextField(10);
-        JTextField line1Field = new JTextField(10);
-        JTextField line2Field = new JTextField(10);
+        JTextField line1Field = new JTextField(20);
+        JTextField line2Field = new JTextField(20);
         JTextField cityField = new JTextField(10);
         JTextField stateField = new JTextField(10);
         JTextField zipField = new JTextField(5);
@@ -596,19 +598,20 @@ public class UserInterface extends javax.swing.JFrame {
         myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
         myPanel.add(namePanel);
         JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        accountIdPanel.add(new JLabel("Account ID"));
+        accountIdPanel.add(new JLabel("Account ID:"));
         accountIdPanel.add(accountIDField);
         accountIdPanel.add(Box.createHorizontalStrut(230));
         myPanel.add(accountIdPanel);
         JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        addressPanel.add(new JLabel("Address Line 1"));
+        JPanel addressPanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        addressPanel.add(new JLabel("Address Line 1:"));
         addressPanel.add(line1Field);
-        addressPanel.add(Box.createHorizontalStrut(15));
-        addressPanel.add(new JLabel("Address Line 2"));
-        addressPanel.add(line2Field);
+        addressPanel2.add(new JLabel("Address Line 2:"));
+        addressPanel2.add(line2Field);
         myPanel.add(addressPanel);
+        myPanel.add(addressPanel2);
         JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        cszPanel.add(new JLabel("City"));
+        cszPanel.add(new JLabel("City:"));
         cszPanel.add(cityField);
         cszPanel.add(Box.createHorizontalStrut(15));
         cszPanel.add(new JLabel("State"));
@@ -620,7 +623,7 @@ public class UserInterface extends javax.swing.JFrame {
         
         //Display the dialog.
         Object[] options = {"SAVE", "CANCEL"};
-        int result = JOptionPane.showOptionDialog(null, myPanel, "Enter information for the new account", 
+        int result = JOptionPane.showOptionDialog(null, myPanel, "Enter information for the account", 
                                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
                                                     null, options, options[0]);
         
