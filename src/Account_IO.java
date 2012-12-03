@@ -12,6 +12,22 @@ import java.text.DateFormat;
  * 
  * @version 1.0
  *
+ *
+ *Format of accounts.txt:
+ *
+ *isCommercial
+ *First Name (or just Company name)
+ *Last Name
+ *Account ID
+ *Account Balance
+ *Account Flagged
+ *Deadline
+ *Address Line 1
+ *Address Line 2
+ *City
+ *State
+ *Zip
+ *
  */
 public class Account_IO 
 {	
@@ -155,11 +171,7 @@ public class Account_IO
 							 +"\n"+ca.getBalance()
 							 +"\n"+ca.getFlagToString()
 							 +"\n"+deadlineString
-							 +"\n"+ca.getBillingAddress().getLocation1()
-							 +"\n"+ca.getBillingAddress().getLocation2()
-							 +"\n"+ca.getBillingAddress().getCity()
-							 +"\n"+ca.getBillingAddress().getState()
-							 +"\n"+ca.getBillingAddress().getZip()
+							 +"\n"+ca.getBillingAddress().toString()
 							 +"\n"
 	);
 					
@@ -181,12 +193,7 @@ public class Account_IO
 													 +"\n"+ra.getBalance()
 													 +"\n"+ra.getFlagToString() 
 													 +"\n"+ deadlineString
-													 +"\n"+ra.getBillingAddress().getLocation1()
-													 +"\n"+ra.getBillingAddress().getLocation2()
-													 +"\n"+ra.getBillingAddress().getCity()
-													 +"\n"+ra.getBillingAddress().getState()
-													 +"\n"+ra.getBillingAddress().getZip()
-													 +"\n"
+													 +"\n"+ra.getBillingAddress().toString()
 							);
 				}
 					out.write("PAYMENTS:"+"\n");
