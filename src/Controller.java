@@ -345,7 +345,7 @@ public class Controller
 	 */
 	public void save() {
 		Account_IO.write("accounts.txt",getAccountCollection());
-		Meter_IO.write("out_meters.txt",getAccountCollection());
+		Meter_IO.write("meters.txt",getAccountCollection());
 		System.out.println("FILE SAVED");
 	}
 }
