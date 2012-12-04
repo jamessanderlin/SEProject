@@ -208,6 +208,11 @@ public class UserInterface extends javax.swing.JFrame {
 
         accSave.setText("Save/Edit");
         accSave.setEnabled(false);
+        accSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accSaveActionPerformed(evt);
+            }
+        });
 
         accCancel.setText("Cancel");
         accCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -812,6 +817,51 @@ public class UserInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_accCreateActionPerformed
 
+    private void accSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accSaveActionPerformed
+        
+        int accountID = -1;
+        try
+        {
+            accountID = Integer.parseInt(accountIDField.getText());
+        }
+        catch(Exception e)
+        {}
+        
+        if(accountID < 1 || (Controller.getInstance().hasAccountID(accountID) && !(getSelectedAccountID()==accountID)))
+        {
+            accountIDField.setBackground(new Color(255, 200, 200));
+            return;
+        }
+        
+        Account acc = Controller.getInstance().getAccount(getSelectedAccountID());
+        if(acc instanceof ResidentialAccount)
+        {
+            ResidentialAccount resAcc = (ResidentialAccount) acc;
+            resAcc.setClientFirstName(firstNameField.getText());
+            resAcc.setClientLastName(lastNameField.getText());
+        }
+        else if(acc instanceof CommercialAccount)
+        {
+            CommercialAccount comAcc = (CommercialAccount) acc;
+            comAcc.setCompanyName(compNameField.getText());
+        }
+        
+        acc.setAccountID(accountID);
+        Address addr = new Address(addLine1Field.getText(), 
+                                    addLine2Field.getText(), 
+                                    cityField.getText(), 
+                                    stateField.getText(), 
+                                    zipField.getText());
+        acc.setBillingAddress(addr);    
+
+        accountTableModel.fireTableDataChanged();
+        
+        clearFieldColorsInAccountPanel();
+        resetAccountInfoPanel();
+        
+        
+    }//GEN-LAST:event_accSaveActionPerformed
+
     private void clearTextInAccountPanel()
     {
         compNameField.setText("");
@@ -877,6 +927,9 @@ public class UserInterface extends javax.swing.JFrame {
     
     private void showInAccountPanel(Account temp)
     {
+        clearTextInAccountPanel();
+        clearFieldColorsInAccountPanel();
+        
         Address addr = temp.getBillingAddress();
         
         if(temp instanceof ResidentialAccount)
