@@ -208,6 +208,11 @@ public class UserInterface extends javax.swing.JFrame {
         accSave.setText("Save/Edit");
 
         accCancel.setText("Cancel");
+        accCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accCancelActionPerformed(evt);
+            }
+        });
 
         accCreate.setText("Create");
 
@@ -737,6 +742,22 @@ public class UserInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_comAccButtonActionPerformed
 
+    private void accCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accCancelActionPerformed
+
+        compNameField.setText("");
+        lastNameField.setText("");
+        firstNameField.setText("");
+
+        accountIDField.setText("");
+        addLine1Field.setText("");
+        addLine2Field.setText("");
+        cityField.setText("");
+        stateField.setText("");
+        zipField.setText("");
+        
+        showMetersInMeterTable(null);
+    }//GEN-LAST:event_accCancelActionPerformed
+
     /**
      * Enable and disable the name fields based on the account type presented. 
      * Note, only one option should ever be open.
@@ -790,6 +811,28 @@ public class UserInterface extends javax.swing.JFrame {
         cityField.setText(addr.getCity());
         stateField.setText(addr.getState());
         zipField.setText(addr.getZip());
+        
+        showMetersInMeterTable(temp);
+    }
+    
+    private void showMetersInMeterTable(Account acc)
+    {
+        if(acc instanceof CommercialAccount)
+        {
+            meterViewTable.setModel(new MeterViewTableModel(((CommercialAccount)acc).getMeters()));
+        }
+        else if(acc instanceof ResidentialAccount)
+        {
+            meterViewTable.setModel(new MeterViewTableModel(((ResidentialAccount)acc).getMeter()));
+        }
+        else
+        {
+            meterViewTable.setModel(new MeterViewTableModel());
+  
+        }
+//        meterViewDialog.pack();
+//        meterViewDialog.setLocationRelativeTo(this);
+//        meterViewDialog.setVisible(true);
     }
     /**
      * Helper method to display the account information. This creates the popup
