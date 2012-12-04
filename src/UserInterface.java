@@ -55,20 +55,36 @@ public class UserInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         accountPopup = new javax.swing.JPopupMenu();
-        viewAccount = new javax.swing.JMenuItem();
-        editAccount = new javax.swing.JMenuItem();
         deleteAccountPopup = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        viewMeters = new javax.swing.JMenuItem();
         addMeterToAccount = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        addMeter = new javax.swing.JMenuItem();
-        deleteMeter = new javax.swing.JMenuItem();
         meterScrollPane = new javax.swing.JScrollPane();
         meterTable = new javax.swing.JTable();
         accountButtonGroup = new javax.swing.ButtonGroup();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jSplitPane2 = new javax.swing.JSplitPane();
+        addMeterPanel = new javax.swing.JPanel();
+        meterIDLabel = new javax.swing.JLabel();
+        meterTypeLabel = new javax.swing.JLabel();
+        meterRateLabel = new javax.swing.JLabel();
+        meterAddLine1Label = new javax.swing.JLabel();
+        meterAddLine2Label = new javax.swing.JLabel();
+        meterCityLabel = new javax.swing.JLabel();
+        meterStateLabel = new javax.swing.JLabel();
+        meterZipLabel = new javax.swing.JLabel();
+        meterIDField = new javax.swing.JTextField();
+        meterRateField = new javax.swing.JTextField();
+        meterAddLine1Field = new javax.swing.JTextField();
+        meterAddLine2Field = new javax.swing.JTextField();
+        meterCityField = new javax.swing.JTextField();
+        meterStateField = new javax.swing.JTextField();
+        meterZipField = new javax.swing.JTextField();
+        meterTypeComboBox = new javax.swing.JComboBox();
+        optionalLabel = new javax.swing.JLabel();
+        meterNote1 = new javax.swing.JLabel();
+        meterNote2 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        mainSplitPane = new javax.swing.JSplitPane();
+        rightSplitPane = new javax.swing.JSplitPane();
         meterViewSrollPane = new javax.swing.JScrollPane();
         meterViewTable = new javax.swing.JTable();
         accountPanel = new javax.swing.JPanel();
@@ -108,22 +124,6 @@ public class UserInterface extends javax.swing.JFrame {
         addCommercialAccount = new javax.swing.JMenuItem();
         deleteAccount = new javax.swing.JMenuItem();
 
-        viewAccount.setText("View Account");
-        viewAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewAccountActionPerformed(evt);
-            }
-        });
-        accountPopup.add(viewAccount);
-
-        editAccount.setText("Edit Account");
-        editAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editAccountActionPerformed(evt);
-            }
-        });
-        accountPopup.add(editAccount);
-
         deleteAccountPopup.setText("Delete Account");
         deleteAccountPopup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,14 +133,6 @@ public class UserInterface extends javax.swing.JFrame {
         accountPopup.add(deleteAccountPopup);
         accountPopup.add(jSeparator2);
 
-        viewMeters.setText("View Meters");
-        viewMeters.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewMetersActionPerformed(evt);
-            }
-        });
-        accountPopup.add(viewMeters);
-
         addMeterToAccount.setText("Add Meter To Account");
         addMeterToAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,39 +141,138 @@ public class UserInterface extends javax.swing.JFrame {
         });
         accountPopup.add(addMeterToAccount);
 
-        addMeter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        addMeter.setText("Add Meter");
-        addMeter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addMeterActionPerformed(evt);
-            }
-        });
-
-        deleteMeter.setText("Delete Meter");
-        deleteMeter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteMeterActionPerformed(evt);
-            }
-        });
-
         meterTable.setModel(meterTableModel);
         meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
         meterScrollPane.setViewportView(meterTable);
 
+        meterIDLabel.setText("Meter ID");
+
+        meterTypeLabel.setText("Type");
+
+        meterRateLabel.setText("Rate");
+
+        meterAddLine1Label.setText("Address Line 1*");
+
+        meterAddLine2Label.setText("Address Line 2*");
+
+        meterCityLabel.setText("City*");
+
+        meterStateLabel.setText("State*");
+
+        meterZipLabel.setText("Zip*");
+
+        meterTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Digital", "Analog" }));
+
+        optionalLabel.setText("* Indicates an optional field");
+
+        meterNote1.setText("ID must be between 1 and 2147483647 ");
+
+        meterNote2.setText("Rate must be greater than or equal to 0.0");
+
+        jLabel2.setText("kWh");
+
+        javax.swing.GroupLayout addMeterPanelLayout = new javax.swing.GroupLayout(addMeterPanel);
+        addMeterPanel.setLayout(addMeterPanelLayout);
+        addMeterPanelLayout.setHorizontalGroup(
+            addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addMeterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addMeterPanelLayout.createSequentialGroup()
+                        .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(meterZipLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(meterStateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(meterCityLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(meterAddLine2Label, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(meterAddLine1Label, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(meterRateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(meterTypeLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(meterIDLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addMeterPanelLayout.createSequentialGroup()
+                                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(meterRateField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(meterTypeComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2))
+                            .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(meterCityField, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                .addComponent(meterIDField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(meterAddLine2Field)
+                                .addComponent(meterAddLine1Field))
+                            .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(meterZipField, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                                .addComponent(meterStateField))))
+                    .addComponent(meterNote1)
+                    .addComponent(optionalLabel)
+                    .addComponent(meterNote2))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        addMeterPanelLayout.setVerticalGroup(
+            addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addMeterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meterIDLabel)
+                    .addComponent(meterIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meterTypeLabel)
+                    .addComponent(meterTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(meterRateLabel)
+                    .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(meterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meterAddLine1Label)
+                    .addComponent(meterAddLine1Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meterAddLine2Label)
+                    .addComponent(meterAddLine2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meterCityLabel)
+                    .addComponent(meterCityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meterStateLabel)
+                    .addComponent(meterStateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(meterZipLabel)
+                    .addComponent(meterZipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(optionalLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(meterNote1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(meterNote2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
 
-        jSplitPane1.setDividerLocation(500);
+        mainSplitPane.setDividerLocation(500);
 
-        jSplitPane2.setDividerLocation(500);
-        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        rightSplitPane.setDividerLocation(500);
+        rightSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        meterViewSrollPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Meter Display"));
 
         meterViewTable.setAutoCreateRowSorter(true);
         meterViewTable.setModel(new MeterViewTableModel());
         meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         meterViewSrollPane.setViewportView(meterViewTable);
 
-        jSplitPane2.setRightComponent(meterViewSrollPane);
+        rightSplitPane.setRightComponent(meterViewSrollPane);
+
+        accountPanel.setName(""); // NOI18N
 
         accountInfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Account Information"));
         accountInfoPanel.setName("Residential Account Information"); // NOI18N
@@ -207,12 +298,6 @@ public class UserInterface extends javax.swing.JFrame {
         compNameField.setEnabled(false);
 
         accSave.setText("Save/Edit");
-        accSave.setEnabled(false);
-        accSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accSaveActionPerformed(evt);
-            }
-        });
 
         accCancel.setText("Cancel");
         accCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +454,7 @@ public class UserInterface extends javax.swing.JFrame {
             .addGroup(accountPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(accountInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         accountPanelLayout.setVerticalGroup(
             accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,9 +464,12 @@ public class UserInterface extends javax.swing.JFrame {
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        jSplitPane2.setLeftComponent(accountPanel);
+        rightSplitPane.setLeftComponent(accountPanel);
 
-        jSplitPane1.setRightComponent(jSplitPane2);
+        mainSplitPane.setRightComponent(rightSplitPane);
+
+        accountScrollPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Account Display"));
+        accountScrollPane.setMinimumSize(new java.awt.Dimension(200, 200));
 
         accountTable.setAutoCreateRowSorter(true);
         accountTable.setModel(accountTableModel);
@@ -400,7 +488,7 @@ public class UserInterface extends javax.swing.JFrame {
         });
         accountScrollPane.setViewportView(accountTable);
 
-        jSplitPane1.setLeftComponent(accountScrollPane);
+        mainSplitPane.setLeftComponent(accountScrollPane);
 
         menuFile.setText("File");
 
@@ -453,14 +541,14 @@ public class UserInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
+                .addComponent(mainSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+                .addComponent(mainSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -490,36 +578,6 @@ public class UserInterface extends javax.swing.JFrame {
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         Controller.getInstance().save();
     }//GEN-LAST:event_saveActionPerformed
-
-    /**
-     * Action to handle adding a new meter to the program.
-     * 
-     * @param evt The event passed to this action.
-     */
-    private void addMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeterActionPerformed
-        JTextField meterIDField = new JTextField(5);
-        JTextField meterTypeField = new JTextField(12);
-        Object[] options = {"SAVE", "CANCEL"};
-
-          JPanel myPanel = new JPanel();
-          myPanel.add(new JLabel("Meter ID"));
-          myPanel.add(meterIDField);
-          myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-          myPanel.add(new JLabel("Meter Type"));
-          myPanel.add(meterTypeField);
-
-
-          int result = JOptionPane.showOptionDialog(null, myPanel, 
-                   "Enter information for a meter reading", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-          if (result == 0) 
-          {
-              Meter temp = new Meter(Integer.parseInt(meterIDField.getText()), meterTypeField.getText(), 0.0, new Address("a", "b", "c", "d", "e"));
-              Controller.getInstance().addMeter(temp);
-              //Call to tell the table to update
-              meterTableModel.fireTableDataChanged();
-              System.out.println("NEW METER ADDED");
-          }
-    }//GEN-LAST:event_addMeterActionPerformed
 
     /**
      * Action to handle deleting an account from the edit menu
@@ -563,31 +621,6 @@ public class UserInterface extends javax.swing.JFrame {
         return true;
     }
     
-    /**
-     * Action to handle deleting a meter from the edit menu
-     * 
-     * @param evt The event passed to this action.
-     */
-    private void deleteMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMeterActionPerformed
-          JTextField meterID = new JTextField(12);
-          Object[] options = {"DELETE", "CANCEL"};
-
-          JPanel myPanel = new JPanel();
-          myPanel.add(new JLabel("Enter Meter ID to Delete:"));
-          myPanel.add(meterID);
-
-          int result = JOptionPane.showOptionDialog(null, myPanel, 
-                   "Delete an Meter", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-          if (result == 0) 
-          {
-              int ID = Integer.parseInt(meterID.getText());
-              Controller.getInstance().deleteMeter(ID);
-              //Call to tell the table to update
-              meterTableModel.fireTableDataChanged();
-              System.out.println("METER DELETED");
-          }
-    }//GEN-LAST:event_deleteMeterActionPerformed
-
     /**
      * Action to handle adding a commercial account from the edit menu.
      * 
@@ -659,57 +692,6 @@ public class UserInterface extends javax.swing.JFrame {
     }
     
     /**
-     * Action to handle calls from the popup to edit the currently selected account.
-     * 
-     * @param evt The event passed to this action.
-     */
-    private void editAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAccountActionPerformed
-        //Get the account and remove it from the Controller.
-        int accID = getSelectedAccountID();   
-        Account acc = Controller.getInstance().deleteAccount(accID);
-        Address address = acc.getBillingAddress();
-        
-        //Handle Residential and Commercial accounts slightly differently
-        Account newAccount;
-        if(acc instanceof ResidentialAccount)
-        {
-            newAccount = promptForAccount((ResidentialAccount)acc, RESIDENTIAL);
-        }
-        else if(acc instanceof CommercialAccount)
-        {
-            newAccount = promptForAccount((CommercialAccount)acc, COMMERCIAL);
-        }
-        else
-        {
-            newAccount = null;
-        }
-        
-        //Updates the account if the new account isnt null, otherwise uses the old
-        //account. 
-        if(newAccount == null)
-        {
-            Controller.getInstance().addAccount(acc);
-        }
-        else
-        {
-            Controller.getInstance().addAccount(newAccount);
-        }
-        
-        accountTableModel.fireTableDataChanged();
-    }//GEN-LAST:event_editAccountActionPerformed
-
-    /**
-     * Action called when the user wants to view the information for an account.
-     * 
-     * @param evt The event passed to this action.
-     */
-    private void viewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAccountActionPerformed
-        int accID = getSelectedAccountID();
-        Account acc = Controller.getInstance().getAccount(accID);
-        displayViewAccountDialog(acc);
-    }//GEN-LAST:event_viewAccountActionPerformed
-
-    /**
      * Action called when the user wants to delete an account from the popup menu
      * 
      * @param evt The event passed to this action.
@@ -721,24 +703,25 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteAccountPopupActionPerformed
 
     private void addMeterToAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeterToAccountActionPerformed
+       
+        String options[] = {"OK",  "CANCEL"};
+        int result = JOptionPane.showOptionDialog(null, addMeterPanel, 
+                         "Add Meter to Account", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        if(result == 0)
+        {
+            Meter m = getMeterFromMeterPanel();
+            if(m != null)
+            {
+                Account temp = Controller.getInstance().getAccount(getSelectedAccountID());
+                temp.addMeter(m);
+                System.out.println(m.getMeterID());
+                showMetersInMeterTable(temp);
+            }
+            
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_addMeterToAccountActionPerformed
-
-    private void viewMetersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMetersActionPerformed
-        int accountID = getSelectedAccountID();
-        Account acc = Controller.getInstance().getAccount(accountID);
-        if(acc instanceof CommercialAccount)
-        {
-            meterViewTable.setModel(new MeterViewTableModel(((CommercialAccount)acc).getMeters()));
-        }
-        else
-        {
-            meterViewTable.setModel(new MeterViewTableModel(((ResidentialAccount)acc).getMeter()));
-        }
-//        meterViewDialog.pack();
-//        meterViewDialog.setLocationRelativeTo(this);
-//        meterViewDialog.setVisible(true);
-    }//GEN-LAST:event_viewMetersActionPerformed
 
     private void accountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseClicked
         int accID = getSelectedAccountID();
@@ -817,51 +800,41 @@ public class UserInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_accCreateActionPerformed
 
-    private void accSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accSaveActionPerformed
+    private Meter getMeterFromMeterPanel()
+    {
         
-        int accountID = -1;
+        int meterID = -1;
+        double meterRate = -1;
         try
         {
-            accountID = Integer.parseInt(accountIDField.getText());
+            meterID = Integer.parseInt(meterIDField.getText());
+            meterRate = Double.parseDouble(meterRateField.getText());
         }
-        catch(Exception e)
-        {}
+        catch(Exception e){}
+        if(meterID < 1 || meterRate < 0)
+            return null;
         
-        if(accountID < 1 || (Controller.getInstance().hasAccountID(accountID) && !(getSelectedAccountID()==accountID)))
-        {
-            accountIDField.setBackground(new Color(255, 200, 200));
-            return;
-        }
+        Address addr = new Address(meterAddLine1Field.getText(), meterAddLine2Field.getText(),
+                                        meterCityField.getText(), meterStateField.getText(),
+                                        meterZipField.getText());
         
-        Account acc = Controller.getInstance().getAccount(getSelectedAccountID());
-        if(acc instanceof ResidentialAccount)
-        {
-            ResidentialAccount resAcc = (ResidentialAccount) acc;
-            resAcc.setClientFirstName(firstNameField.getText());
-            resAcc.setClientLastName(lastNameField.getText());
-        }
-        else if(acc instanceof CommercialAccount)
-        {
-            CommercialAccount comAcc = (CommercialAccount) acc;
-            comAcc.setCompanyName(compNameField.getText());
-        }
+        clearMeterPanel();
         
-        acc.setAccountID(accountID);
-        Address addr = new Address(addLine1Field.getText(), 
-                                    addLine2Field.getText(), 
-                                    cityField.getText(), 
-                                    stateField.getText(), 
-                                    zipField.getText());
-        acc.setBillingAddress(addr);    
-
-        accountTableModel.fireTableDataChanged();
-        
-        clearFieldColorsInAccountPanel();
-        resetAccountInfoPanel();
-        
-        
-    }//GEN-LAST:event_accSaveActionPerformed
-
+        return new Meter(meterID, meterTypeComboBox.getSelectedItem().toString(), 
+                            meterRate, addr);
+    }
+    
+    private void clearMeterPanel()
+    {
+        meterIDField.setText("");
+        meterRateField.setText("");
+        meterAddLine1Field.setText("");
+        meterAddLine2Field.setText("");
+        meterCityField.setText("");
+        meterStateField.setText("");
+        meterZipField.setText("");
+    }
+    
     private void clearTextInAccountPanel()
     {
         compNameField.setText("");
@@ -1258,7 +1231,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem addCommercialAccount;
     private javax.swing.JTextField addLine1Field;
     private javax.swing.JTextField addLine2Field;
-    private javax.swing.JMenuItem addMeter;
+    private javax.swing.JPanel addMeterPanel;
     private javax.swing.JMenuItem addMeterToAccount;
     private javax.swing.JMenuItem addResidentialAccount;
     private javax.swing.JLabel addressLine1;
@@ -1271,30 +1244,46 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JTextField compNameField;
     private javax.swing.JMenuItem deleteAccount;
     private javax.swing.JMenuItem deleteAccountPopup;
-    private javax.swing.JMenuItem deleteMeter;
-    private javax.swing.JMenuItem editAccount;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameField;
+    private javax.swing.JSplitPane mainSplitPane;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
+    private javax.swing.JTextField meterAddLine1Field;
+    private javax.swing.JLabel meterAddLine1Label;
+    private javax.swing.JTextField meterAddLine2Field;
+    private javax.swing.JLabel meterAddLine2Label;
+    private javax.swing.JTextField meterCityField;
+    private javax.swing.JLabel meterCityLabel;
+    private javax.swing.JTextField meterIDField;
+    private javax.swing.JLabel meterIDLabel;
+    private javax.swing.JLabel meterNote1;
+    private javax.swing.JLabel meterNote2;
+    private javax.swing.JTextField meterRateField;
+    private javax.swing.JLabel meterRateLabel;
     private javax.swing.JScrollPane meterScrollPane;
+    private javax.swing.JTextField meterStateField;
+    private javax.swing.JLabel meterStateLabel;
     private javax.swing.JTable meterTable;
+    private javax.swing.JComboBox meterTypeComboBox;
+    private javax.swing.JLabel meterTypeLabel;
     private javax.swing.JScrollPane meterViewSrollPane;
     private javax.swing.JTable meterViewTable;
+    private javax.swing.JTextField meterZipField;
+    private javax.swing.JLabel meterZipLabel;
+    private javax.swing.JLabel optionalLabel;
     private javax.swing.JRadioButton resAccButton;
+    private javax.swing.JSplitPane rightSplitPane;
     private javax.swing.JMenuItem save;
     private javax.swing.JLabel state;
     private javax.swing.JTextField stateField;
-    private javax.swing.JMenuItem viewAccount;
-    private javax.swing.JMenuItem viewMeters;
     private javax.swing.JLabel zip;
     private javax.swing.JTextField zipField;
     // End of variables declaration//GEN-END:variables

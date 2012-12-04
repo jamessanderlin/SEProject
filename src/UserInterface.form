@@ -8,22 +8,6 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="viewAccount">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="View Account"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewAccountActionPerformed"/>
-          </Events>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="editAccount">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Edit Account"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editAccountActionPerformed"/>
-          </Events>
-        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="deleteAccountPopup">
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete Account"/>
@@ -34,14 +18,6 @@
         </MenuItem>
         <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
         </Component>
-        <MenuItem class="javax.swing.JMenuItem" name="viewMeters">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="View Meters"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewMetersActionPerformed"/>
-          </Events>
-        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="addMeterToAccount">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Meter To Account"/>
@@ -53,25 +29,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
-    </Component>
-    <Component class="javax.swing.JMenuItem" name="addMeter">
-      <Properties>
-        <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-          <KeyStroke key="Ctrl+M"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Add Meter"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMeterActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JMenuItem" name="deleteMeter">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Delete Meter"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteMeterActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="meterScrollPane">
       <AuxValues>
@@ -94,6 +51,199 @@
     </Container>
     <Component class="javax.swing.ButtonGroup" name="accountButtonGroup">
     </Component>
+    <Container class="javax.swing.JPanel" name="addMeterPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="meterZipLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="meterStateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="meterCityLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="meterAddLine2Label" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="meterAddLine1Label" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="meterRateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="meterTypeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="meterIDLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="meterRateField" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="meterTypeComboBox" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="meterCityField" pref="142" max="32767" attributes="0"/>
+                                  <Component id="meterIDField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="meterAddLine2Field" max="32767" attributes="0"/>
+                                  <Component id="meterAddLine1Field" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="meterZipField" pref="66" max="32767" attributes="0"/>
+                                  <Component id="meterStateField" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Component id="meterNote1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="optionalLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterNote2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meterIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meterTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="meterRateLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="meterRateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meterAddLine1Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterAddLine1Field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meterAddLine2Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterAddLine2Field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meterCityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterCityField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meterStateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterStateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="meterZipLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="meterZipField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="optionalLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="meterNote1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="meterNote2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="meterIDLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Meter ID"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterTypeLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Type"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterRateLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Rate"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterAddLine1Label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Address Line 1*"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterAddLine2Label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Address Line 2*"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterCityLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="City*"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterStateLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="State*"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterZipLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Zip*"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="meterIDField">
+        </Component>
+        <Component class="javax.swing.JTextField" name="meterRateField">
+        </Component>
+        <Component class="javax.swing.JTextField" name="meterAddLine1Field">
+        </Component>
+        <Component class="javax.swing.JTextField" name="meterAddLine2Field">
+        </Component>
+        <Component class="javax.swing.JTextField" name="meterCityField">
+        </Component>
+        <Component class="javax.swing.JTextField" name="meterStateField">
+        </Component>
+        <Component class="javax.swing.JTextField" name="meterZipField">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="meterTypeComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Digital"/>
+                <StringItem index="1" value="Analog"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="optionalLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="* Indicates an optional field"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterNote1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ID must be between 1 and 2147483647 "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="meterNote2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Rate must be greater than or equal to 0.0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="kWh"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFile">
@@ -179,7 +329,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSplitPane1" pref="877" max="32767" attributes="0"/>
+              <Component id="mainSplitPane" pref="877" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -188,21 +338,21 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSplitPane1" pref="708" max="32767" attributes="0"/>
+              <Component id="mainSplitPane" pref="708" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JSplitPane" name="jSplitPane1">
+    <Container class="javax.swing.JSplitPane" name="mainSplitPane">
       <Properties>
         <Property name="dividerLocation" type="int" value="500"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JSplitPane" name="jSplitPane2">
+        <Container class="javax.swing.JSplitPane" name="rightSplitPane">
           <Properties>
             <Property name="dividerLocation" type="int" value="500"/>
             <Property name="orientation" type="int" value="0"/>
@@ -216,6 +366,13 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="meterViewSrollPane">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="Meter Display"/>
+                  </Border>
+                </Property>
+              </Properties>
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -241,6 +398,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="accountPanel">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="" noResource="true"/>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                   <JSplitPaneConstraints position="left"/>
@@ -253,7 +413,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="accountInfoPanel" min="-2" pref="335" max="-2" attributes="0"/>
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <EmptySpace pref="22" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -491,11 +651,7 @@
                         <Component class="javax.swing.JButton" name="accSave">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Save/Edit"/>
-                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accSaveActionPerformed"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="accCancel">
                           <Properties>
@@ -550,6 +706,16 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="accountScrollPane">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Account Display"/>
+              </Border>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 200]"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
