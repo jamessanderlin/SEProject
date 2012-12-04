@@ -756,6 +756,8 @@ public class UserInterface extends javax.swing.JFrame {
         zipField.setText("");
         
         showMetersInMeterTable(null);
+        enableComResButtons(true);
+        accCreate.setEnabled(true);
     }//GEN-LAST:event_accCancelActionPerformed
 
     /**
@@ -813,6 +815,14 @@ public class UserInterface extends javax.swing.JFrame {
         zipField.setText(addr.getZip());
         
         showMetersInMeterTable(temp);
+        enableComResButtons(false);
+        accCreate.setEnabled(false);
+    }
+    
+    private void enableComResButtons(boolean enable)
+    {
+        resAccButton.setEnabled(enable);
+        comAccButton.setEnabled(enable);
     }
     
     private void showMetersInMeterTable(Account acc)
