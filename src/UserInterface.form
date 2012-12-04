@@ -304,7 +304,11 @@
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="firstNameField" alignment="0" max="32767" attributes="0"/>
                                               <Component id="lastNameField" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="accountIDField" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="accountIDField" min="-2" pref="97" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                               <Component id="addLine1Field" alignment="0" max="32767" attributes="0"/>
                                               <Component id="addLine2Field" alignment="0" max="32767" attributes="0"/>
                                               <Component id="cityField" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
@@ -312,7 +316,7 @@
                                                   <Component id="zipField" alignment="0" pref="76" max="32767" attributes="0"/>
                                                   <Component id="stateField" alignment="0" max="32767" attributes="0"/>
                                               </Group>
-                                              <Component id="compNameField" alignment="0" pref="198" max="32767" attributes="0"/>
+                                              <Component id="compNameField" alignment="0" max="32767" attributes="0"/>
                                               <Component id="resAccButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -348,6 +352,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="accountID" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="accountIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -486,6 +491,7 @@
                         <Component class="javax.swing.JButton" name="accSave">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Save/Edit"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="accCancel">
@@ -500,6 +506,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Create"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accCreateActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -525,6 +534,11 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comAccButtonActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel1">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="(1 - 2147483647)"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>

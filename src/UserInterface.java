@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.util.*;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
@@ -97,6 +97,7 @@ public class UserInterface extends javax.swing.JFrame {
         accCreate = new javax.swing.JButton();
         resAccButton = new javax.swing.JRadioButton();
         comAccButton = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
         accountScrollPane = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
@@ -206,6 +207,7 @@ public class UserInterface extends javax.swing.JFrame {
         compNameField.setEnabled(false);
 
         accSave.setText("Save/Edit");
+        accSave.setEnabled(false);
 
         accCancel.setText("Cancel");
         accCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -215,6 +217,11 @@ public class UserInterface extends javax.swing.JFrame {
         });
 
         accCreate.setText("Create");
+        accCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accCreateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
         buttonPanel.setLayout(buttonPanelLayout);
@@ -257,6 +264,8 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("(1 - 2147483647)");
+
         javax.swing.GroupLayout accountInfoPanelLayout = new javax.swing.GroupLayout(accountInfoPanel);
         accountInfoPanel.setLayout(accountInfoPanelLayout);
         accountInfoPanelLayout.setHorizontalGroup(
@@ -282,14 +291,17 @@ public class UserInterface extends javax.swing.JFrame {
                             .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(firstNameField)
                                 .addComponent(lastNameField)
-                                .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                                    .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel1))
                                 .addComponent(addLine1Field)
                                 .addComponent(addLine2Field)
                                 .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(zipField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                                     .addComponent(stateField, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addComponent(compNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                .addComponent(compNameField)
                                 .addComponent(resAccButton)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accountInfoPanelLayout.createSequentialGroup()
@@ -314,7 +326,8 @@ public class UserInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountID)
-                    .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addressLine1)
@@ -526,7 +539,7 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteAccountActionPerformed
 
     
-    private void confirmAccountDelete(int accountID)
+    private boolean confirmAccountDelete(int accountID)
     {
         Object[] options = {"YES", "NO"};
         JPanel myPanel = new JPanel();
@@ -536,12 +549,13 @@ public class UserInterface extends javax.swing.JFrame {
                    "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         
         if(result != 0)
-            return;
+            return false;
         
         Controller.getInstance().deleteAccount(accountID);
         //Call to tell the table to update
         accountTableModel.fireTableDataChanged();
         System.out.println("ACCOUNT DELETED");
+        return true;
     }
     
     /**
@@ -697,7 +711,8 @@ public class UserInterface extends javax.swing.JFrame {
      */
     private void deleteAccountPopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountPopupActionPerformed
         int accID = getSelectedAccountID();
-        confirmAccountDelete(accID);
+        if(confirmAccountDelete(accID))
+            resetAccountInfoPanel();
     }//GEN-LAST:event_deleteAccountPopupActionPerformed
 
     private void addMeterToAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeterToAccountActionPerformed
@@ -743,7 +758,62 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_comAccButtonActionPerformed
 
     private void accCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accCancelActionPerformed
+            resetAccountInfoPanel();
+            accountTable.clearSelection();
+    }//GEN-LAST:event_accCancelActionPerformed
 
+    private void accCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accCreateActionPerformed
+        
+        int accountID = -1;
+        try
+        {
+            accountID = Integer.parseInt(accountIDField.getText());
+        }
+        catch(Exception e)
+        {
+
+        }
+        
+        if(accountID < 1 || Controller.getInstance().hasAccountID(accountID))
+        {
+            accountIDField.setBackground(new Color(255, 200, 200));
+            return;
+        }
+
+        Account temp;
+        String fName = firstNameField.getText();
+        String lName = lastNameField.getText();
+        String cName = compNameField.getText();
+        Address addr = new Address(addLine1Field.getText(), 
+                                    addLine2Field.getText(), 
+                                    cityField.getText(), 
+                                    stateField.getText(), 
+                                    zipField.getText());
+        
+        
+        if(accountButtonGroup.isSelected(resAccButton.getModel()))
+        {
+            temp = new ResidentialAccount(fName, lName, accountID, 0, false, new Date(), addr);
+        }
+        else if(accountButtonGroup.isSelected(comAccButton.getModel()))
+        {
+            temp = new CommercialAccount(cName, accountID, 0, false, new Date(), addr);
+        }
+        else
+            temp = null;
+        
+        if(temp != null)
+        {
+            Controller.getInstance().addAccount(temp);
+        }
+        clearTextInAccountPanel();
+        clearFieldColorsInAccountPanel();
+        accountTableModel.fireTableDataChanged();
+        
+    }//GEN-LAST:event_accCreateActionPerformed
+
+    private void clearTextInAccountPanel()
+    {
         compNameField.setText("");
         lastNameField.setText("");
         firstNameField.setText("");
@@ -754,12 +824,34 @@ public class UserInterface extends javax.swing.JFrame {
         cityField.setText("");
         stateField.setText("");
         zipField.setText("");
+    }
+    
+    private void clearFieldColorsInAccountPanel()
+    {
+        compNameField.setBackground(Color.WHITE);
+        lastNameField.setBackground(Color.WHITE);
+        firstNameField.setBackground(Color.WHITE);
+
+        accountIDField.setBackground(Color.WHITE);
+        addLine1Field.setBackground(Color.WHITE);
+        addLine2Field.setBackground(Color.WHITE);
+        cityField.setBackground(Color.WHITE);
+        stateField.setBackground(Color.WHITE);
+        zipField.setBackground(Color.WHITE);
+    }
+    
+    private void resetAccountInfoPanel()
+    {
+        clearTextInAccountPanel();
+        clearFieldColorsInAccountPanel();
         
         showMetersInMeterTable(null);
         enableComResButtons(true);
         accCreate.setEnabled(true);
-    }//GEN-LAST:event_accCancelActionPerformed
-
+        accSave.setEnabled(false);
+    }
+            
+    
     /**
      * Enable and disable the name fields based on the account type presented. 
      * Note, only one option should ever be open.
@@ -817,6 +909,7 @@ public class UserInterface extends javax.swing.JFrame {
         showMetersInMeterTable(temp);
         enableComResButtons(false);
         accCreate.setEnabled(false);
+        accSave.setEnabled(true);
     }
     
     private void enableComResButtons(boolean enable)
@@ -1129,6 +1222,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem editAccount;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JSplitPane jSplitPane1;
