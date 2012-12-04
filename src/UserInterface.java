@@ -61,14 +61,42 @@ public class UserInterface extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         viewMeters = new javax.swing.JMenuItem();
         addMeterToAccount = new javax.swing.JMenuItem();
-        meterScrollPane = new javax.swing.JScrollPane();
-        meterTable = new javax.swing.JTable();
-        meterViewDialog = new javax.swing.JDialog();
-        meterViewSrollPane = new javax.swing.JScrollPane();
-        meterViewTable = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         addMeter = new javax.swing.JMenuItem();
         deleteMeter = new javax.swing.JMenuItem();
+        meterScrollPane = new javax.swing.JScrollPane();
+        meterTable = new javax.swing.JTable();
+        accountButtonGroup = new javax.swing.ButtonGroup();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        meterViewSrollPane = new javax.swing.JScrollPane();
+        meterViewTable = new javax.swing.JTable();
+        accountPanel = new javax.swing.JPanel();
+        accountInfoPanel = new javax.swing.JPanel();
+        firstName = new javax.swing.JLabel();
+        lastName = new javax.swing.JLabel();
+        accountID = new javax.swing.JLabel();
+        addressLine1 = new javax.swing.JLabel();
+        addressLine2 = new javax.swing.JLabel();
+        city = new javax.swing.JLabel();
+        state = new javax.swing.JLabel();
+        zip = new javax.swing.JLabel();
+        firstNameField = new javax.swing.JTextField();
+        lastNameField = new javax.swing.JTextField();
+        accountIDField = new javax.swing.JTextField();
+        addLine1Field = new javax.swing.JTextField();
+        addLine2Field = new javax.swing.JTextField();
+        cityField = new javax.swing.JTextField();
+        stateField = new javax.swing.JTextField();
+        zipField = new javax.swing.JTextField();
+        compName = new javax.swing.JLabel();
+        compNameField = new javax.swing.JTextField();
+        buttonPanel = new javax.swing.JPanel();
+        accSave = new javax.swing.JButton();
+        accCancel = new javax.swing.JButton();
+        accCreate = new javax.swing.JButton();
+        resAccButton = new javax.swing.JRadioButton();
+        comAccButton = new javax.swing.JRadioButton();
         accountScrollPane = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
@@ -120,34 +148,6 @@ public class UserInterface extends javax.swing.JFrame {
         });
         accountPopup.add(addMeterToAccount);
 
-        meterTable.setModel(meterTableModel);
-        meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
-        meterScrollPane.setViewportView(meterTable);
-
-        meterViewDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-
-        meterViewTable.setAutoCreateRowSorter(true);
-        meterViewTable.setModel(new MeterViewTableModel());
-        meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
-        meterViewSrollPane.setViewportView(meterViewTable);
-
-        javax.swing.GroupLayout meterViewDialogLayout = new javax.swing.GroupLayout(meterViewDialog.getContentPane());
-        meterViewDialog.getContentPane().setLayout(meterViewDialogLayout);
-        meterViewDialogLayout.setHorizontalGroup(
-            meterViewDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(meterViewDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(meterViewSrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        meterViewDialogLayout.setVerticalGroup(
-            meterViewDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(meterViewDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(meterViewSrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         addMeter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         addMeter.setText("Add Meter");
         addMeter.addActionListener(new java.awt.event.ActionListener() {
@@ -163,21 +163,221 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
 
+        meterTable.setModel(meterTableModel);
+        meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
+        meterScrollPane.setViewportView(meterTable);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
+
+        jSplitPane1.setDividerLocation(500);
+
+        jSplitPane2.setDividerLocation(500);
+        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        meterViewTable.setAutoCreateRowSorter(true);
+        meterViewTable.setModel(new MeterViewTableModel());
+        meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
+        meterViewSrollPane.setViewportView(meterViewTable);
+
+        jSplitPane2.setRightComponent(meterViewSrollPane);
+
+        accountInfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Account Information"));
+        accountInfoPanel.setName("Residential Account Information"); // NOI18N
+
+        firstName.setText("First Name");
+
+        lastName.setText("Last Name");
+
+        accountID.setText("Account ID");
+
+        addressLine1.setText("Address Line 1");
+
+        addressLine2.setText("Address Line 2");
+
+        city.setText("City");
+
+        state.setText("State");
+
+        zip.setText("Zip");
+
+        compName.setText("Company Name");
+
+        compNameField.setEnabled(false);
+
+        accSave.setText("Save/Edit");
+
+        accCancel.setText("Cancel");
+
+        accCreate.setText("Create");
+
+        javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
+        buttonPanel.setLayout(buttonPanelLayout);
+        buttonPanelLayout.setHorizontalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(accSave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(accCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(accCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        buttonPanelLayout.setVerticalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(accSave)
+                    .addComponent(accCancel)
+                    .addComponent(accCreate))
+                .addContainerGap())
+        );
+
+        accountButtonGroup.add(resAccButton);
+        resAccButton.setSelected(true);
+        resAccButton.setText("Residential Account");
+        resAccButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resAccButtonActionPerformed(evt);
+            }
+        });
+
+        accountButtonGroup.add(comAccButton);
+        comAccButton.setText("Commercial Account");
+        comAccButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comAccButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout accountInfoPanelLayout = new javax.swing.GroupLayout(accountInfoPanel);
+        accountInfoPanel.setLayout(accountInfoPanelLayout);
+        accountInfoPanelLayout.setHorizontalGroup(
+            accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                        .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firstName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(accountID, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addressLine1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addressLine2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(city, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(state, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(zip, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lastName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(compName, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comAccButton)
+                            .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(firstNameField)
+                                .addComponent(lastNameField)
+                                .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(addLine1Field)
+                                .addComponent(addLine2Field)
+                                .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(zipField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                                    .addComponent(stateField, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(compNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                .addComponent(resAccButton)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accountInfoPanelLayout.createSequentialGroup()
+                        .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        accountInfoPanelLayout.setVerticalGroup(
+            accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstName)
+                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lastName)
+                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(compName)
+                    .addComponent(compNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(accountID)
+                    .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addressLine1)
+                    .addComponent(addLine1Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addressLine2)
+                    .addComponent(addLine2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(city)
+                    .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(state)
+                    .addComponent(stateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(zip)
+                    .addComponent(zipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(resAccButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comAccButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
+        );
+
+        javax.swing.GroupLayout accountPanelLayout = new javax.swing.GroupLayout(accountPanel);
+        accountPanel.setLayout(accountPanelLayout);
+        accountPanelLayout.setHorizontalGroup(
+            accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(accountInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        accountPanelLayout.setVerticalGroup(
+            accountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(accountPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(accountInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        jSplitPane2.setLeftComponent(accountPanel);
+
+        jSplitPane1.setRightComponent(jSplitPane2);
 
         accountTable.setAutoCreateRowSorter(true);
         accountTable.setModel(accountTableModel);
         accountTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
+        accountTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 accountTableMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accountTableMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 accountTableMousePressed(evt);
             }
         });
         accountScrollPane.setViewportView(accountTable);
+
+        jSplitPane1.setLeftComponent(accountScrollPane);
 
         menuFile.setText("File");
 
@@ -230,14 +430,14 @@ public class UserInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(accountScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(accountScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -387,6 +587,7 @@ public class UserInterface extends javax.swing.JFrame {
      */
     private void accountTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMousePressed
         doAccountPopup(evt);
+        
     }//GEN-LAST:event_accountTableMousePressed
 
     /**
@@ -411,6 +612,8 @@ public class UserInterface extends javax.swing.JFrame {
             Point p = evt.getPoint();
             int row = accountTable.rowAtPoint(p);
             accountTable.getSelectionModel().setSelectionInterval(row, row);
+            Account temp = Controller.getInstance().getAccount(getSelectedAccountID());
+            showInAccountPanel(temp);
             accountPopup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
@@ -507,11 +710,87 @@ public class UserInterface extends javax.swing.JFrame {
         {
             meterViewTable.setModel(new MeterViewTableModel(((ResidentialAccount)acc).getMeter()));
         }
-        meterViewDialog.pack();
-        meterViewDialog.setLocationRelativeTo(this);
-        meterViewDialog.setVisible(true);
+//        meterViewDialog.pack();
+//        meterViewDialog.setLocationRelativeTo(this);
+//        meterViewDialog.setVisible(true);
     }//GEN-LAST:event_viewMetersActionPerformed
 
+    private void accountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseClicked
+        int accID = getSelectedAccountID();
+        Account temp = Controller.getInstance().getAccount(accID);
+        showInAccountPanel(temp);     
+        // TODO add your handling code here:
+    }//GEN-LAST:event_accountTableMouseClicked
+
+    private void resAccButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resAccButtonActionPerformed
+            firstNameField.setText(compNameField.getText());
+            lastNameField.setText("");
+            compNameField.setText("");
+            enableNameFields(RESIDENTIAL);
+    }//GEN-LAST:event_resAccButtonActionPerformed
+
+    private void comAccButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comAccButtonActionPerformed
+            compNameField.setText(firstNameField.getText() + " " + lastNameField.getText());
+            lastNameField.setText("");
+            firstNameField.setText("");
+            enableNameFields(COMMERCIAL);
+
+    }//GEN-LAST:event_comAccButtonActionPerformed
+
+    /**
+     * Enable and disable the name fields based on the account type presented. 
+     * Note, only one option should ever be open.
+     * 
+     * @param type The type of account passed to it. See int delcarations.
+     */
+    private void enableNameFields(int type)
+    {
+        if(type == RESIDENTIAL)
+        {
+            firstNameField.setEnabled(true);
+            lastNameField.setEnabled(true);
+            compNameField.setEnabled(false);
+        }
+        else if(type == COMMERCIAL)
+        {
+            firstNameField.setEnabled(false);
+            lastNameField.setEnabled(false);
+            compNameField.setEnabled(true);
+        }
+            
+    }
+    
+    private void showInAccountPanel(Account temp)
+    {
+        Address addr = temp.getBillingAddress();
+        
+        if(temp instanceof ResidentialAccount)
+        {
+            ResidentialAccount resAcc = (ResidentialAccount)temp;
+            firstNameField.setText(resAcc.getClientFirstName());
+            lastNameField.setText(resAcc.getClientLastName());
+            compNameField.setText("");
+            accountButtonGroup.setSelected(resAccButton.getModel(), true);
+            enableNameFields(RESIDENTIAL);
+        }
+        else if(temp instanceof CommercialAccount)
+        {
+            CommercialAccount comAcc = (CommercialAccount)temp;
+            compNameField.setText(comAcc.getCompanyName());
+            lastNameField.setText("");
+            firstNameField.setText("");
+            accountButtonGroup.setSelected(comAccButton.getModel(), true);
+            enableNameFields(COMMERCIAL);
+
+        }
+        
+        accountIDField.setText("" + temp.getAccountID());
+        addLine1Field.setText(addr.getLocation1());
+        addLine2Field.setText(addr.getLocation2());
+        cityField.setText(addr.getCity());
+        stateField.setText(addr.getState());
+        zipField.setText(addr.getZip());
+    }
     /**
      * Helper method to display the account information. This creates the popup
      * that displays the information. 
@@ -766,29 +1045,57 @@ public class UserInterface extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton accCancel;
+    private javax.swing.JButton accCreate;
+    private javax.swing.JButton accSave;
+    private javax.swing.ButtonGroup accountButtonGroup;
+    private javax.swing.JLabel accountID;
+    private javax.swing.JTextField accountIDField;
+    private javax.swing.JPanel accountInfoPanel;
+    private javax.swing.JPanel accountPanel;
     private javax.swing.JPopupMenu accountPopup;
     private javax.swing.JScrollPane accountScrollPane;
     private javax.swing.JTable accountTable;
     private javax.swing.JMenuItem addCommercialAccount;
+    private javax.swing.JTextField addLine1Field;
+    private javax.swing.JTextField addLine2Field;
     private javax.swing.JMenuItem addMeter;
     private javax.swing.JMenuItem addMeterToAccount;
     private javax.swing.JMenuItem addResidentialAccount;
+    private javax.swing.JLabel addressLine1;
+    private javax.swing.JLabel addressLine2;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JLabel city;
+    private javax.swing.JTextField cityField;
+    private javax.swing.JRadioButton comAccButton;
+    private javax.swing.JLabel compName;
+    private javax.swing.JTextField compNameField;
     private javax.swing.JMenuItem deleteAccount;
     private javax.swing.JMenuItem deleteAccountPopup;
     private javax.swing.JMenuItem deleteMeter;
     private javax.swing.JMenuItem editAccount;
+    private javax.swing.JLabel firstName;
+    private javax.swing.JTextField firstNameField;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JLabel lastName;
+    private javax.swing.JTextField lastNameField;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JScrollPane meterScrollPane;
     private javax.swing.JTable meterTable;
-    private javax.swing.JDialog meterViewDialog;
     private javax.swing.JScrollPane meterViewSrollPane;
     private javax.swing.JTable meterViewTable;
+    private javax.swing.JRadioButton resAccButton;
     private javax.swing.JMenuItem save;
+    private javax.swing.JLabel state;
+    private javax.swing.JTextField stateField;
     private javax.swing.JMenuItem viewAccount;
     private javax.swing.JMenuItem viewMeters;
+    private javax.swing.JLabel zip;
+    private javax.swing.JTextField zipField;
     // End of variables declaration//GEN-END:variables
 }
