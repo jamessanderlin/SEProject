@@ -70,4 +70,13 @@ public class Address {
 		return output;
 	}
 	
+	public String toString1(){
+		String output = location1 + '\n';
+		if(!location2.equals("NULL"))
+		{
+			output += location2 + '\n';
+		}
+		output += city + ", " + state + " " + zip;
+		return output;
+	}
 }

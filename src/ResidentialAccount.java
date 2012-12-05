@@ -1,5 +1,6 @@
 
 import java.util.*;
+import java.util.Map.Entry;
 public class ResidentialAccount extends Account
 {
 	private Meter meter;
@@ -98,5 +99,11 @@ public class ResidentialAccount extends Account
     @Override
     public double getTotalTaxCost(Date cutoffDate) {
     	return getMeter().getTaxCost(cutoffDate);
+    }
+    
+    public String getMeterUsage(Date cutoffDate){
+    	String s = "";
+    	s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(cutoffDate) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
+    	return s;
     }
 }

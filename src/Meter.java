@@ -129,7 +129,7 @@ public class Meter
 	public int getTotalUsage(Date cutoffDate) {
 		int accumulateReadings = 0;
 		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(cutoffDate).entrySet() ) {
-			accumulateReadings += ((Meter_Reading) mr).getReading();
+			accumulateReadings += mr.getValue().getReading();
 		}
 		return accumulateReadings;
 	}

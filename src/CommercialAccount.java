@@ -71,8 +71,19 @@ public class CommercialAccount extends Account
     public double getTotalTaxCost(Date cutoffDate) {
     	double accumulateCosts = 0.0;	
     	for(Entry<Integer, Meter> m : getMeters().entrySet()) {
-    		accumulateCosts += ((Meter) m).getTaxCost(cutoffDate);
+    		accumulateCosts += m.getValue().getTaxCost(cutoffDate);
     	}
     	return accumulateCosts;
+    }
+    
+    @Override
+    public String getMeterUsage(Date cutoffDate){
+    	String s = "";
+    	for(Entry<Integer, Meter> m : getMeters().entrySet())
+    	{
+    		Meter meter = m.getValue();
+    		s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(cutoffDate) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
+    	}
+    	return s;
     }
 }
