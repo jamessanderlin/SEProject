@@ -30,25 +30,6 @@
     </Container>
     <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
     </Component>
-    <Container class="javax.swing.JScrollPane" name="meterScrollPane">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="meterTable">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="meterTableModel" type="code"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());"/>
-          </AuxValues>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.ButtonGroup" name="accountButtonGroup">
     </Component>
     <Container class="javax.swing.JPanel" name="addMeterPanel">
@@ -330,7 +311,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="viewMeterIDField" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
                               <Component id="viewMeterComboBox" min="-2" max="-2" attributes="0"/>
-                              <Component id="vieMeterRateField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="viewMeterRateField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -355,7 +336,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="viewMeterRateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="vieMeterRateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="viewMeterRateField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -381,7 +362,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="viewMeterIDField">
             </Component>
-            <Component class="javax.swing.JTextField" name="vieMeterRateField">
+            <Component class="javax.swing.JTextField" name="viewMeterRateField">
             </Component>
             <Component class="javax.swing.JComboBox" name="viewMeterComboBox">
               <Properties>
@@ -511,15 +492,14 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="meterReadingTable">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
-                  </Table>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new MeterReadingViewTableModel()" type="code"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="meterReadingTable.setDefaultRenderer(Object.class, new LeftCellRenderer());&#xa;meterReadingTable.setDefaultRenderer(Date.class, new DateCellRenderer());"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -675,6 +655,9 @@
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new MeterViewTableModel()" type="code"/>
+                    </Property>
+                    <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                      <JTableSelectionModel selectionMode="0"/>
                     </Property>
                   </Properties>
                   <Events>

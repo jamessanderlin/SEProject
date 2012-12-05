@@ -19,8 +19,7 @@ import java.awt.event.WindowEvent;
 public class UserInterface extends javax.swing.JFrame {
 
     //The table models for the JTables displayed in the UserInterface
-    MapTableModel accountTableModel;
-    MeterTableModel meterTableModel;
+    MapTableModel accountTableModel;    
     
     //Constant ints for easy of identifying arguments;
     public static final int RESIDENTIAL = 0;
@@ -32,7 +31,6 @@ public class UserInterface extends javax.swing.JFrame {
     public UserInterface() {
         //Instantiation of the table models
         accountTableModel = new MapTableModel(Controller.getInstance().getAccounts(), "Account ID", "Account Name");
-        meterTableModel = new MeterTableModel(Controller.getInstance().getMeters(), "Meter ID");
         
         initComponents();
         
@@ -59,8 +57,6 @@ public class UserInterface extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         addMeterToAccount = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        meterScrollPane = new javax.swing.JScrollPane();
-        meterTable = new javax.swing.JTable();
         accountButtonGroup = new javax.swing.ButtonGroup();
         addMeterPanel = new javax.swing.JPanel();
         meterIDLabel = new javax.swing.JLabel();
@@ -91,7 +87,7 @@ public class UserInterface extends javax.swing.JFrame {
         viewMeterTypeLabel = new javax.swing.JLabel();
         viewMeterRateLabel = new javax.swing.JLabel();
         viewMeterIDField = new javax.swing.JTextField();
-        vieMeterRateField = new javax.swing.JTextField();
+        viewMeterRateField = new javax.swing.JTextField();
         viewMeterComboBox = new javax.swing.JComboBox();
         viewMeterTopRightPanel = new javax.swing.JPanel();
         viewMeterAdd1Label = new javax.swing.JLabel();
@@ -164,10 +160,6 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         accountPopup.add(addMeterToAccount);
-
-        meterTable.setModel(meterTableModel);
-        meterTable.setDefaultRenderer(Integer.class, new LeftCellRenderer());
-        meterScrollPane.setViewportView(meterTable);
 
         meterIDLabel.setText("Meter ID");
 
@@ -313,7 +305,7 @@ public class UserInterface extends javax.swing.JFrame {
                     .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(viewMeterIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(viewMeterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(vieMeterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(viewMeterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         viewMeterTopLeftPanelLayout.setVerticalGroup(
@@ -332,7 +324,7 @@ public class UserInterface extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(viewMeterRateLabel)
-                        .addComponent(vieMeterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(viewMeterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -396,17 +388,10 @@ public class UserInterface extends javax.swing.JFrame {
 
         viewMeterReadingTable.setBorder(javax.swing.BorderFactory.createTitledBorder("Meter Readings"));
 
-        meterReadingTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        meterReadingTable.setAutoCreateRowSorter(true);
+        meterReadingTable.setModel(new MeterReadingViewTableModel());
+        meterReadingTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
+        meterReadingTable.setDefaultRenderer(Date.class, new DateCellRenderer());
         viewMeterReadingTable.setViewportView(meterReadingTable);
 
         viewMeterSaveEdit.setText("Save/Edit");
@@ -456,6 +441,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         meterViewTable.setAutoCreateRowSorter(true);
         meterViewTable.setModel(new MeterViewTableModel());
+        meterViewTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         meterViewTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -913,7 +899,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         if(result == 0)
         {
-            Meter m = getMeterFromMeterPanel();
+            Meter m = getMeterFromAddMeterPanel();
             if(m != null)
             {
                 Account temp = getSelectedAccount();
@@ -1005,6 +991,8 @@ public class UserInterface extends javax.swing.JFrame {
     private void viewMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMeterActionPerformed
         
         String options[] = {"OK"};
+        Meter m = getSelectedMeter();
+        showInViewMeterPanel(m);
         int result = JOptionPane.showOptionDialog(null, viewMeterPanel, 
                          "View a Meter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         // TODO add your handling code here:
@@ -1032,6 +1020,32 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
+    private void showInViewMeterPanel(Meter m)
+    {
+        clearViewMeterPanel();
+        meterReadingTable.setModel(new MeterReadingViewTableModel(m.getReadings()));
+        
+        viewMeterIDField.setText(m.getMeterID() + "");
+        viewMeterRateField.setText(m.getMeterRate() + "");
+        Address addr = m.getPhysicalAddress();
+        viewMeterAdd1Field.setText(addr.getLocation1());
+        viewMeterAdd2Field.setText(addr.getLocation2());
+        viewMeterCityField.setText(addr.getCity());
+        viewMeterStateField.setText(addr.getState());
+        viewMeterZipField.setText(addr.getZip());
+    }
+    
+    private void clearViewMeterPanel()
+    {
+        viewMeterIDField.setText("");
+        viewMeterRateField.setText("");
+        viewMeterAdd1Field.setText("");
+        viewMeterAdd2Field.setText("");
+        viewMeterCityField.setText("");
+        viewMeterStateField.setText("");
+        viewMeterZipField.setText("");
+    }
+    
     private int getSelectedMeterID()
     {
         int row = meterViewTable.getSelectedRow();
@@ -1042,7 +1056,14 @@ public class UserInterface extends javax.swing.JFrame {
         return meterID;
     }
     
-    private Meter getMeterFromMeterPanel()
+    private Meter getSelectedMeter()
+    {
+        Account temp = getSelectedAccount();
+        Meter m = temp.getMeter(getSelectedMeterID());
+        return m;
+    }
+    
+    private Meter getMeterFromAddMeterPanel()
     {
         
         int meterID = -1;
@@ -1512,10 +1533,8 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JTextField meterRateField;
     private javax.swing.JLabel meterRateLabel;
     private javax.swing.JTable meterReadingTable;
-    private javax.swing.JScrollPane meterScrollPane;
     private javax.swing.JTextField meterStateField;
     private javax.swing.JLabel meterStateLabel;
-    private javax.swing.JTable meterTable;
     private javax.swing.JComboBox meterTypeComboBox;
     private javax.swing.JLabel meterTypeLabel;
     private javax.swing.JScrollPane meterViewSrollPane;
@@ -1528,7 +1547,6 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem save;
     private javax.swing.JLabel state;
     private javax.swing.JTextField stateField;
-    private javax.swing.JTextField vieMeterRateField;
     private javax.swing.JMenuItem viewMeter;
     private javax.swing.JTextField viewMeterAdd1Field;
     private javax.swing.JLabel viewMeterAdd1Label;
@@ -1540,6 +1558,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JTextField viewMeterIDField;
     private javax.swing.JLabel viewMeterIDLabel;
     private javax.swing.JPanel viewMeterPanel;
+    private javax.swing.JTextField viewMeterRateField;
     private javax.swing.JLabel viewMeterRateLabel;
     private javax.swing.JScrollPane viewMeterReadingTable;
     private javax.swing.JButton viewMeterSaveEdit;
