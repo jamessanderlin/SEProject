@@ -243,6 +243,22 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewMeterActionPerformed"/>
           </Events>
         </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="deleteMeter">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Delete Meter"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteMeterActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="quickAddMeterReading">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quick Add Meter Reading"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quickAddMeterReadingActionPerformed"/>
+          </Events>
+        </MenuItem>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="viewMeterPanel">
@@ -254,19 +270,29 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="viewMeterReadingTable" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="viewMeterTopLeftPanel" min="-2" pref="273" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="viewMeterTopRightPanel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Component id="viewMeterPanelOptionNote" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="viewMeterTopLeftPanel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="viewMeterTopRightPanel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="viewMeterReadingTable" alignment="1" min="-2" pref="544" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="addMeterReadingButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="deleteMeterReadingButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -281,8 +307,13 @@
                       <Component id="viewMeterTopLeftPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="viewMeterReadingTable" min="-2" pref="189" max="-2" attributes="0"/>
+                  <Component id="viewMeterReadingTable" min="-2" pref="198" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addMeterReadingButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteMeterReadingButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Component id="viewMeterPanelOptionNote" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -296,80 +327,64 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="viewMeterNote1" alignment="1" pref="261" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="viewMeterNote1" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="viewMeterNote2" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="viewMeterRateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="viewMeterTypeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="viewMeterIDLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="viewMeterIDField" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
+                                          <Component id="viewMeterComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="viewMeterRateField" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="viewMeterkWhLabel" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Component id="viewMeterNote3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="viewMeterNote2" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="viewMeterNote3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="viewMeterkWhLabel" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="viewMeterRateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="viewMeterTypeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="viewMeterIDLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="viewMeterIDField" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
-                              <Component id="viewMeterComboBox" min="-2" max="-2" attributes="0"/>
-                              <Component id="viewMeterRateField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="72" max="32767" attributes="0"/>
-                      <Component id="viewMeterkWhLabel" min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="viewMeterIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="viewMeterTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="viewMeterRateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterRateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterkWhLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="viewMeterNote1" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="viewMeterNote3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="viewMeterNote2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="viewMeterIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="viewMeterIDField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="viewMeterTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="viewMeterComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="viewMeterRateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="viewMeterRateField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="83" max="32767" attributes="0"/>
-                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -419,12 +434,6 @@
             <Component class="javax.swing.JLabel" name="viewMeterkWhLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="kWh"/>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[63, 16]"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[63, 16]"/>
-                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -552,6 +561,10 @@
                   <JTableSelectionModel selectionMode="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="meterReadingTableMouseReleased"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="meterReadingTableMousePressed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="meterReadingTable.setDefaultRenderer(Object.class, new LeftCellRenderer());&#xa;meterReadingTable.setDefaultRenderer(Date.class, new DateCellRenderer());"/>
               </AuxValues>
@@ -560,9 +573,177 @@
         </Container>
         <Component class="javax.swing.JLabel" name="viewMeterPanelOptionNote">
           <Properties>
-            <Property name="text" type="java.lang.String" value="*Note: Cancel only ignores changes to meter fields. Reading modifications are kept."/>
+            <Property name="text" type="java.lang.String" value="*Note: Cancel only ignores changes to meter fields. Other modifications are kept."/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="addMeterReadingButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add Meter Reading"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMeterReadingButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="deleteMeterReadingButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Delete Meter Reading"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteMeterReadingButtonActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="addMeterReadingPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="addMeterReadingTimeZoneLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingTimeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterDateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="addMeterReadingField" min="-2" pref="111" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="addMeterReadingkWh" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="addMeterReadingDateField" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="addMeterReadingTimeField" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="addMeterReadingAMPMComboBox" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="addMeterReadingTimeZoneField" min="-2" pref="76" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="addMeterReadingTimeZoneExample" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="addMeterReadingNote" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addMeterReadingLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingkWh" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addMeterDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingDateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addMeterReadingTimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingAMPMComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addMeterReadingTimeZoneLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingTimeZoneField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addMeterReadingTimeZoneExample" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="addMeterReadingNote" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="addMeterReadingLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Reading*"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addMeterDateLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Date"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addMeterReadingField">
+        </Component>
+        <Component class="javax.swing.JLabel" name="addMeterReadingkWh">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="kWh"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addMeterReadingDateField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="mm/dd/yy"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addMeterReadingTimeLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Time"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="addMeterReadingAMPMComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="AM"/>
+                <StringItem index="1" value="PM"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addMeterReadingTimeField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="hh:mm"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addMeterReadingTimeZoneLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Time zone"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addMeterReadingTimeZoneField">
+        </Component>
+        <Component class="javax.swing.JLabel" name="addMeterReadingTimeZoneExample">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="(i.e CST)"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addMeterReadingNote">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="*Reading must be betwen 1-2147483647"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPopupMenu" name="meterReadingPopup">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="deleteMeterReading">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Delete Meter Reading"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteMeterReadingActionPerformed"/>
+          </Events>
+        </MenuItem>
       </SubComponents>
     </Container>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
@@ -717,6 +898,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="meterViewTableMouseReleased"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="meterViewTableMouseClicked"/>
                     <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="meterViewTableMousePressed"/>
                   </Events>
                   <AuxValues>

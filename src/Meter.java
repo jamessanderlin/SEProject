@@ -52,6 +52,11 @@ public class Meter
 	{
 		readings.put(r.getReadingDate(),r);
 	}
+        
+        public Meter_Reading deleteReading(Date d)
+        {
+                return readings.remove(d);
+        }
 	
 	public String getType() {
 		if(isDigital) {
