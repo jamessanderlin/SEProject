@@ -20,7 +20,10 @@ public class ResidentialAccount extends Account
 	}
 
 	public Meter getMeter() {
-		return meter;
+		if(meter == null)
+                    return null;
+                else 
+                    return getMeter(meter.getMeterID());
 	}
 
 	public void setMeter(Meter meter) {
@@ -72,6 +75,11 @@ public class ResidentialAccount extends Account
         public Meter deleteMeter()
         {
             return deleteMeter(meter.getMeterID());
+        }
+        
+        public Meter getMeter(int meterID)
+        {
+            return meter;
         }
 
 		

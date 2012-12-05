@@ -46,5 +46,11 @@ public class CommercialAccount extends Account
         {
            return meters.remove(meterID);
         }
+        
+        @Override
+        public Meter getMeter(int meterID)
+        {
+            return meters.get(meterID);
+        }
 	
 }
