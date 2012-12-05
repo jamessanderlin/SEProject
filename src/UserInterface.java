@@ -1117,54 +1117,12 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteAccountPopupActionPerformed
 
     private void addMeterToAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeterToAccountActionPerformed
-       
-        String options[] = {"OK",  "CANCEL"};
-        int result = JOptionPane.showOptionDialog(null, addMeterPanel, 
-                         "Add Meter to Account", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-        if(result == 0)
-        {
-            Meter m = getMeterFromAddMeterPanel();
-            if(m != null)
-            {
-                Account temp = getSelectedAccount();
-                if(temp instanceof ResidentialAccount)
-                {
-                    ResidentialAccount resAcc = (ResidentialAccount)temp;
-                    if(resAcc.getMeter() != null)
-                    {
-                        String meterCheckOptions[] = {"YES",  "CANCEL"};
-                        int meterCheck = JOptionPane.showOptionDialog(null, "This account is a Residential Account. Adding a new Meter will overwrite the current one.\nDo you wish to continue?", 
-                                "Residential Account Conflict", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-                        if(meterCheck != 0)
-                            return;
-                    }
-                }
-                else
-                {
-                    if(temp.hasMeter(m.getMeterID()))
-                    {
-                        failToCreateMeterDialog();
-                    }
-                }
-                
-                temp.addMeter(m);
-                System.out.println(m.getMeterID());
-                showMetersInMeterTable(temp);
-            }
-            else
-            {
-                failToCreateMeterDialog();
-            }
-            
-        }
-        // TODO add your handling code here:
+        openAddMeterPanel();
     }//GEN-LAST:event_addMeterToAccountActionPerformed
 
     private void accountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseClicked
         Account temp = getSelectedAccount();
         showInAccountPanel(temp);     
-        // TODO add your handling code here:
     }//GEN-LAST:event_accountTableMouseClicked
 
     private void resAccButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resAccButtonActionPerformed
@@ -1370,6 +1328,51 @@ public class UserInterface extends javax.swing.JFrame {
                 failToCreateTaxDialog();
             }
             
+        }
+    }
+    
+    private void openAddMeterPanel()
+    { 
+        boolean failure = false;
+        String options[] = {"Create",  "Cancel"};
+        int result = JOptionPane.showOptionDialog(null, addMeterPanel, 
+                         "Add Meter to Account", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        if(result == 0)
+        {
+            Meter m = getMeterFromAddMeterPanel();
+            Account temp = getSelectedAccount();
+            if(m != null)
+            {
+                if(temp instanceof ResidentialAccount)
+                {
+                    ResidentialAccount resAcc = (ResidentialAccount)temp;
+                    if(resAcc.getMeter() != null)
+                    {
+                        boolean overWrite = confirmResidentialAccountConflict();
+                        if(!overWrite)
+                            return;
+                    }
+                }
+                else if(temp.hasMeter(m.getMeterID()))
+                {
+                    failure = true;
+                }
+            }
+            else
+            {
+                failure = true;
+            }
+            if(!failure)
+            {    
+                temp.addMeter(m);
+                System.out.println(m.getMeterID());
+                showMetersInMeterTable(temp);
+            }
+            else
+            {
+                failToCreateMeterDialog();
+            }
         }
     }
 
@@ -1688,7 +1691,7 @@ public class UserInterface extends javax.swing.JFrame {
     
     private boolean confirmAccountDelete(int accountID)
     {
-        Object[] options = {"YES", "NO"};
+        Object[] options = {"Yes", "No"};
         JPanel myPanel = new JPanel();
         myPanel.add(new JLabel("Delete Account with the ID:" +  accountID + "?"));
         
@@ -1707,7 +1710,7 @@ public class UserInterface extends javax.swing.JFrame {
     
     private boolean confirmMeterDelete()
     {
-        Object[] options = {"YES", "NO"};
+        Object[] options = {"Yes", "No"};
         
         int result = JOptionPane.showOptionDialog(null, "Are you sure you want to delete this meter?", 
                    "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
@@ -1721,6 +1724,26 @@ public class UserInterface extends javax.swing.JFrame {
         updateJTable(meterViewTable);
         System.out.println("METER DELETED");
         return true;
+    }
+    
+    
+    /**
+     * Method to confirm a user's decision to overwrite a residential account meter.
+     * The method returns true if the user wishes to continue, and false if the 
+     * user canceled, or does does not want to continue. 
+     * 
+     * @return 
+     */
+    private boolean confirmResidentialAccountConflict()
+    {
+        String meterCheckOptions[] = {"Yes", "No", "Cancel"};
+        int meterCheck = JOptionPane.showOptionDialog(null, "This account is a Residential Account. Adding a new Meter will overwrite the current one.\nDo you wish to continue?", 
+                "Residential Account Conflict", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, meterCheckOptions, meterCheckOptions[0]);
+        if(meterCheck == 0)
+            return true;
+        else
+            return false;
+        
     }
     
     //////////////////////////////////////////////////////////////////////////
