@@ -42,6 +42,11 @@ public class CommercialAccount extends Account
 		meters.put(m.getMeterID(), m);
 	}
         
+        public boolean hasMeter(int meterID)
+        {
+            return meters.containsKey(meterID);
+        }
+        
     @Override
     public Meter deleteMeter(int meterID)
     {

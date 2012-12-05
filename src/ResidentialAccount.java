@@ -57,6 +57,14 @@ public class ResidentialAccount extends Account
 		meter = m;
 	}
         
+        public boolean hasMeter(int meterID)
+        {
+            if(meter != null)
+                return meterID == meter.getMeterID();
+            else
+                return false;
+        }
+        
     @Override
     public Meter deleteMeter(int meterID)
     {

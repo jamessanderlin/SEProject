@@ -19,12 +19,12 @@ class MeterViewTableModel extends AbstractTableModel {
 
     public MeterViewTableModel()
     {
-        meters = new TreeMap<>();
+        meters = new TreeMap<Integer, Meter>();
     }
     
     public MeterViewTableModel(Meter m)
     {
-        meters = new TreeMap<>();
+        meters = new TreeMap<Integer, Meter>();
         if(m!=null)
         {
             meters.put(m.getMeterID(), m);

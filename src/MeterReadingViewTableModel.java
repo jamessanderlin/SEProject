@@ -18,7 +18,7 @@ public class MeterReadingViewTableModel extends AbstractTableModel{
 
     public MeterReadingViewTableModel()
     {
-        meterReadings = new TreeMap<>();
+        meterReadings = new TreeMap<Date, Meter_Reading>();
     }
     
     public MeterReadingViewTableModel(TreeMap<Date, Meter_Reading> m)
