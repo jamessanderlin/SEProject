@@ -106,13 +106,12 @@ public class Meter
 	}
 	
 	public double getTotalTaxRate() {
-		double accumulateTaxes = 0.0;
-		TreeMap<String, Taxes> t = getTaxes();
-		for(String name : t.keySet()) {
-			accumulateTaxes += getMeterRate();
-		}
-		return accumulateTaxes;
-	}
+        double accumulateTaxes = 0.0;
+        for(Taxes t : getTaxes().values()) {
+            accumulateTaxes += t.getRate();
+        }
+        return accumulateTaxes;
+    }
 
 	public int getTotalUsage(Date cutoffDate) {
 		int accumulateReadings = 0;
