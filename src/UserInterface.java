@@ -119,7 +119,9 @@ public class UserInterface extends javax.swing.JFrame {
         meterPopup = new javax.swing.JPopupMenu();
         viewMeter = new javax.swing.JMenuItem();
         deleteMeter = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         quickAddMeterReading = new javax.swing.JMenuItem();
+        quickAddTax = new javax.swing.JMenuItem();
         viewMeterPanel = new javax.swing.JPanel();
         viewMeterTopLeftPanel = new javax.swing.JPanel();
         viewMeterIDLabel = new javax.swing.JLabel();
@@ -148,6 +150,10 @@ public class UserInterface extends javax.swing.JFrame {
         viewMeterPanelOptionNote = new javax.swing.JLabel();
         addMeterReadingButton = new javax.swing.JButton();
         deleteMeterReadingButton = new javax.swing.JButton();
+        viewMeterTaxTable = new javax.swing.JScrollPane();
+        taxTable = new javax.swing.JTable();
+        addTaxButton = new javax.swing.JButton();
+        deleteTaxButton = new javax.swing.JButton();
         addMeterReadingPanel = new javax.swing.JPanel();
         addMeterReadingLabel = new javax.swing.JLabel();
         addMeterDateLabel = new javax.swing.JLabel();
@@ -163,6 +169,15 @@ public class UserInterface extends javax.swing.JFrame {
         addMeterReadingNote = new javax.swing.JLabel();
         meterReadingPopup = new javax.swing.JPopupMenu();
         deleteMeterReading = new javax.swing.JMenuItem();
+        addTaxPanel = new javax.swing.JPanel();
+        addTaxNameLabel = new javax.swing.JLabel();
+        addTaxRateLabel = new javax.swing.JLabel();
+        addTaxNote1 = new javax.swing.JLabel();
+        addTaxNameField = new javax.swing.JTextField();
+        addTaxRateField = new javax.swing.JTextField();
+        addTaxNote2 = new javax.swing.JLabel();
+        taxPopup = new javax.swing.JPopupMenu();
+        deleteTax = new javax.swing.JMenuItem();
         mainSplitPane = new javax.swing.JSplitPane();
         rightSplitPane = new javax.swing.JSplitPane();
         meterViewSrollPane = new javax.swing.JScrollPane();
@@ -200,8 +215,6 @@ public class UserInterface extends javax.swing.JFrame {
         menuFile = new javax.swing.JMenu();
         save = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
-        addResidentialAccount = new javax.swing.JMenuItem();
-        addCommercialAccount = new javax.swing.JMenuItem();
         deleteAccount = new javax.swing.JMenuItem();
 
         deleteAccountPopup.setText("Delete Account");
@@ -350,6 +363,7 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         meterPopup.add(deleteMeter);
+        meterPopup.add(jSeparator3);
 
         quickAddMeterReading.setText("Quick Add Meter Reading");
         quickAddMeterReading.addActionListener(new java.awt.event.ActionListener() {
@@ -358,6 +372,14 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         meterPopup.add(quickAddMeterReading);
+
+        quickAddTax.setText("Quick Add Tax");
+        quickAddTax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quickAddTaxActionPerformed(evt);
+            }
+        });
+        meterPopup.add(quickAddTax);
 
         viewMeterIDLabel.setText("Meter ID");
 
@@ -382,7 +404,7 @@ public class UserInterface extends javax.swing.JFrame {
             .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(viewMeterNote1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                    .addComponent(viewMeterNote1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
                         .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
@@ -425,7 +447,7 @@ public class UserInterface extends javax.swing.JFrame {
                 .addComponent(viewMeterNote3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(viewMeterNote2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         viewMeterAdd1Label.setText("Address Line 1");
@@ -519,6 +541,36 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
 
+        viewMeterTaxTable.setBorder(javax.swing.BorderFactory.createTitledBorder("Taxes"));
+
+        taxTable.setAutoCreateRowSorter(true);
+        taxTable.setModel(new TaxViewTableModel());
+        taxTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
+        taxTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        taxTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                taxTableMouseReleased(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                taxTableMousePressed(evt);
+            }
+        });
+        viewMeterTaxTable.setViewportView(taxTable);
+
+        addTaxButton.setText("Add Tax");
+        addTaxButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTaxButtonActionPerformed(evt);
+            }
+        });
+
+        deleteTaxButton.setText("Delete Tax");
+        deleteTaxButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteTaxButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout viewMeterPanelLayout = new javax.swing.GroupLayout(viewMeterPanel);
         viewMeterPanel.setLayout(viewMeterPanelLayout);
         viewMeterPanelLayout.setHorizontalGroup(
@@ -527,40 +579,48 @@ public class UserInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(viewMeterPanelLayout.createSequentialGroup()
-                        .addComponent(viewMeterPanelOptionNote)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewMeterPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(viewMeterTopLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewMeterTopRightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(viewMeterPanelLayout.createSequentialGroup()
+                        .addComponent(viewMeterReadingTable, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewMeterTaxTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(viewMeterPanelLayout.createSequentialGroup()
                         .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewMeterPanelLayout.createSequentialGroup()
-                                .addComponent(viewMeterTopLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewMeterPanelOptionNote)
+                            .addGroup(viewMeterPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(addMeterReadingButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(viewMeterTopRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewMeterPanelLayout.createSequentialGroup()
-                                .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(viewMeterReadingTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewMeterPanelLayout.createSequentialGroup()
-                                        .addComponent(addMeterReadingButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(deleteMeterReadingButton)))
-                                .addContainerGap())))))
+                                .addComponent(deleteMeterReadingButton)
+                                .addGap(48, 48, 48)
+                                .addComponent(addTaxButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteTaxButton)))
+                        .addGap(0, 29, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         viewMeterPanelLayout.setVerticalGroup(
             viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewMeterPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(viewMeterTopRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewMeterTopLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewMeterReadingTable, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(viewMeterTopRightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewMeterTopLeftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(viewMeterTaxTable, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(viewMeterReadingTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addMeterReadingButton)
-                    .addComponent(deleteMeterReadingButton))
-                .addGap(14, 14, 14)
+                    .addComponent(deleteMeterReadingButton)
+                    .addComponent(addTaxButton)
+                    .addComponent(deleteTaxButton))
+                .addGap(18, 18, 18)
                 .addComponent(viewMeterPanelOptionNote)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         addMeterReadingLabel.setText("Reading*");
@@ -649,6 +709,63 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         meterReadingPopup.add(deleteMeterReading);
+
+        addTaxNameLabel.setText("Tax Name");
+
+        addTaxRateLabel.setText("Tax Rate");
+
+        addTaxNote1.setText("*Rate should be greater than or");
+
+        addTaxNote2.setText("eaual to 0.0");
+
+        javax.swing.GroupLayout addTaxPanelLayout = new javax.swing.GroupLayout(addTaxPanel);
+        addTaxPanel.setLayout(addTaxPanelLayout);
+        addTaxPanelLayout.setHorizontalGroup(
+            addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addTaxPanelLayout.createSequentialGroup()
+                .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(addTaxPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addTaxRateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addTaxNameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addTaxNameField)
+                            .addComponent(addTaxRateField)))
+                    .addGroup(addTaxPanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addTaxPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(addTaxNote2))
+                            .addComponent(addTaxNote1))))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        addTaxPanelLayout.setVerticalGroup(
+            addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addTaxPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addTaxNameLabel)
+                    .addComponent(addTaxNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addTaxRateLabel)
+                    .addComponent(addTaxRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addTaxNote1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addTaxNote2))
+        );
+
+        deleteTax.setText("Delete Tax");
+        deleteTax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteTaxActionPerformed(evt);
+            }
+        });
+        taxPopup.add(deleteTax);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
@@ -912,24 +1029,6 @@ public class UserInterface extends javax.swing.JFrame {
 
         menuEdit.setText("Edit");
 
-        addResidentialAccount.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        addResidentialAccount.setText("Add Residential Account");
-        addResidentialAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addResidentialAccountActionPerformed(evt);
-            }
-        });
-        menuEdit.add(addResidentialAccount);
-
-        addCommercialAccount.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        addCommercialAccount.setText("Add Commercial Account");
-        addCommercialAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCommercialAccountActionPerformed(evt);
-            }
-        });
-        menuEdit.add(addCommercialAccount);
-
         deleteAccount.setText("Delete Account");
         deleteAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -963,21 +1062,6 @@ public class UserInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Action to handle adding a new Residential Account to the program.
-     * 
-     * @param evt The event passed to this action.
-     */
-    private void addResidentialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addResidentialAccountActionPerformed
-        Account temp = promptForAccount(RESIDENTIAL);
-    	if(temp != null)
-    	{
-    		Controller.getInstance().addAccount(temp);
-                //Call to tell the table to update
-    		accountTableModel.fireTableDataChanged();
-    	}
-    }//GEN-LAST:event_addResidentialAccountActionPerformed
-
-    /**
      * Action to handle force saving the status of the program
      * 
      * @param evt The event passed to this action.
@@ -1008,22 +1092,6 @@ public class UserInterface extends javax.swing.JFrame {
           }
     }//GEN-LAST:event_deleteAccountActionPerformed
     
-    /**
-     * Action to handle adding a commercial account from the edit menu.
-     * 
-     * @param evt The event passed to this action.
-     */
-    private void addCommercialAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCommercialAccountActionPerformed
-        Account temp = promptForAccount(COMMERCIAL);
-    	if(temp != null)
-    	{
-    		Controller.getInstance().addAccount(temp);
-                //Call to tell the table to update
-    		accountTableModel.fireTableDataChanged();
-    	}
-
-    }//GEN-LAST:event_addCommercialAccountActionPerformed
-
     /**
      * Event to detect popup
      * 
@@ -1222,6 +1290,30 @@ public class UserInterface extends javax.swing.JFrame {
     private void quickAddMeterReadingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quickAddMeterReadingActionPerformed
         openAddMeterReadingPanel();
     }//GEN-LAST:event_quickAddMeterReadingActionPerformed
+
+    private void addTaxButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTaxButtonActionPerformed
+        openAddTaxPanel();
+    }//GEN-LAST:event_addTaxButtonActionPerformed
+
+    private void quickAddTaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quickAddTaxActionPerformed
+        openAddTaxPanel();
+    }//GEN-LAST:event_quickAddTaxActionPerformed
+
+    private void deleteTaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTaxActionPerformed
+        deleteSelectedTax();
+    }//GEN-LAST:event_deleteTaxActionPerformed
+
+    private void deleteTaxButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTaxButtonActionPerformed
+        deleteSelectedTax();
+    }//GEN-LAST:event_deleteTaxButtonActionPerformed
+
+    private void taxTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taxTableMouseReleased
+        doTaxPopup(evt);
+    }//GEN-LAST:event_taxTableMouseReleased
+
+    private void taxTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taxTableMousePressed
+        doTaxPopup(evt);
+    }//GEN-LAST:event_taxTableMousePressed
     
     private boolean confirmMeterDelete()
     {
@@ -1253,17 +1345,19 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
-    private void doMeterReadingPopup(java.awt.event.MouseEvent evt)
+    private void deleteSelectedTax()
     {
-        if(evt.isPopupTrigger())
-        {
-            Point p = evt.getPoint();
-            int row = meterReadingTable.rowAtPoint(p);
-            meterReadingTable.getSelectionModel().setSelectionInterval(row, row);
-            //showInAccountPanel(temp);
-            meterReadingPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+        Meter m = getSelectedMeter();
+        int row = taxTable.getSelectedRow();
+        if(row >= 0)
+        {    
+            String name = (String)taxTable.getValueAt(row, 0);
+            m.deleteTax(name);
+            updateJTable(taxTable);
         }
     }
+    
+
     
     private void resetAddMeterReadingPanel()
     {
@@ -1273,31 +1367,18 @@ public class UserInterface extends javax.swing.JFrame {
         addMeterReadingTimeZoneField.setText("");
     }
     
-    private void failToCreatMeterReadingDialog()
-    {
-        JOptionPane.showMessageDialog(null, "Could not create meter reading. Please check your values.");
-    }
-    
-    private void failToCreateMeterDialog()
-    {
-        JOptionPane.showMessageDialog(null, "Could not create meter. Please check your values.");
-    }
-    
-    private void failToEditMeterDialog()
-    {
-        JOptionPane.showMessageDialog(null, "Could not edit meter. Please check your values");
-    }
-    
     private Meter getMeterFromViewMeterPanel()
     {
         int meterID = -1;
         double meterRate = -1;
+        
         try
         {
             meterID = Integer.parseInt(viewMeterIDField.getText());
             meterRate = Double.parseDouble(viewMeterRateField.getText());
         }
         catch(Exception e){}
+        
         if(meterID < 1 || meterRate < 0)
             return null;
         
@@ -1331,24 +1412,6 @@ public class UserInterface extends javax.swing.JFrame {
     }
 
     /**
-     * Actual method to respond to a call for a popup even. Checks if the event is the
-     * popup trigger and then responds accordingly.
-     * 
-     * @param evt The event passed to this action.
-     */
-    private void doAccountPopup(java.awt.event.MouseEvent evt)
-    {
-        if(evt.isPopupTrigger())
-        {
-            Point p = evt.getPoint();
-            int row = accountTable.rowAtPoint(p);
-            accountTable.getSelectionModel().setSelectionInterval(row, row);
-            Account temp = getSelectedAccount();
-            showInAccountPanel(temp);
-            accountPopup.show(evt.getComponent(), evt.getX(), evt.getY());
-        }
-    }        
-    /**
      * Returns the currently selected row in the account table. Returns -1 if
      * for some reason the accountTable does not return an Integer
      * 
@@ -1369,30 +1432,64 @@ public class UserInterface extends javax.swing.JFrame {
         int accID = getSelectedAccountID();
         return Controller.getInstance().getAccount(accID);
     }
+
     
-    private void doMeterPopup(java.awt.event.MouseEvent evt)
+    private void openAddTaxPanel()
     {
-        if(evt.isPopupTrigger())
+        boolean failed = false;
+        String options[] = {"Create", "Cancel"};
+        int result = JOptionPane.showOptionDialog(null, addTaxPanel, 
+                         "Add a Tax", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        if(result == 0)
         {
-            Point p = evt.getPoint();
-            int row = meterViewTable.rowAtPoint(p);
-            meterViewTable.getSelectionModel().setSelectionInterval(row, row);
-            Account temp = getSelectedAccount();
-            Meter m = temp.getMeter(getSelectedMeterID());
-            //showInAccountPanel(temp);
-            meterPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+            double taxRate = -1;
+            String name = "";
+            
+            try
+            {
+                taxRate = Double.parseDouble(addTaxRateField.getText());
+                name = addTaxNameField.getText();
+            }
+            catch(Exception e)
+            {
+                failed = true;
+            }
+            
+            if(taxRate < 0.0)
+                failed = true;
+            
+            if(!failed)
+            {
+                clearAddTaxPanel();
+                Meter m = getSelectedMeter();
+                m.addTax(new Taxes(name, taxRate));
+                updateJTable(taxTable);
+            }
+            else
+            {
+                failToCreateTaxDialog();
+            }
+            
         }
+    }
+    
+    private void clearAddTaxPanel()
+    {
+        addTaxNameField.setText("");
+        addTaxRateField.setText("");
     }
     
     private void openAddMeterReadingPanel()
     {
+        boolean failed = false;
         String options[] = {"Create", "Cancel"};
         int result = JOptionPane.showOptionDialog(null, addMeterReadingPanel, 
                          "Add a Meter Reading", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         if(result == 0)
         {
             int meterReading = -1;
-            Date d;
+            Date d = new Date();
+            
             try
             {
                 meterReading = Integer.parseInt(addMeterReadingField.getText());
@@ -1405,13 +1502,23 @@ public class UserInterface extends javax.swing.JFrame {
             }
             catch(Exception e)
             {
-                failToCreatMeterReadingDialog();
-                return;
+                failed = true;
             }
-            resetAddMeterReadingPanel();
-            Meter m = getSelectedMeter();
-            m.addReading(new Meter_Reading(meterReading, d));
-            updateJTable(meterReadingTable);
+            
+            if(meterReading < 0)
+                failed = true;
+            
+            if(!failed)
+            {  
+                resetAddMeterReadingPanel();
+                Meter m = getSelectedMeter();
+                m.addReading(new Meter_Reading(meterReading, d));
+                updateJTable(meterReadingTable);
+            }
+            else
+            {
+                failToCreateMeterReadingDialog();
+            }
             
         }
     }
@@ -1447,6 +1554,7 @@ public class UserInterface extends javax.swing.JFrame {
     {
         clearViewMeterPanel();
         meterReadingTable.setModel(new MeterReadingViewTableModel(m.getReadings()));
+        taxTable.setModel(new TaxViewTableModel(m.getTaxes()));
         
         viewMeterIDField.setText(m.getMeterID() + "");
         viewMeterRateField.setText(m.getMeterRate() + "");
@@ -1644,9 +1752,6 @@ public class UserInterface extends javax.swing.JFrame {
             meterViewTable.setModel(new MeterViewTableModel());
   
         }
-//        meterViewDialog.pack();
-//        meterViewDialog.setLocationRelativeTo(this);
-//        meterViewDialog.setVisible(true);
     }
     
     private void updateJTable(JTable table)
@@ -1657,225 +1762,92 @@ public class UserInterface extends javax.swing.JFrame {
             ((AbstractTableModel)(model)).fireTableDataChanged();
         }
     }
-    /**
-     * Helper method to display the account information. This creates the popup
-     * that displays the information. 
-     * 
-     * @param acc 
-     */
-    private void displayViewAccountDialog(Account acc)
+
+    //////////////////////////////////////////////////////////////////////////
+    //Fail Dialog Handlers
+    //////////////////////////////////////////////////////////////////////////
+    
+    private void failToCreateMeterReadingDialog()
     {
-        Address address = acc.getBillingAddress();
-        
-        //Display the name panel for the different accounts slightly differently
-        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        if(acc instanceof CommercialAccount)
-        {
-            CommercialAccount comAcc = (CommercialAccount)acc;
-            namePanel.add(new JLabel("Company Name:"));
-            namePanel.add(new JLabel(comAcc.getCompanyName()));
-        }
-        else
-        {
-            ResidentialAccount resAcc = (ResidentialAccount)acc;
-            namePanel.add(new JLabel("First Name:"));
-            namePanel.add(new JLabel(resAcc.getClientFirstName()));
-            namePanel.add(Box.createHorizontalStrut(15));
-            namePanel.add(new JLabel("Last Name:"));
-            namePanel.add(new JLabel(resAcc.getClientLastName()));
-        }  
-        
-        //Construct the rest of the panel. 
-        Object[] options = {"OK"};
-
-		JPanel myPanel = new JPanel();
-		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-
-		myPanel.add(namePanel);
-		JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		accountIdPanel.add(new JLabel("Account ID:"));
-		accountIdPanel.add(new JLabel("" + acc.getAccountID()));
-		accountIdPanel.add(Box.createHorizontalStrut(230));
-		myPanel.add(accountIdPanel);
-		JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                JPanel addressPanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		addressPanel.add(new JLabel("Address Line 1:"));
-		addressPanel.add(new JLabel(address.getLocation1()));
-		addressPanel.add(Box.createHorizontalStrut(15));
-		addressPanel2.add(new JLabel("Address Line 2:"));
-		addressPanel2.add(new JLabel(address.getLocation2()));
-		myPanel.add(addressPanel);
-                myPanel.add(addressPanel2);
-		JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		cszPanel.add(new JLabel("City:"));
-		cszPanel.add(new JLabel(address.getCity()));
-		cszPanel.add(Box.createHorizontalStrut(15));
-		cszPanel.add(new JLabel("State:"));
-		cszPanel.add(new JLabel(address.getState()));
-		cszPanel.add(Box.createHorizontalStrut(15));
-		cszPanel.add(new JLabel("Zip:"));
-		cszPanel.add(new JLabel(address.getZip()));
-		myPanel.add(cszPanel);
-                JOptionPane.showOptionDialog(null, myPanel, 
-                         "View Account Information", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        JOptionPane.showMessageDialog(null, "Could not create meter reading. Please check your values.");
     }
     
-    /**
-     * Convinience method for promptForAccount. Calls the normal method with a null
-     * account parameter. Note this will create a popup that has empty fields.
-     * 
-     * @param type The type of the account
-     * @return The new/edited account.
-     */
-    private Account promptForAccount(int type)
+    private void failToCreateMeterDialog()
     {
-        return promptForAccount(null, type);
+        JOptionPane.showMessageDialog(null, "Could not create meter. Please check your values.");
     }
     
-    /**
-     * Method to create or edit an account. If the method is passed an account,
-     * it will use the account information to populate the fields in the dialog.
+    private void failToEditMeterDialog()
+    {
+        JOptionPane.showMessageDialog(null, "Could not edit meter. Please check your values");
+    }
+    
+    private void failToCreateTaxDialog()
+    {
+        JOptionPane.showMessageDialog(null, "Could not create tax. Please check your values");
+    }
+    
+    //////////////////////////////////////////////////////////////////////////
+    //Popup Handlers
+    //////////////////////////////////////////////////////////////////////////
+    
+     /**
+     * Actual method to respond to a call for a popup event. Checks if the event is the
+     * popup trigger and then responds accordingly.
      * 
-     * @param acc The account with which to populate the fields.
-     * @param type The type of the Account. 
-     * @return 
+     * @param evt The event passed to this action.
      */
-    private Account promptForAccount(Account acc, int type)
-    {   
-        //Fields for the name panel.
-        JTextField firstNameField = new JTextField(10);
-        JTextField lastNameField = new JTextField(10);           
-        JTextField companyName = new JTextField(30);
-          
-        //Fields for the rest of the panels.
-        JTextField accountIDField = new JTextField(10);
-        JTextField line1Field = new JTextField(20);
-        JTextField line2Field = new JTextField(20);
-        JTextField cityField = new JTextField(10);
-        JTextField stateField = new JTextField(10);
-        JTextField zipField = new JTextField(5);
-            
-        //Populate the fields with the current account if it is not null    
-        if(acc != null)
+    private void doAccountPopup(java.awt.event.MouseEvent evt)
+    {
+        if(evt.isPopupTrigger())
         {
-            Address address = acc.getBillingAddress();
-            if(type == RESIDENTIAL && acc instanceof ResidentialAccount)
-            {
-                ResidentialAccount resAcc = (ResidentialAccount)acc;
-                firstNameField.setText(resAcc.getClientFirstName());
-                lastNameField.setText(resAcc.getClientLastName());
-            }
-            else if(type == COMMERCIAL && acc instanceof CommercialAccount)
-            {
-                CommercialAccount comAcc = (CommercialAccount)acc;
-                companyName.setText(comAcc.getCompanyName());
-            }
-            else
-            {
-                return null;
-            }
-            
-            accountIDField.setText(Integer.toString(acc.getAccountID()));
-            line1Field.setText(address.getLocation1());
-            line2Field.setText(address.getLocation2());
-            cityField.setText(address.getCity());
-            stateField.setText(address.getState());
-            zipField.setText(address.getZip());
+            Point p = evt.getPoint();
+            int row = accountTable.rowAtPoint(p);
+            accountTable.getSelectionModel().setSelectionInterval(row, row);
+            Account temp = getSelectedAccount();
+            showInAccountPanel(temp);
+            accountPopup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-        
-        //Handle the name panel depending on the type of account. 
-        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        if(type == COMMERCIAL)
+    }        
+    
+    private void doMeterPopup(java.awt.event.MouseEvent evt)
+    {
+        if(evt.isPopupTrigger())
         {
-            namePanel.add(new JLabel("Company Name:"));
-            namePanel.add(companyName);
-        }
-        else if(type == RESIDENTIAL)
-        {
-            namePanel.add(new JLabel("First Name:"));
-            namePanel.add(firstNameField);
-            namePanel.add(Box.createHorizontalStrut(15));
-            namePanel.add(new JLabel("Last Name:"));
-            namePanel.add(lastNameField);
-        }
-        //Return null for a unhandled account. 
-        else
-        {
-            return null;
-        }
-        
-        //Create the other standard fields for the dialog
-        JPanel myPanel = new JPanel();
-        myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.Y_AXIS));
-        myPanel.add(namePanel);
-        JPanel accountIdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        accountIdPanel.add(new JLabel("Account ID:"));
-        accountIdPanel.add(accountIDField);
-        accountIdPanel.add(Box.createHorizontalStrut(230));
-        myPanel.add(accountIdPanel);
-        JPanel addressPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JPanel addressPanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        addressPanel.add(new JLabel("Address Line 1:"));
-        addressPanel.add(line1Field);
-        addressPanel2.add(new JLabel("Address Line 2:"));
-        addressPanel2.add(line2Field);
-        myPanel.add(addressPanel);
-        myPanel.add(addressPanel2);
-        JPanel cszPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        cszPanel.add(new JLabel("City:"));
-        cszPanel.add(cityField);
-        cszPanel.add(Box.createHorizontalStrut(15));
-        cszPanel.add(new JLabel("State"));
-        cszPanel.add(stateField);
-        cszPanel.add(Box.createHorizontalStrut(15));
-        cszPanel.add(new JLabel("Zip"));
-        cszPanel.add(zipField);
-        myPanel.add(cszPanel);
-        
-        //Display the dialog.
-        Object[] options = {"SAVE", "CANCEL"};
-        int result = JOptionPane.showOptionDialog(null, myPanel, "Enter information for the account", 
-                                                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
-                                                    null, options, options[0]);
-        
-        //If the user clicks ok, create the new account based on the parameters
-        if (result == 0) 
-        {
-            try
-            {  
-                Account temp;
-                if(type == RESIDENTIAL)
-                {
-                    temp = new ResidentialAccount(firstNameField.getText(), lastNameField.getText(),	
-                                                        Integer.parseInt(accountIDField.getText()), 0, false,
-                                                        new Date(), new Address(line1Field.getText(), 
-                                                        line2Field.getText(), cityField.getText(), 
-                                                        stateField.getText(), zipField.getText()));
-                }
-                else if(type == COMMERCIAL)
-                {
-                    temp = new CommercialAccount(companyName.getText(), 
-                                                        Integer.parseInt(accountIDField.getText()), 0, false, 
-                                                        new Date(), new Address(line1Field.getText(), 
-                                                        line2Field.getText(), cityField.getText(), 
-                                                        stateField.getText(), zipField.getText()));
-                }
-                else
-                {
-                    temp = null;
-                }
-                return temp;
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
-        }
-        else
-        {
-            return null;
+            Point p = evt.getPoint();
+            int row = meterViewTable.rowAtPoint(p);
+            meterViewTable.getSelectionModel().setSelectionInterval(row, row);
+            Account temp = getSelectedAccount();
+            Meter m = temp.getMeter(getSelectedMeterID());
+            //showInAccountPanel(temp);
+            meterPopup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
+    
+    private void doTaxPopup(java.awt.event.MouseEvent evt)
+    {
+        if(evt.isPopupTrigger())
+        {
+            Point p = evt.getPoint();
+            int row = taxTable.rowAtPoint(p);
+            taxTable.getSelectionModel().setSelectionInterval(row, row);
+            //showInAccountPanel(temp);
+            taxPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
+    private void doMeterReadingPopup(java.awt.event.MouseEvent evt)
+    {
+        if(evt.isPopupTrigger())
+        {
+            Point p = evt.getPoint();
+            int row = meterReadingTable.rowAtPoint(p);
+            meterReadingTable.getSelectionModel().setSelectionInterval(row, row);
+            //showInAccountPanel(temp);
+            meterReadingPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1922,7 +1894,6 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JPopupMenu accountPopup;
     private javax.swing.JScrollPane accountScrollPane;
     private javax.swing.JTable accountTable;
-    private javax.swing.JMenuItem addCommercialAccount;
     private javax.swing.JTextField addLine1Field;
     private javax.swing.JTextField addLine2Field;
     private javax.swing.JLabel addMeterDateLabel;
@@ -1941,7 +1912,14 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel addMeterReadingTimeZoneLabel;
     private javax.swing.JLabel addMeterReadingkWh;
     private javax.swing.JMenuItem addMeterToAccount;
-    private javax.swing.JMenuItem addResidentialAccount;
+    private javax.swing.JButton addTaxButton;
+    private javax.swing.JTextField addTaxNameField;
+    private javax.swing.JLabel addTaxNameLabel;
+    private javax.swing.JLabel addTaxNote1;
+    private javax.swing.JLabel addTaxNote2;
+    private javax.swing.JPanel addTaxPanel;
+    private javax.swing.JTextField addTaxRateField;
+    private javax.swing.JLabel addTaxRateLabel;
     private javax.swing.JLabel addressLine1;
     private javax.swing.JLabel addressLine2;
     private javax.swing.JPanel buttonPanel;
@@ -1955,11 +1933,14 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem deleteMeter;
     private javax.swing.JMenuItem deleteMeterReading;
     private javax.swing.JButton deleteMeterReadingButton;
+    private javax.swing.JMenuItem deleteTax;
+    private javax.swing.JButton deleteTaxButton;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JSplitPane mainSplitPane;
@@ -1993,11 +1974,14 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel meterZipLabel;
     private javax.swing.JLabel optionalLabel;
     private javax.swing.JMenuItem quickAddMeterReading;
+    private javax.swing.JMenuItem quickAddTax;
     private javax.swing.JRadioButton resAccButton;
     private javax.swing.JSplitPane rightSplitPane;
     private javax.swing.JMenuItem save;
     private javax.swing.JLabel state;
     private javax.swing.JTextField stateField;
+    private javax.swing.JPopupMenu taxPopup;
+    private javax.swing.JTable taxTable;
     private javax.swing.JMenuItem viewMeter;
     private javax.swing.JTextField viewMeterAdd1Field;
     private javax.swing.JLabel viewMeterAdd1Label;
@@ -2018,6 +2002,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane viewMeterReadingTable;
     private javax.swing.JTextField viewMeterStateField;
     private javax.swing.JLabel viewMeterStateLabel;
+    private javax.swing.JScrollPane viewMeterTaxTable;
     private javax.swing.JPanel viewMeterTopLeftPanel;
     private javax.swing.JPanel viewMeterTopRightPanel;
     private javax.swing.JLabel viewMeterTypeLabel;

@@ -48,7 +48,7 @@ public class MeterReadingViewTableModel extends AbstractTableModel{
            return meterReadings.get(entry).getReading();
        }
        else
-           throw new IndexOutOfBoundsException("MeterTableModel provides a 4-column table, column-index "+col+" is illegal.");
+           throw new IndexOutOfBoundsException("MeterReadingViewTableModel provides a 4-column table, column-index "+col+" is illegal.");
            
     }
 

@@ -47,6 +47,11 @@ public class Meter
 	{
 		taxes.put(t.getName(),t);
 	}
+        
+        public Taxes deleteTax(String n)
+        {
+                return taxes.remove(n);
+        }
 	
 	public void addReading(Meter_Reading r)
 	{
