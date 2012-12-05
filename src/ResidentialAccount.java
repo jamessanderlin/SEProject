@@ -57,30 +57,38 @@ public class ResidentialAccount extends Account
 		meter = m;
 	}
         
-        @Override
-        public Meter deleteMeter(int meterID)
+    @Override
+    public Meter deleteMeter(int meterID)
+    {
+        if(meterID == meter.getMeterID())
         {
-            if(meterID == meter.getMeterID())
-            {
-                Meter temp = meter;
-                meter = null;
-                return meter;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        
-        public Meter deleteMeter()
-        {
-            return deleteMeter(meter.getMeterID());
-        }
-        
-        public Meter getMeter(int meterID)
-        {
+            Meter temp = meter;
+            meter = null;
             return meter;
         }
+        else
+        {
+            return null;
+        }
+    }
+    
+    public Meter deleteMeter()
+    {
+        return deleteMeter(meter.getMeterID());
+    }
+    
+    public Meter getMeter(int meterID)
+    {
+        return meter;
+    }
 
-		
+    @Override
+    public double getTotalCost(Date cutoffDate) {
+    	return getMeter().getCost(cutoffDate);
+    }
+    
+    @Override
+    public double getTotalTaxCost(Date cutoffDate) {
+    	return getMeter().getTaxCost(cutoffDate);
+    }
 }

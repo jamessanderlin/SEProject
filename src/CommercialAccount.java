@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Map.Entry;
 public class CommercialAccount extends Account
 {
 	private TreeMap<Integer, Meter> meters = new TreeMap<Integer, Meter>();
@@ -41,16 +42,32 @@ public class CommercialAccount extends Account
 		meters.put(m.getMeterID(), m);
 	}
         
-        @Override
-        public Meter deleteMeter(int meterID)
-        {
-           return meters.remove(meterID);
-        }
-        
-        @Override
-        public Meter getMeter(int meterID)
-        {
-            return meters.get(meterID);
-        }
-	
+    @Override
+    public Meter deleteMeter(int meterID)
+    {
+       return meters.remove(meterID);
+    }
+    
+    public Meter getMeter(int meterID)
+    {
+        return meters.get(meterID);
+    }
+    
+    @Override
+    public double getTotalCost(Date cutoffDate) {
+    	double accumulateCosts = 0.0;	
+    	for(Entry<Integer, Meter> m : getMeters().entrySet()) {
+    		accumulateCosts += ((Meter) m).getCost(cutoffDate);
+    	}
+    	return accumulateCosts;
+    }
+    
+    @Override
+    public double getTotalTaxCost(Date cutoffDate) {
+    	double accumulateCosts = 0.0;	
+    	for(Entry<Integer, Meter> m : getMeters().entrySet()) {
+    		accumulateCosts += ((Meter) m).getTaxCost(cutoffDate);
+    	}
+    	return accumulateCosts;
+    }
 }

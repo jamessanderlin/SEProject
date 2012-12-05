@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * 
@@ -103,4 +104,30 @@ public class Meter
 	{
 		return "ID: " + meterID;
 	}
+	
+	public double getTotalTaxRate() {
+		double accumulateTaxes = 0.0;
+		TreeMap<String, Taxes> t = getTaxes();
+		for(String name : t.keySet()) {
+			accumulateTaxes += getMeterRate();
+		}
+		return accumulateTaxes;
+	}
+
+	public int getTotalUsage(Date cutoffDate) {
+		int accumulateReadings = 0;
+		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(cutoffDate).entrySet() ) {
+			accumulateReadings += ((Meter_Reading) mr).getReading();
+		}
+		return accumulateReadings;
+	}
+
+	public double getCost(Date cutoffDate) {
+		return getTotalUsage(cutoffDate)*getMeterRate();
+	}
+
+	public double getTaxCost(Date cutoffDate) {
+		return getCost(cutoffDate)*getTotalTaxRate();
+	}
+
 }
