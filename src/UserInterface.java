@@ -298,6 +298,7 @@ public class UserInterface extends javax.swing.JFrame {
         compNameField.setEnabled(false);
 
         accSave.setText("Save/Edit");
+        accSave.setEnabled(false);
 
         accCancel.setText("Cancel");
         accCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -388,9 +389,8 @@ public class UserInterface extends javax.swing.JFrame {
                                 .addComponent(addLine1Field)
                                 .addComponent(addLine2Field)
                                 .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(zipField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                                    .addComponent(stateField, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(zipField)
+                                .addComponent(stateField)
                                 .addComponent(compNameField)
                                 .addComponent(resAccButton)))
                         .addGap(0, 0, Short.MAX_VALUE))

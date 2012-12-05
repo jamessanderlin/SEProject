@@ -472,10 +472,8 @@
                                               <Component id="addLine1Field" alignment="0" max="32767" attributes="0"/>
                                               <Component id="addLine2Field" alignment="0" max="32767" attributes="0"/>
                                               <Component id="cityField" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="zipField" alignment="0" pref="76" max="32767" attributes="0"/>
-                                                  <Component id="stateField" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
+                                              <Component id="zipField" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="stateField" alignment="0" max="32767" attributes="0"/>
                                               <Component id="compNameField" alignment="0" max="32767" attributes="0"/>
                                               <Component id="resAccButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -651,6 +649,7 @@
                         <Component class="javax.swing.JButton" name="accSave">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Save/Edit"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="accCancel">
