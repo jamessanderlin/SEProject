@@ -83,6 +83,30 @@ public class UserInterface extends javax.swing.JFrame {
         meterNote1 = new javax.swing.JLabel();
         meterNote2 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        meterPopup = new javax.swing.JPopupMenu();
+        viewMeter = new javax.swing.JMenuItem();
+        viewMeterPanel = new javax.swing.JPanel();
+        viewMeterTopLeftPanel = new javax.swing.JPanel();
+        viewMeterIDLabel = new javax.swing.JLabel();
+        viewMeterTypeLabel = new javax.swing.JLabel();
+        viewMeterRateLabel = new javax.swing.JLabel();
+        viewMeterIDField = new javax.swing.JTextField();
+        vieMeterRateField = new javax.swing.JTextField();
+        viewMeterComboBox = new javax.swing.JComboBox();
+        viewMeterTopRightPanel = new javax.swing.JPanel();
+        viewMeterAdd1Label = new javax.swing.JLabel();
+        viewMeterAdd2Label = new javax.swing.JLabel();
+        viewMeterCityLabel = new javax.swing.JLabel();
+        viewMeterStateLabel = new javax.swing.JLabel();
+        viewMeterZipLabel = new javax.swing.JLabel();
+        viewMeterAdd1Field = new javax.swing.JTextField();
+        viewMeterAdd2Field = new javax.swing.JTextField();
+        viewMeterCityField = new javax.swing.JTextField();
+        viewMeterStateField = new javax.swing.JTextField();
+        viewMeterZipField = new javax.swing.JTextField();
+        viewMeterReadingTable = new javax.swing.JScrollPane();
+        meterReadingTable = new javax.swing.JTable();
+        viewMeterSaveEdit = new javax.swing.JButton();
         mainSplitPane = new javax.swing.JSplitPane();
         rightSplitPane = new javax.swing.JSplitPane();
         meterViewSrollPane = new javax.swing.JScrollPane();
@@ -255,6 +279,171 @@ public class UserInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        viewMeter.setText("View Meter");
+        viewMeter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewMeterActionPerformed(evt);
+            }
+        });
+        meterPopup.add(viewMeter);
+
+        viewMeterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("View Meter"));
+
+        viewMeterIDLabel.setText("Meter ID");
+
+        viewMeterTypeLabel.setText("Meter Type");
+
+        viewMeterRateLabel.setText("Meter Rate");
+
+        viewMeterComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Digital", "Analog", " " }));
+
+        javax.swing.GroupLayout viewMeterTopLeftPanelLayout = new javax.swing.GroupLayout(viewMeterTopLeftPanel);
+        viewMeterTopLeftPanel.setLayout(viewMeterTopLeftPanelLayout);
+        viewMeterTopLeftPanelLayout.setHorizontalGroup(
+            viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(viewMeterRateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(viewMeterTypeLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(viewMeterIDLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGap(5, 5, 5)
+                    .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(viewMeterIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(viewMeterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(vieMeterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        viewMeterTopLeftPanelLayout.setVerticalGroup(
+            viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 106, Short.MAX_VALUE)
+            .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(viewMeterIDLabel)
+                        .addComponent(viewMeterIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(viewMeterTypeLabel)
+                        .addComponent(viewMeterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(viewMeterRateLabel)
+                        .addComponent(vieMeterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        viewMeterAdd1Label.setText("Address Line 1");
+
+        viewMeterAdd2Label.setText("Address Line 2");
+
+        viewMeterCityLabel.setText("City");
+
+        viewMeterStateLabel.setText("State");
+
+        viewMeterZipLabel.setText("Zip");
+
+        javax.swing.GroupLayout viewMeterTopRightPanelLayout = new javax.swing.GroupLayout(viewMeterTopRightPanel);
+        viewMeterTopRightPanel.setLayout(viewMeterTopRightPanelLayout);
+        viewMeterTopRightPanelLayout.setHorizontalGroup(
+            viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewMeterTopRightPanelLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewMeterAdd1Label, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(viewMeterAdd2Label, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(viewMeterCityLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(viewMeterStateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(viewMeterZipLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(viewMeterAdd1Field, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(viewMeterAdd2Field)
+                        .addComponent(viewMeterCityField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(viewMeterStateField, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(viewMeterZipField, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        viewMeterTopRightPanelLayout.setVerticalGroup(
+            viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewMeterTopRightPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewMeterAdd1Label)
+                    .addComponent(viewMeterAdd1Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewMeterAdd2Label)
+                    .addComponent(viewMeterAdd2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewMeterCityLabel)
+                    .addComponent(viewMeterCityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewMeterStateLabel)
+                    .addComponent(viewMeterStateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewMeterTopRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewMeterZipLabel)
+                    .addComponent(viewMeterZipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        viewMeterReadingTable.setBorder(javax.swing.BorderFactory.createTitledBorder("Meter Readings"));
+
+        meterReadingTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        viewMeterReadingTable.setViewportView(meterReadingTable);
+
+        viewMeterSaveEdit.setText("Save/Edit");
+
+        javax.swing.GroupLayout viewMeterPanelLayout = new javax.swing.GroupLayout(viewMeterPanel);
+        viewMeterPanel.setLayout(viewMeterPanelLayout);
+        viewMeterPanelLayout.setHorizontalGroup(
+            viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewMeterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(viewMeterReadingTable)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, viewMeterPanelLayout.createSequentialGroup()
+                        .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(viewMeterTopLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(viewMeterPanelLayout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(viewMeterSaveEdit)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewMeterTopRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        viewMeterPanelLayout.setVerticalGroup(
+            viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewMeterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(viewMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(viewMeterPanelLayout.createSequentialGroup()
+                        .addComponent(viewMeterTopLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewMeterSaveEdit))
+                    .addComponent(viewMeterTopRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viewMeterReadingTable, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
 
@@ -268,6 +457,14 @@ public class UserInterface extends javax.swing.JFrame {
         meterViewTable.setAutoCreateRowSorter(true);
         meterViewTable.setModel(new MeterViewTableModel());
         meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
+        meterViewTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                meterViewTableMouseReleased(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                meterViewTableMousePressed(evt);
+            }
+        });
         meterViewSrollPane.setViewportView(meterViewTable);
 
         rightSplitPane.setRightComponent(meterViewSrollPane);
@@ -669,7 +866,7 @@ public class UserInterface extends javax.swing.JFrame {
             Point p = evt.getPoint();
             int row = accountTable.rowAtPoint(p);
             accountTable.getSelectionModel().setSelectionInterval(row, row);
-            Account temp = Controller.getInstance().getAccount(getSelectedAccountID());
+            Account temp = getSelectedAccount();
             showInAccountPanel(temp);
             accountPopup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
@@ -689,6 +886,12 @@ public class UserInterface extends javax.swing.JFrame {
             return -1;
         int accID = ((Integer)temp).intValue();
         return accID;
+    }
+    
+    private Account getSelectedAccount()
+    {
+        int accID = getSelectedAccountID();
+        return Controller.getInstance().getAccount(accID);
     }
     
     /**
@@ -713,7 +916,7 @@ public class UserInterface extends javax.swing.JFrame {
             Meter m = getMeterFromMeterPanel();
             if(m != null)
             {
-                Account temp = Controller.getInstance().getAccount(getSelectedAccountID());
+                Account temp = getSelectedAccount();
                 temp.addMeter(m);
                 System.out.println(m.getMeterID());
                 showMetersInMeterTable(temp);
@@ -724,8 +927,7 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addMeterToAccountActionPerformed
 
     private void accountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseClicked
-        int accID = getSelectedAccountID();
-        Account temp = Controller.getInstance().getAccount(accID);
+        Account temp = getSelectedAccount();
         showInAccountPanel(temp);     
         // TODO add your handling code here:
     }//GEN-LAST:event_accountTableMouseClicked
@@ -800,6 +1002,46 @@ public class UserInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_accCreateActionPerformed
 
+    private void viewMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMeterActionPerformed
+        
+        String options[] = {"OK"};
+        int result = JOptionPane.showOptionDialog(null, viewMeterPanel, 
+                         "View a Meter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewMeterActionPerformed
+
+    private void meterViewTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_meterViewTableMousePressed
+        doMeterPopup(evt);
+    }//GEN-LAST:event_meterViewTableMousePressed
+
+    private void meterViewTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_meterViewTableMouseReleased
+        doMeterPopup(evt);
+    }//GEN-LAST:event_meterViewTableMouseReleased
+
+    private void doMeterPopup(java.awt.event.MouseEvent evt)
+    {
+        if(evt.isPopupTrigger())
+        {
+            Point p = evt.getPoint();
+            int row = meterViewTable.rowAtPoint(p);
+            meterViewTable.getSelectionModel().setSelectionInterval(row, row);
+            Account temp = getSelectedAccount();
+            Meter m = temp.getMeter(getSelectedMeterID());
+            //showInAccountPanel(temp);
+            meterPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
+    private int getSelectedMeterID()
+    {
+        int row = meterViewTable.getSelectedRow();
+        Object temp = meterViewTable.getValueAt(row, 0);
+        if(!(temp instanceof Integer))
+            return -1;
+        int meterID = ((Integer)temp).intValue();
+        return meterID;
+    }
+    
     private Meter getMeterFromMeterPanel()
     {
         
@@ -1266,8 +1508,10 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel meterIDLabel;
     private javax.swing.JLabel meterNote1;
     private javax.swing.JLabel meterNote2;
+    private javax.swing.JPopupMenu meterPopup;
     private javax.swing.JTextField meterRateField;
     private javax.swing.JLabel meterRateLabel;
+    private javax.swing.JTable meterReadingTable;
     private javax.swing.JScrollPane meterScrollPane;
     private javax.swing.JTextField meterStateField;
     private javax.swing.JLabel meterStateLabel;
@@ -1284,6 +1528,28 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem save;
     private javax.swing.JLabel state;
     private javax.swing.JTextField stateField;
+    private javax.swing.JTextField vieMeterRateField;
+    private javax.swing.JMenuItem viewMeter;
+    private javax.swing.JTextField viewMeterAdd1Field;
+    private javax.swing.JLabel viewMeterAdd1Label;
+    private javax.swing.JTextField viewMeterAdd2Field;
+    private javax.swing.JLabel viewMeterAdd2Label;
+    private javax.swing.JTextField viewMeterCityField;
+    private javax.swing.JLabel viewMeterCityLabel;
+    private javax.swing.JComboBox viewMeterComboBox;
+    private javax.swing.JTextField viewMeterIDField;
+    private javax.swing.JLabel viewMeterIDLabel;
+    private javax.swing.JPanel viewMeterPanel;
+    private javax.swing.JLabel viewMeterRateLabel;
+    private javax.swing.JScrollPane viewMeterReadingTable;
+    private javax.swing.JButton viewMeterSaveEdit;
+    private javax.swing.JTextField viewMeterStateField;
+    private javax.swing.JLabel viewMeterStateLabel;
+    private javax.swing.JPanel viewMeterTopLeftPanel;
+    private javax.swing.JPanel viewMeterTopRightPanel;
+    private javax.swing.JLabel viewMeterTypeLabel;
+    private javax.swing.JTextField viewMeterZipField;
+    private javax.swing.JLabel viewMeterZipLabel;
     private javax.swing.JLabel zip;
     private javax.swing.JTextField zipField;
     // End of variables declaration//GEN-END:variables

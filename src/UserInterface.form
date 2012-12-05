@@ -244,6 +244,292 @@
         </Component>
       </SubComponents>
     </Container>
+    <Container class="javax.swing.JPopupMenu" name="meterPopup">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="viewMeter">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="View Meter"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewMeterActionPerformed"/>
+          </Events>
+        </MenuItem>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="viewMeterPanel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="View Meter"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="viewMeterReadingTable" alignment="1" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="viewMeterTopLeftPanel" min="-2" pref="257" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                                  <Component id="viewMeterSaveEdit" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="viewMeterTopRightPanel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="viewMeterTopLeftPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="viewMeterSaveEdit" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="viewMeterTopRightPanel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="viewMeterReadingTable" min="-2" pref="189" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="viewMeterTopLeftPanel">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="viewMeterRateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="viewMeterTypeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="viewMeterIDLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="viewMeterIDField" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
+                              <Component id="viewMeterComboBox" min="-2" max="-2" attributes="0"/>
+                              <Component id="vieMeterRateField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="106" max="32767" attributes="0"/>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="viewMeterIDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="viewMeterIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="viewMeterTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="viewMeterComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="viewMeterRateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vieMeterRateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="viewMeterIDLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Meter ID"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="viewMeterTypeLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Meter Type"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="viewMeterRateLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Meter Rate"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="viewMeterIDField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="vieMeterRateField">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="viewMeterComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Digital"/>
+                    <StringItem index="1" value="Analog"/>
+                    <StringItem index="2" value=" "/>
+                  </StringArray>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="viewMeterTopRightPanel">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="viewMeterAdd1Label" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterAdd2Label" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterCityLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterStateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterZipLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="viewMeterAdd1Field" alignment="0" pref="150" max="32767" attributes="0"/>
+                              <Component id="viewMeterAdd2Field" alignment="0" max="32767" attributes="0"/>
+                              <Component id="viewMeterCityField" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                              <Component id="viewMeterStateField" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="viewMeterZipField" min="-2" pref="86" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="viewMeterAdd1Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterAdd1Field" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="viewMeterAdd2Label" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterAdd2Field" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="viewMeterCityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterCityField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="viewMeterStateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterStateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="viewMeterZipLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewMeterZipField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="viewMeterAdd1Label">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Address Line 1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="viewMeterAdd2Label">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Address Line 2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="viewMeterCityLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="City"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="viewMeterStateLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="State"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="viewMeterZipLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Zip"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="viewMeterAdd1Field">
+            </Component>
+            <Component class="javax.swing.JTextField" name="viewMeterAdd2Field">
+            </Component>
+            <Component class="javax.swing.JTextField" name="viewMeterCityField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="viewMeterStateField">
+            </Component>
+            <Component class="javax.swing.JTextField" name="viewMeterZipField">
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JScrollPane" name="viewMeterReadingTable">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Meter Readings"/>
+              </Border>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="meterReadingTable">
+              <Properties>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                  <Table columnCount="4" rowCount="4">
+                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                  </Table>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="viewMeterSaveEdit">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Save/Edit"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFile">
@@ -391,6 +677,10 @@
                       <Connection code="new MeterViewTableModel()" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="meterViewTableMouseReleased"/>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="meterViewTableMousePressed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="meterViewTable.setDefaultRenderer(Object.class, new LeftCellRenderer());"/>
                   </AuxValues>
