@@ -41,6 +41,7 @@ import java.util.*;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.table.AbstractTableModel;
 
 /**
  * UserInterface is the main class for handling user input.
@@ -109,8 +110,8 @@ public class UserInterface extends javax.swing.JFrame {
         optionalLabel = new javax.swing.JLabel();
         meterNote1 = new javax.swing.JLabel();
         meterNote2 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        meterRatekWh = new javax.swing.JLabel();
+        meterNote3 = new javax.swing.JLabel();
         meterPopup = new javax.swing.JPopupMenu();
         viewMeter = new javax.swing.JMenuItem();
         viewMeterPanel = new javax.swing.JPanel();
@@ -121,9 +122,10 @@ public class UserInterface extends javax.swing.JFrame {
         viewMeterIDField = new javax.swing.JTextField();
         viewMeterRateField = new javax.swing.JTextField();
         viewMeterComboBox = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        viewMeterNote1 = new javax.swing.JLabel();
+        viewMeterNote2 = new javax.swing.JLabel();
+        viewMeterNote3 = new javax.swing.JLabel();
+        viewMeterkWhLabel = new javax.swing.JLabel();
         viewMeterTopRightPanel = new javax.swing.JPanel();
         viewMeterAdd1Label = new javax.swing.JLabel();
         viewMeterAdd2Label = new javax.swing.JLabel();
@@ -137,7 +139,7 @@ public class UserInterface extends javax.swing.JFrame {
         viewMeterZipField = new javax.swing.JTextField();
         viewMeterReadingTable = new javax.swing.JScrollPane();
         meterReadingTable = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        viewMeterPanelOptionNote = new javax.swing.JLabel();
         mainSplitPane = new javax.swing.JSplitPane();
         rightSplitPane = new javax.swing.JSplitPane();
         meterViewSrollPane = new javax.swing.JScrollPane();
@@ -220,9 +222,9 @@ public class UserInterface extends javax.swing.JFrame {
 
         meterNote2.setText("Rate must be greater than or equal to 0.0");
 
-        jLabel2.setText("kWh");
+        meterRatekWh.setText("kWh");
 
-        jLabel6.setText("Account cannont have duplicate Meter IDs");
+        meterNote3.setText("Account cannont have duplicate Meter IDs");
 
         javax.swing.GroupLayout addMeterPanelLayout = new javax.swing.GroupLayout(addMeterPanel);
         addMeterPanel.setLayout(addMeterPanelLayout);
@@ -248,7 +250,7 @@ public class UserInterface extends javax.swing.JFrame {
                                     .addComponent(meterRateField, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(meterTypeComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
+                                .addComponent(meterRatekWh))
                             .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(meterCityField, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                                 .addComponent(meterIDField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +262,7 @@ public class UserInterface extends javax.swing.JFrame {
                     .addComponent(meterNote1)
                     .addComponent(optionalLabel)
                     .addComponent(meterNote2)
-                    .addComponent(jLabel6)))
+                    .addComponent(meterNote3)))
         );
         addMeterPanelLayout.setVerticalGroup(
             addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +280,7 @@ public class UserInterface extends javax.swing.JFrame {
                     .addComponent(meterRateLabel)
                     .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(meterRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
+                        .addComponent(meterRatekWh)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(addMeterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(meterAddLine1Label)
@@ -306,7 +308,7 @@ public class UserInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(meterNote2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(meterNote3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -324,13 +326,17 @@ public class UserInterface extends javax.swing.JFrame {
 
         viewMeterRateLabel.setText("Meter Rate");
 
-        viewMeterComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Digital", "Analog", " " }));
+        viewMeterComboBox.setModel(new DefaultComboBoxModel(Meter.getTypes()));
 
-        jLabel3.setText("New ID must be between 1 and 2147483647");
+        viewMeterNote1.setText("New ID must be between 1 and 2147483647");
 
-        jLabel4.setText("Rate must be greater than or equal to 0.0");
+        viewMeterNote2.setText("Rate must be greater than or equal to 0.0");
 
-        jLabel5.setText("Account cannot have duplicate Meter IDs");
+        viewMeterNote3.setText("Account cannot have duplicate Meter IDs");
+
+        viewMeterkWhLabel.setText("kWh");
+        viewMeterkWhLabel.setMaximumSize(new java.awt.Dimension(63, 16));
+        viewMeterkWhLabel.setMinimumSize(new java.awt.Dimension(63, 16));
 
         javax.swing.GroupLayout viewMeterTopLeftPanelLayout = new javax.swing.GroupLayout(viewMeterTopLeftPanel);
         viewMeterTopLeftPanel.setLayout(viewMeterTopLeftPanelLayout);
@@ -340,16 +346,20 @@ public class UserInterface extends javax.swing.JFrame {
                 .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(viewMeterNote1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel4)
+                        .addComponent(viewMeterNote2)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
+                .addComponent(viewMeterNote3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewMeterTopLeftPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(viewMeterkWhLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
             .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
                     .addGap(31, 31, 31)
@@ -367,12 +377,14 @@ public class UserInterface extends javax.swing.JFrame {
         viewMeterTopLeftPanelLayout.setVerticalGroup(
             viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewMeterTopLeftPanelLayout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(viewMeterkWhLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(viewMeterNote1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(viewMeterNote3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viewMeterNote2)
                 .addGap(15, 15, 15))
             .addGroup(viewMeterTopLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(viewMeterTopLeftPanelLayout.createSequentialGroup()
@@ -453,11 +465,12 @@ public class UserInterface extends javax.swing.JFrame {
 
         meterReadingTable.setAutoCreateRowSorter(true);
         meterReadingTable.setModel(new MeterReadingViewTableModel());
+        meterReadingTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         meterReadingTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         meterReadingTable.setDefaultRenderer(Date.class, new DateCellRenderer());
         viewMeterReadingTable.setViewportView(meterReadingTable);
 
-        jLabel7.setText("*Note: Cancel only ignores changes to meter fields. Reading modifications are kept.");
+        viewMeterPanelOptionNote.setText("*Note: Cancel only ignores changes to meter fields. Reading modifications are kept.");
 
         javax.swing.GroupLayout viewMeterPanelLayout = new javax.swing.GroupLayout(viewMeterPanel);
         viewMeterPanel.setLayout(viewMeterPanelLayout);
@@ -475,7 +488,7 @@ public class UserInterface extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(viewMeterTopRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(viewMeterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(viewMeterPanelOptionNote)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         viewMeterPanelLayout.setVerticalGroup(
@@ -488,7 +501,7 @@ public class UserInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(viewMeterReadingTable, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addComponent(viewMeterPanelOptionNote)
                 .addContainerGap())
         );
 
@@ -1035,6 +1048,8 @@ public class UserInterface extends javax.swing.JFrame {
                 m.setMeterID(newMeter.getMeterID());
                 m.setMeterRate(newMeter.getMeterRate());
                 m.setPhysicalAddress(newMeter.getPhysicalAddress());
+                if(meterViewTable.getModel() instanceof AbstractTableModel)
+                    ((AbstractTableModel)meterViewTable.getModel()).fireTableDataChanged();
             }           
         }
         // TODO add your handling code here:
@@ -1643,12 +1658,6 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lastName;
@@ -1667,9 +1676,11 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel meterIDLabel;
     private javax.swing.JLabel meterNote1;
     private javax.swing.JLabel meterNote2;
+    private javax.swing.JLabel meterNote3;
     private javax.swing.JPopupMenu meterPopup;
     private javax.swing.JTextField meterRateField;
     private javax.swing.JLabel meterRateLabel;
+    private javax.swing.JLabel meterRatekWh;
     private javax.swing.JTable meterReadingTable;
     private javax.swing.JTextField meterStateField;
     private javax.swing.JLabel meterStateLabel;
@@ -1695,7 +1706,11 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JComboBox viewMeterComboBox;
     private javax.swing.JTextField viewMeterIDField;
     private javax.swing.JLabel viewMeterIDLabel;
+    private javax.swing.JLabel viewMeterNote1;
+    private javax.swing.JLabel viewMeterNote2;
+    private javax.swing.JLabel viewMeterNote3;
     private javax.swing.JPanel viewMeterPanel;
+    private javax.swing.JLabel viewMeterPanelOptionNote;
     private javax.swing.JTextField viewMeterRateField;
     private javax.swing.JLabel viewMeterRateLabel;
     private javax.swing.JScrollPane viewMeterReadingTable;
@@ -1706,6 +1721,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel viewMeterTypeLabel;
     private javax.swing.JTextField viewMeterZipField;
     private javax.swing.JLabel viewMeterZipLabel;
+    private javax.swing.JLabel viewMeterkWhLabel;
     private javax.swing.JLabel zip;
     private javax.swing.JTextField zipField;
     // End of variables declaration//GEN-END:variables
