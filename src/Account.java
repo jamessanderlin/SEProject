@@ -22,6 +22,9 @@ public abstract class Account
 	protected Address billingAddress;
 	protected ArrayList<Payment> paymentHistory = new ArrayList<Payment>();
 	
+	/*
+	 * Basic Getters and Setters
+	 */
 	public int getAccountID() {
 		return accountID;
 	}
@@ -69,11 +72,35 @@ public abstract class Account
 		this.accountID = accountID;
 	}
 	
+	/**
+	 * Abstract convenience method to add a meter to the account
+	 * 
+	 * @param m
+	 */
 	public abstract void addMeter(Meter m);
-        public abstract Meter deleteMeter(int meterID);
-        public abstract Meter getMeter(int meterID);
-        public abstract boolean hasMeter(int meterID);
+	/**
+	 * Abstract convenience method to delete a meter from the account
+	 * 
+	 * @param meterID
+	 * @return the meter that was deleted
+	 */
+    public abstract Meter deleteMeter(int meterID);
+    /**
+     * Abstract convenience method to access a meter based on its ID
+     * 
+     * @param meterID
+     * @return the meter with the specified ID
+     */
+    public abstract Meter getMeter(int meterID);
+    /**
+     * Abstract convenience method to see if an account has a meter with the specified ID
+     * 
+     * @param meterID
+     * @return whether or not the account has the specified meter
+     */
+    public abstract boolean hasMeter(int meterID);
 	
+    //Prints isCommercial as a '0' or '1' instead of 'true' or 'false'
 	public String isCommercialToString(){
 		String s = "";
 		
@@ -87,6 +114,11 @@ public abstract class Account
 		return s;
 	}
 	
+	/**
+	 * Prints the flag as a '0' or '1' instead of 'true' or 'false'
+	 * 
+	 * @return '0' or '1' to denote the flag's value
+	 */
 	public String getFlagToString(){
 		String s = "";
 		
@@ -101,7 +133,27 @@ public abstract class Account
 		return s;
 	}
 	
+	/**
+	 * getMeterUsage returns the total usage from all meters tied to the account (since cutoffDate)
+	 * 
+	 * @param cutoffDate
+	 * @return total usage from all meters tied to the account (since cutoffDate)
+	 */
 	public abstract String getMeterUsage(Date cutoffDate);
+	
+	/**
+	 * getTotalCost returns the total cost from all meters tied to the account (since cutoffDate)
+	 * 
+	 * @param cutoffDate
+	 * @return the total cost from all meters tied to the account (since cutoffDate)
+	 */
 	public abstract double getTotalCost(Date cutoffDate);
+	
+	/**
+	 * getTotalTaxCost gets the total tax cost from all meters tied to the account (since the cutoffDate)
+	 * 
+	 * @param cutoffDate
+	 * @return the total tax cost from all meters tied to the account (since the cutoffDate)
+	 */
 	public abstract double getTotalTaxCost(Date cutoffDate);
 }

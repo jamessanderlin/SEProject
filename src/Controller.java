@@ -18,7 +18,7 @@ public class Controller
     private TreeMap<Integer, Account> accounts;// = new TreeMap<Integer, Account>();
 	//TreeMap of the meters
     private TreeMap<Integer, Meter> meters;// = new TreeMap<Integer, Meter>();
-	
+	//Formats a double to be a dollar amount
 	DecimalFormat money = new DecimalFormat("0.00");
 	
     private Account_IO dataAccount;
@@ -111,7 +111,7 @@ public class Controller
 	}
 	
 	/**
-	 * Creates an commercial account with the specified fields
+	 * Creates a commercial account with the specified fields
 	 * 
 	 * @param companyName The name of the company
 	 * @param accountID	The ID of the account

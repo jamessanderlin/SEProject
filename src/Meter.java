@@ -14,8 +14,8 @@ import java.util.Map.Entry;
 public class Meter
 {
     
-        //Denotes the types of meters possible
-        private static final String[] types = {"Digital", "Analog"};
+    //Denotes the types of meters possible
+    private static final String[] types = {"Digital", "Analog"};
         
 	//Specifies if the meter is Analog (manual reading) or digital (digital reading)
 	private Boolean isDigital; 
@@ -43,32 +43,64 @@ public class Meter
 		meterRate = rate;
 	}
 	
+	/**
+	 * Convenience method to add a tax to a meter
+	 * 
+	 * @param t
+	 */
 	public void addTax(Taxes t)
 	{
 		taxes.put(t.getName(),t);
 	}
-        
-        public Taxes deleteTax(String n)
-        {
-                return taxes.remove(n);
-        }
-	
+    
+	/**
+	 * Convenience method to remove a tax from a meter
+	 * 
+	 * @param n
+	 * @return the tax deleted
+	 */
+    public Taxes deleteTax(String n)
+    {
+        return taxes.remove(n);
+    }
+    /**
+     * Convenience method to add a meter reading
+     * 
+     * @param r
+     */
 	public void addReading(Meter_Reading r)
 	{
 		readings.put(r.getReadingDate(),r);
+		
 	}
-        
-        public Meter_Reading deleteReading(Date d)
-        {
-                return readings.remove(d);
-        }
+     
+	/**
+	 * Convenience method to delete a meter reading
+	 * 
+	 * @param d
+	 * @return the meter reading that was deleted
+	 */
+    public Meter_Reading deleteReading(Date d)
+    {
+        return readings.remove(d);
+    }
 	
+    /**
+     * Returns the type of the meter ("Digital" or "Analog")
+     * 
+     * @return the type of the meter ("Digital" or "Analog")
+     */
 	public String getType() {
 		if(isDigital) {
 			return "Digital";
 		}
 		return "Analog";
 	}
+	/**
+	 * Receives a string denoting the type of the meter, sets it to that
+	 * 
+	 * @param type
+	 */
 	public void setType(String type) {
 		if(type.toLowerCase().equals("digital")) 
                 {
@@ -79,6 +111,10 @@ public class Meter
                     isDigital = false;
                 }
 	}
+	
+	/*
+	 * Basic Getters and Setters
+	 */
 	public int getMeterID() {
 		return meterID;
 	}
@@ -118,16 +154,31 @@ public class Meter
 		return taxes;
 	}
 
+	/**
+	 * Prints out the ID of the meter
+	 * 
+	 * @return the ID of the meter
+	 */
 	public String toString()
 	{
 		return "ID: " + meterID;
 	}
-        
-        public static String[] getTypes()
-        {
-            return types;
-        }
+    
+	/**
+	 * Returns the types, "Digital" and "Analog"
+	 * 
+	 * @return the types, "Digital" and "Analog"
+	 */
+    public static String[] getTypes()
+    {
+        return types;
+    }
 	
+    /**
+     * Returns the total tax rate of all taxes on the meter
+     * 
+     * @return the total tax rate of all taxes on the meter
+     */
 	public double getTotalTaxRate() {
         double accumulateTaxes = 0.0;
         for(Taxes t : getTaxes().values()) {
@@ -136,6 +187,12 @@ public class Meter
         return accumulateTaxes;
     }
 
+	/**
+	 * Returns the total usage on the meter by summing up all the meter readings
+	 * 
+	 * @param cutoffDate
+	 * @return the total usage on the meter by summing up all the meter readings
+	 */
 	public int getTotalUsage(Date cutoffDate) {
 		int accumulateReadings = 0;
 		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(cutoffDate).entrySet() ) {
@@ -144,10 +201,22 @@ public class Meter
 		return accumulateReadings;
 	}
 
+	/**
+	 * Returns the total cost of usage on this meter using the getTotalUsage method
+	 * 
+	 * @param cutoffDate
+	 * @return the total cost of usage on this meter using the getTotalUsage method
+	 */
 	public double getCost(Date cutoffDate) {
 		return getTotalUsage(cutoffDate)*getMeterRate();
 	}
 
+	/**
+	 * Returns the total tax cost on usage of this meter using the getTotalTaxRate method
+	 * 
+	 * @param cutoffDate
+	 * @return the total tax cost on usage of this meter using the getTotalTaxRate method
+	 */
 	public double getTaxCost(Date cutoffDate) {
 		return getCost(cutoffDate)*getTotalTaxRate();
 	}

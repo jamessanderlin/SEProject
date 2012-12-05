@@ -17,7 +17,9 @@ public class Payment
 	private String paymentType;
 	private Date paymentDate;
 	
-	
+	/*
+	 * Basic Getters and Setters
+	 */
 	public double getPaidAmount() {
 		return paidAmount;
 	}
@@ -37,13 +39,24 @@ public class Payment
 		this.paymentDate = paymentDate;
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param paidAmount
+	 * @param paymentType
+	 * @param paymentDate
+	 */
 	public Payment(double paidAmount, String paymentType, Date paymentDate){
 		this.paidAmount = paidAmount;
 		this.paymentType=paymentType;
 		this.paymentDate = paymentDate;
 	}
 	
-	//Function has newlines built in so no need to add when invoking.
+	/**
+	 * Function has newlines built in so no need to add when invoking.
+	 * 
+	 * @return A string representation of the payment
+	 */
 	public String toString(){
 		String s = "";		
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
