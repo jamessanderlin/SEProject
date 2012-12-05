@@ -1380,7 +1380,7 @@
               <Properties>
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="accountTable.setDefaultRenderer(Object.class, new LeftCellRenderer());">
-                  <Connection code="accountTableModel" type="code"/>
+                  <Connection code="new MapTableModel(Controller.getInstance().getAccounts(), &quot;Account ID&quot;, &quot;Account Name&quot;)" type="code"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0"/>

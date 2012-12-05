@@ -52,10 +52,7 @@ import javax.swing.tree.TreeModel;
  * 
  * @author Mudrekh Goderya, James Sanderlin
  */
-public class UserInterface extends javax.swing.JFrame {
-
-    //The table models for the JTables displayed in the UserInterface
-    MapTableModel accountTableModel;    
+public class UserInterface extends javax.swing.JFrame { 
     
     //Constant ints for easy of identifying arguments;
     public static final int RESIDENTIAL = 0;
@@ -64,10 +61,7 @@ public class UserInterface extends javax.swing.JFrame {
     /**
      * Creates new form UserInterfacePrototype
      */
-    public UserInterface() {
-        //Instantiation of the table models
-        accountTableModel = new MapTableModel(Controller.getInstance().getAccounts(), "Account ID", "Account Name");
-        
+    public UserInterface() {        
         initComponents();
         
         //Window listener to force saving on exit.
@@ -996,7 +990,7 @@ public class UserInterface extends javax.swing.JFrame {
         accountScrollPane.setMinimumSize(new java.awt.Dimension(200, 200));
 
         accountTable.setAutoCreateRowSorter(true);
-        accountTable.setModel(accountTableModel);
+        accountTable.setModel(new MapTableModel(Controller.getInstance().getAccounts(), "Account ID", "Account Name"));
         accountTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
         accountTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1239,7 +1233,7 @@ public class UserInterface extends javax.swing.JFrame {
         }
         clearTextInAccountPanel();
         clearFieldColorsInAccountPanel();
-        accountTableModel.fireTableDataChanged();
+        updateJTable(accountTable);
         
     }//GEN-LAST:event_accCreateActionPerformed
 
@@ -1315,58 +1309,6 @@ public class UserInterface extends javax.swing.JFrame {
         doTaxPopup(evt);
     }//GEN-LAST:event_taxTableMousePressed
     
-    private boolean confirmMeterDelete()
-    {
-        Object[] options = {"YES", "NO"};
-        
-        int result = JOptionPane.showOptionDialog(null, "Are you sure you want to delete this meter?", 
-                   "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-        
-        if(result != 0)
-            return false;
-        
-        Account selectedAccount = getSelectedAccount();
-        selectedAccount.deleteMeter(getSelectedMeterID());
-        //Call to tell the table to update
-        updateJTable(meterViewTable);
-        System.out.println("METER DELETED");
-        return true;
-    }
-    
-    private void deleteSelectedMeterReading()
-    {
-        Meter m = getSelectedMeter();
-        int row = meterReadingTable.getSelectedRow();
-        if(row >= 0)
-        {    
-            Date d = (Date)meterReadingTable.getValueAt(row, 0);
-            m.deleteReading(d);
-            updateJTable(meterReadingTable);
-        }
-    }
-    
-    private void deleteSelectedTax()
-    {
-        Meter m = getSelectedMeter();
-        int row = taxTable.getSelectedRow();
-        if(row >= 0)
-        {    
-            String name = (String)taxTable.getValueAt(row, 0);
-            m.deleteTax(name);
-            updateJTable(taxTable);
-        }
-    }
-    
-
-    
-    private void resetAddMeterReadingPanel()
-    {
-        addMeterReadingField.setText("");
-        addMeterReadingDateField.setText("mm/dd/yy");
-        addMeterReadingTimeField.setText("mm:hh");
-        addMeterReadingTimeZoneField.setText("");
-    }
-    
     private Meter getMeterFromViewMeterPanel()
     {
         int meterID = -1;
@@ -1391,48 +1333,6 @@ public class UserInterface extends javax.swing.JFrame {
         return new Meter(meterID, viewMeterComboBox.getSelectedItem().toString(), 
                             meterRate, addr);
     }
-    
-    private boolean confirmAccountDelete(int accountID)
-    {
-        Object[] options = {"YES", "NO"};
-        JPanel myPanel = new JPanel();
-        myPanel.add(new JLabel("Delete Account with the ID:" +  accountID + "?"));
-        
-        int result = JOptionPane.showOptionDialog(null, myPanel, 
-                   "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-        
-        if(result != 0)
-            return false;
-        
-        Controller.getInstance().deleteAccount(accountID);
-        //Call to tell the table to update
-        accountTableModel.fireTableDataChanged();
-        System.out.println("ACCOUNT DELETED");
-        return true;
-    }
-
-    /**
-     * Returns the currently selected row in the account table. Returns -1 if
-     * for some reason the accountTable does not return an Integer
-     * 
-     * @return 
-     */
-    private int getSelectedAccountID()
-    {
-        int row = accountTable.getSelectedRow();
-        Object temp = accountTable.getValueAt(row, 0);
-        if(!(temp instanceof Integer))
-            return -1;
-        int accID = ((Integer)temp).intValue();
-        return accID;
-    }
-    
-    private Account getSelectedAccount()
-    {
-        int accID = getSelectedAccountID();
-        return Controller.getInstance().getAccount(accID);
-    }
-
     
     private void openAddTaxPanel()
     {
@@ -1472,12 +1372,7 @@ public class UserInterface extends javax.swing.JFrame {
             
         }
     }
-    
-    private void clearAddTaxPanel()
-    {
-        addTaxNameField.setText("");
-        addTaxRateField.setText("");
-    }
+
     
     private void openAddMeterReadingPanel()
     {
@@ -1566,34 +1461,6 @@ public class UserInterface extends javax.swing.JFrame {
         viewMeterZipField.setText(addr.getZip());
     }
     
-    private void clearViewMeterPanel()
-    {
-        viewMeterIDField.setText("");
-        viewMeterRateField.setText("");
-        viewMeterAdd1Field.setText("");
-        viewMeterAdd2Field.setText("");
-        viewMeterCityField.setText("");
-        viewMeterStateField.setText("");
-        viewMeterZipField.setText("");
-    }
-    
-    private int getSelectedMeterID()
-    {
-        int row = meterViewTable.getSelectedRow();
-        Object temp = meterViewTable.getValueAt(row, 0);
-        if(!(temp instanceof Integer))
-            return -1;
-        int meterID = ((Integer)temp).intValue();
-        return meterID;
-    }
-    
-    private Meter getSelectedMeter()
-    {
-        Account temp = getSelectedAccount();
-        Meter m = temp.getMeter(getSelectedMeterID());
-        return m;
-    }
-    
     private Meter getMeterFromAddMeterPanel()
     {      
         int meterID = -1;
@@ -1615,80 +1482,6 @@ public class UserInterface extends javax.swing.JFrame {
         
         return new Meter(meterID, meterTypeComboBox.getSelectedItem().toString(), 
                             meterRate, addr);
-    }
-    
-    private void clearAddMeterPanel()
-    {
-        meterIDField.setText("");
-        meterRateField.setText("");
-        meterAddLine1Field.setText("");
-        meterAddLine2Field.setText("");
-        meterCityField.setText("");
-        meterStateField.setText("");
-        meterZipField.setText("");
-    }
-    
-    private void clearTextInAccountPanel()
-    {
-        compNameField.setText("");
-        lastNameField.setText("");
-        firstNameField.setText("");
-
-        accountIDField.setText("");
-        addLine1Field.setText("");
-        addLine2Field.setText("");
-        cityField.setText("");
-        stateField.setText("");
-        zipField.setText("");
-    }
-    
-    private void clearFieldColorsInAccountPanel()
-    {
-        compNameField.setBackground(Color.WHITE);
-        lastNameField.setBackground(Color.WHITE);
-        firstNameField.setBackground(Color.WHITE);
-
-        accountIDField.setBackground(Color.WHITE);
-        addLine1Field.setBackground(Color.WHITE);
-        addLine2Field.setBackground(Color.WHITE);
-        cityField.setBackground(Color.WHITE);
-        stateField.setBackground(Color.WHITE);
-        zipField.setBackground(Color.WHITE);
-    }
-    
-    private void resetAccountInfoPanel()
-    {
-        clearTextInAccountPanel();
-        clearFieldColorsInAccountPanel();
-        
-        showMetersInMeterTable(null);
-        enableComResButtons(true);
-        accCreate.setEnabled(true);
-        accSave.setEnabled(false);
-    }
-            
-    
-    /**
-     * Enable and disable the name fields based on the account type presented. 
-     * Note, only one option should ever be open.
-     * 
-     * @param type The type of account passed to it. See int delcarations.
-     */
-    private void enableNameFields(int type)
-    {
-        if(type == RESIDENTIAL)
-        {
-            firstNameField.setEnabled(true);
-            lastNameField.setEnabled(true);
-            compNameField.setEnabled(false);
-        }
-        else if(type == COMMERCIAL)
-        {
-            firstNameField.setEnabled(false);
-            lastNameField.setEnabled(false);
-            compNameField.setEnabled(true);
-        }
-            
     }
     
     private void showInAccountPanel(Account temp)
@@ -1731,12 +1524,6 @@ public class UserInterface extends javax.swing.JFrame {
         accSave.setEnabled(true);
     }
     
-    private void enableComResButtons(boolean enable)
-    {
-        resAccButton.setEnabled(enable);
-        comAccButton.setEnabled(enable);
-    }
-    
     private void showMetersInMeterTable(Account acc)
     {
         if(acc instanceof CommercialAccount)
@@ -1762,9 +1549,268 @@ public class UserInterface extends javax.swing.JFrame {
             ((AbstractTableModel)(model)).fireTableDataChanged();
         }
     }
-
     //////////////////////////////////////////////////////////////////////////
-    //Fail Dialog Handlers
+    // Selection Getters
+    //
+    // These methods are incredibly important for many of the methods.
+    // Their main function is to determine which objects have been selected in
+    // in the JTable views. 
+    //
+    // Hopefully, there can be some more robust case checking on these 
+    // getters.
+    //////////////////////////////////////////////////////////////////////////
+    
+    private int getSelectedMeterID()
+    {
+        int row = meterViewTable.getSelectedRow();
+        Object temp = meterViewTable.getValueAt(row, 0);
+        if(!(temp instanceof Integer))
+            return -1;
+        int meterID = ((Integer)temp).intValue();
+        return meterID;
+    }
+    
+    private Meter getSelectedMeter()
+    {
+        Account temp = getSelectedAccount();
+        Meter m = temp.getMeter(getSelectedMeterID());
+        return m;
+    }
+    
+    /**
+     * Returns the currently selected row in the account table. Returns -1 if
+     * for some reason the accountTable does not return an Integer
+     * 
+     * @return 
+     */
+    private int getSelectedAccountID()
+    {
+        int row = accountTable.getSelectedRow();
+        Object temp = accountTable.getValueAt(row, 0);
+        if(!(temp instanceof Integer))
+            return -1;
+        int accID = ((Integer)temp).intValue();
+        return accID;
+    }
+    
+    private Account getSelectedAccount()
+    {
+        int accID = getSelectedAccountID();
+        return Controller.getInstance().getAccount(accID);
+    }
+    
+    //////////////////////////////////////////////////////////////////////////
+    // Enablers
+    //
+    // These methods handle the toggling of different buttons and fields 
+    // in the main viewing panel. This makes sure the user is less responsible
+    // for conusing input. For example, one of the Enablers toggling between
+    // First Name/Last Name fields and the Company Name Field. This is useful
+    // for limiting user confusion when creating new accounts. 
+    //////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Enable and disable the name fields based on the account type presented. 
+     * Note, only one option should ever be open.
+     * 
+     * @param type The type of account passed to it. See int delcarations.
+     */
+    private void enableNameFields(int type)
+    {
+        if(type == RESIDENTIAL)
+        {
+            firstNameField.setEnabled(true);
+            lastNameField.setEnabled(true);
+            compNameField.setEnabled(false);
+        }
+        else if(type == COMMERCIAL)
+        {
+            firstNameField.setEnabled(false);
+            lastNameField.setEnabled(false);
+            compNameField.setEnabled(true);
+        }
+            
+    }
+    
+    private void enableComResButtons(boolean enable)
+    {
+        resAccButton.setEnabled(enable);
+        comAccButton.setEnabled(enable);
+    }
+    
+    //////////////////////////////////////////////////////////////////////////
+    // Deletion handlers
+    //
+    // These methods handle instances where objects need to be deleted from 
+    // different parts in the model. Generally, most of the deletion methods
+    // require some sort of established selection in the Table views that 
+    // are presented to the user. Technically speaking, the confirmation
+    // dialogs are included in this group since they also delete objects. 
+    //
+    // Hopefully, each method will have some comments indicating the
+    // the preconditions necessary.
+    //////////////////////////////////////////////////////////////////////////
+    
+    //TODO add more robust checking for deletion
+    
+    private void deleteSelectedMeterReading()
+    {
+        Meter m = getSelectedMeter();
+        int row = meterReadingTable.getSelectedRow();
+        if(row >= 0)
+        {    
+            Date d = (Date)meterReadingTable.getValueAt(row, 0);
+            m.deleteReading(d);
+            updateJTable(meterReadingTable);
+        }
+    }
+    
+    private void deleteSelectedTax()
+    {
+        Meter m = getSelectedMeter();
+        int row = taxTable.getSelectedRow();
+        if(row >= 0)
+        {    
+            String name = (String)taxTable.getValueAt(row, 0);
+            m.deleteTax(name);
+            updateJTable(taxTable);
+        }
+    }
+    
+    
+    //////////////////////////////////////////////////////////////////////////
+    // Confirmation Dialogs (Sub group of deletion Handlers)
+    //
+    // These methods are used to confirm with the user on critical
+    // and curretnly irreversible actions. Currently, the two actions
+    // considered this critcial are deleting a meter, and deleting and account
+    //////////////////////////////////////////////////////////////////////////
+    
+    private boolean confirmAccountDelete(int accountID)
+    {
+        Object[] options = {"YES", "NO"};
+        JPanel myPanel = new JPanel();
+        myPanel.add(new JLabel("Delete Account with the ID:" +  accountID + "?"));
+        
+        int result = JOptionPane.showOptionDialog(null, myPanel, 
+                   "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        
+        if(result != 0)
+            return false;
+        
+        Controller.getInstance().deleteAccount(accountID);
+        //Call to tell the table to update
+        updateJTable(accountTable);
+        System.out.println("ACCOUNT DELETED");
+        return true;
+    }
+    
+    private boolean confirmMeterDelete()
+    {
+        Object[] options = {"YES", "NO"};
+        
+        int result = JOptionPane.showOptionDialog(null, "Are you sure you want to delete this meter?", 
+                   "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        
+        if(result != 0)
+            return false;
+        
+        Account selectedAccount = getSelectedAccount();
+        selectedAccount.deleteMeter(getSelectedMeterID());
+        //Call to tell the table to update
+        updateJTable(meterViewTable);
+        System.out.println("METER DELETED");
+        return true;
+    }
+    
+    //////////////////////////////////////////////////////////////////////////
+    // Reset and Clear Handlers
+    //
+    // These methods are used to reset the panels used in the UI. Most of the
+    // panels are cleared, but some exceptions such as the add meter reading 
+    // panel are not reset because they contain format guidelines for the user
+    //////////////////////////////////////////////////////////////////////////
+    
+    private void resetAccountInfoPanel()
+    {
+        clearTextInAccountPanel();
+        clearFieldColorsInAccountPanel();
+        
+        showMetersInMeterTable(null);
+        enableComResButtons(true);
+        accCreate.setEnabled(true);
+        accSave.setEnabled(false);
+    }
+    
+    private void clearViewMeterPanel()
+    {
+        viewMeterIDField.setText("");
+        viewMeterRateField.setText("");
+        viewMeterAdd1Field.setText("");
+        viewMeterAdd2Field.setText("");
+        viewMeterCityField.setText("");
+        viewMeterStateField.setText("");
+        viewMeterZipField.setText("");
+    }
+    
+    private void clearAddMeterPanel()
+    {
+        meterIDField.setText("");
+        meterRateField.setText("");
+        meterAddLine1Field.setText("");
+        meterAddLine2Field.setText("");
+        meterCityField.setText("");
+        meterStateField.setText("");
+        meterZipField.setText("");
+    }
+    
+    private void clearTextInAccountPanel()
+    {
+        compNameField.setText("");
+        lastNameField.setText("");
+        firstNameField.setText("");
+
+        accountIDField.setText("");
+        addLine1Field.setText("");
+        addLine2Field.setText("");
+        cityField.setText("");
+        stateField.setText("");
+        zipField.setText("");
+    }
+    
+    private void clearFieldColorsInAccountPanel()
+    {
+        compNameField.setBackground(Color.WHITE);
+        lastNameField.setBackground(Color.WHITE);
+        firstNameField.setBackground(Color.WHITE);
+
+        accountIDField.setBackground(Color.WHITE);
+        addLine1Field.setBackground(Color.WHITE);
+        addLine2Field.setBackground(Color.WHITE);
+        cityField.setBackground(Color.WHITE);
+        stateField.setBackground(Color.WHITE);
+        zipField.setBackground(Color.WHITE);
+    }   
+    
+        
+    private void clearAddTaxPanel()
+    {
+        addTaxNameField.setText("");
+        addTaxRateField.setText("");
+    }
+
+    private void resetAddMeterReadingPanel()
+    {
+        addMeterReadingField.setText("");
+        addMeterReadingDateField.setText("mm/dd/yy");
+        addMeterReadingTimeField.setText("mm:hh");
+        addMeterReadingTimeZoneField.setText("");
+    }
+    
+    //////////////////////////////////////////////////////////////////////////
+    // Fail Dialog Handlers
+    //
+    // These are basic message dialogs to display certain failures.
     //////////////////////////////////////////////////////////////////////////
     
     private void failToCreateMeterReadingDialog()
@@ -1788,7 +1834,12 @@ public class UserInterface extends javax.swing.JFrame {
     }
     
     //////////////////////////////////////////////////////////////////////////
-    //Popup Handlers
+    // Popup Handlers
+    //
+    // These methods handle all of the popups that appear in the UI. The
+    // majority if not all of these methods are called by right clicks
+    // in some JTable. The table name corresponds to the table where the popup
+    // acts.
     //////////////////////////////////////////////////////////////////////////
     
      /**
