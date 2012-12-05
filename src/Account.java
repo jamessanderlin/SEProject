@@ -101,6 +101,7 @@ public abstract class Account
 		return s;
 	}
 	
+	public abstract String getMeterUsage(Date cutoffDate);
 	public abstract double getTotalCost(Date cutoffDate);
 	public abstract double getTotalTaxCost(Date cutoffDate);
 }

@@ -19,6 +19,8 @@ public class Controller
 	//TreeMap of the meters
     private TreeMap<Integer, Meter> meters;// = new TreeMap<Integer, Meter>();
 	
+	DecimalFormat money = new DecimalFormat("0.00");
+	
     private Account_IO dataAccount;
 	//Singleton instance of the Controller. 
 	private static final Controller instance = new Controller();
@@ -29,6 +31,8 @@ public class Controller
     	dataAccount = new Account_IO();
 		accounts = dataAccount.read("accounts.txt");
 		meters = Meter_IO.read("meters.txt", accounts);
+		
+		generateBill(12345);
     }
  
     /**
@@ -159,12 +163,27 @@ public class Controller
 				ResidentialAccount ra = (ResidentialAccount)a;
 				out.write(ra.getClientFirstName() + " " + ra.getClientLastName() + "\n");
 			}
-			out.write(a.getBillingAddress().toString() + "\n\n");
+			out.write(a.getBillingAddress().toString1() + "\n\n");
 			out.write("JAMM UC\n");
 			out.write("Account #" + a.getAccountID() + "\n");
 			DateFormat f = new SimpleDateFormat("MM/dd/yy");
 			out.write("Please pay by: " + f.format(a.getDeadline()) + "\n");
-			out.write("Amount: " + a.getBalance() + "\n\n");
+			out.write("Amount: " + a.getBalance() + "\n\n\n");
+			out.write("Meter usage since last month:\n");
+			
+			Date d = new Date();
+			GregorianCalendar gc = new GregorianCalendar();
+			gc.setTime(d);
+			//The date assumes 1 month intervals between payments
+			gc.add(Calendar.DAY_OF_YEAR, -30);
+			Date result = gc.getTime();
+			
+			out.write(a.getMeterUsage(result) + "\n");
+			out.write("Taxes applied:\n$");
+			
+			out.write(String.valueOf(money.format(a.getTotalTaxCost(result))));
+			
+			
 			out.close();
 		}
 		catch(Exception ex)
