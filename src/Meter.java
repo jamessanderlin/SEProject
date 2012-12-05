@@ -13,6 +13,10 @@ import java.util.Map.Entry;
  */
 public class Meter
 {
+    
+        //Denotes the types of meters possible
+        private static final String[] types = {"Digital", "Analog"};
+        
 	//Specifies if the meter is Analog (manual reading) or digital (digital reading)
 	private Boolean isDigital; 
 	
@@ -56,10 +60,14 @@ public class Meter
 		return "Analog";
 	}
 	public void setType(String type) {
-		if(type.equals("Digital")) {
+		if(type.toLowerCase().equals("digital")) 
+                {
 			isDigital = true;
 		}
-		isDigital = false;
+                else
+                {
+                    isDigital = false;
+                }
 	}
 	public int getMeterID() {
 		return meterID;
@@ -104,6 +112,11 @@ public class Meter
 	{
 		return "ID: " + meterID;
 	}
+        
+        public static String[] getTypes()
+        {
+            return types;
+        }
 	
 	public double getTotalTaxRate() {
         double accumulateTaxes = 0.0;
