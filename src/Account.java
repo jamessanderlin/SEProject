@@ -2,7 +2,7 @@ import java.util.*;
 
 /**
  * 
- * @author James Sanderlin, Mudrekh Goderya, Avi Levy
+ * @author James Sanderlin, Mudrekh Goderya, Avi Levy, Mark Duncan
  * 
  * The Account class handles input and output of the current state of the program to accounts.txt
  * 
@@ -11,6 +11,7 @@ import java.util.*;
  * 
  * @ version 1.0
  *
+ *Comments Updated 12/15/12 8:00pm
  */
 public abstract class Account 
 {
@@ -31,7 +32,6 @@ public abstract class Account
 	public void setAccountNum(int accountID) {
 		this.accountID = accountID;
 	}
-	
 	public ArrayList<Payment> getPaymentHistory() {
 		return paymentHistory;
 	}
@@ -77,30 +77,41 @@ public abstract class Account
 	 * 
 	 * @param m
 	 */
+	
 	public abstract void addMeter(Meter m);
+	
 	/**
 	 * Abstract convenience method to delete a meter from the account
 	 * 
 	 * @param meterID
 	 * @return the meter that was deleted
 	 */
-    public abstract Meter deleteMeter(int meterID);
+    
+	public abstract Meter deleteMeter(int meterID);
+   
     /**
      * Abstract convenience method to access a meter based on its ID
      * 
      * @param meterID
      * @return the meter with the specified ID
      */
+    
     public abstract Meter getMeter(int meterID);
+    
     /**
      * Abstract convenience method to see if an account has a meter with the specified ID
      * 
      * @param meterID
      * @return whether or not the account has the specified meter
      */
+    
     public abstract boolean hasMeter(int meterID);
 	
-    //Prints isCommercial as a '0' or '1' instead of 'true' or 'false'
+    /**
+	 * Prints the boolean isCommercial as a '0' or '1' for persisting
+	 * 
+	 * @return '0' or '1' to denote the flag's value
+	 */
 	public String isCommercialToString(){
 		String s = "";
 		
@@ -139,6 +150,7 @@ public abstract class Account
 	 * @param cutoffDate
 	 * @return total usage from all meters tied to the account (since cutoffDate)
 	 */
+	
 	public abstract String getMeterUsage(Date cutoffDate);
 	
 	/**
@@ -147,6 +159,7 @@ public abstract class Account
 	 * @param cutoffDate
 	 * @return the total cost from all meters tied to the account (since cutoffDate)
 	 */
+	
 	public abstract double getTotalCost(Date cutoffDate);
 	
 	/**
@@ -155,5 +168,6 @@ public abstract class Account
 	 * @param cutoffDate
 	 * @return the total tax cost from all meters tied to the account (since the cutoffDate)
 	 */
+	
 	public abstract double getTotalTaxCost(Date cutoffDate);
 }

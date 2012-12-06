@@ -6,13 +6,19 @@ import java.util.*;
  * 
  * @author Mark Duncan, James Sanderlin, Avi Levi, Mudrekh Goderya
  *
- *Description
+ *The Payment class represents a payment made by a customer and stores the data necessary
+ *to represent a payment.
  *
  *@version 1.0
  *
+ *Comments Updated 12/15/12 8:00pm
  */
+
 public class Payment 
 {
+	/*
+	 * Data Fields
+	 */
 	private double paidAmount;
 	private String paymentType;
 	private Date paymentDate;

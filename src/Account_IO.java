@@ -13,7 +13,7 @@ import java.text.DateFormat;
  * @version 1.0
  *
  *
- *Format of accounts.txt:
+ *Format of an account in accounts.txt:
  *
  *isCommercial
  *First Name (or just Company name)

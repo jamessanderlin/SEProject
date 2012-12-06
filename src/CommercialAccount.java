@@ -1,10 +1,36 @@
 import java.util.*;
 import java.util.Map.Entry;
+/**
+ * 
+ * @author James Sanderlin, Mudrekh Goderya, Avi Levy, Mark Duncan
+ * 
+ * The Commercial Account class extends the Abstract class Account and provides
+ * additional fields to an Account applicable to a commercial client.
+ * 
+ * Additional Fields:
+ * String compName: The name of the company
+ * TreeMap<Integer, Meter> meters: A treemap of all the meters tied to this commercial account
+ *
+ * @ version 1.0
+ * 
+ * Comments Updated 12/15/12 8:15pm
+ */
 public class CommercialAccount extends Account
 {
+	
 	private TreeMap<Integer, Meter> meters = new TreeMap<Integer, Meter>();
 	private String companyName;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param compName
+	 * @param accountID
+	 * @param balance
+	 * @param flag
+	 * @param deadline
+	 * @param billingAddress
+	 */
 	public CommercialAccount(String compName, int accountID, double balance, boolean flag, Date deadline, Address billingAddress)
 	{
 		this.companyName = compName;
@@ -13,6 +39,7 @@ public class CommercialAccount extends Account
 		this.flag = flag;
 		this.deadline = deadline;
 		this.billingAddress = billingAddress;
+		//1 is commercial, 0 is residential
 		this.isCommercial = true;
 	}
 
