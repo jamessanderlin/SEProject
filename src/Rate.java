@@ -6,6 +6,8 @@
  *the meter class.
  *
  * @version 1.0
+ * 
+ * Comments Updated: 12/5/12 8:30pm
  *
  */
 public class Rate {
@@ -20,6 +22,9 @@ public class Rate {
 	//such as commercial or residential
 	private String type;
 
+	/*
+	 * Basic Getters and Setters
+	 */
 	public int getID() {
 		return ID;
 	}
@@ -42,6 +47,5 @@ public class Rate {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-	
+	}	
 }

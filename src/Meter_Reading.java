@@ -1,5 +1,4 @@
 import java.util.*;
-
 /**
  * 
  * @author Mark Duncan, James Sanderlin, Mudrekh Goderya, Avi Levy
@@ -8,17 +7,31 @@ import java.util.*;
  * 
  * @version 1.0
  *
+ *Comments Updated: 12/5/12 8:30pm
  */
 public class Meter_Reading
 {
+	/*
+	 * Data Fields
+	 */
+	//An integer representing the reading of the meter usage
 	private int reading;
+	//A date of the meter reading
 	private Date readingDate;
 	
+	/**
+	 * Default Constructor
+	 * 
+	 * @param reading
+	 * @param readingDate
+	 */
 	public Meter_Reading(int reading, Date readingDate) {
 		setReading(reading);
 		setReadingDate(readingDate);
 	}
-	
+	/*
+	 * Basic Getters and Setters
+	 */
 	public int getReading() {
 		return reading;
 	}
@@ -32,4 +45,3 @@ public class Meter_Reading
 		this.readingDate = readingDate;
 	}
 }
-

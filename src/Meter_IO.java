@@ -133,6 +133,15 @@ public class Meter_IO
 		return meters;
 	}
 
+	/**
+	 * Helper method intended to called in the write method for this class.
+	 * Writes the strings and their data in the correct format for all the meters, readings and taxes associated with
+	 * an account
+	 * 
+	 * @param out
+	 * @param m
+	 * @throws IOException
+	 */
 	public static void writeMeter(BufferedWriter out, Meter m) throws IOException {
 		out.write(m.getMeterID()+"\n" + (m.getIsDigital() ? 1 : 0) + "\n" + m.getMeterRate() + "\n"
 				 +m.getPhysicalAddress().getLocation1()
@@ -178,7 +187,8 @@ public class Meter_IO
 						writeMeter(out, m);
 						}
 					}
-				} else {
+				} 
+				else {
 					ResidentialAccount ra = (ResidentialAccount)a;
 					if(ra.getMeter() != null) {
 					out.write(a.getAccountID()+"\n");

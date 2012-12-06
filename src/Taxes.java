@@ -7,6 +7,7 @@
  *
  *@version 1.0
  *
+ *Comments Updated: 12/5/12 8:30pm
  */
 public class Taxes {
 
@@ -15,11 +16,20 @@ public class Taxes {
 	//Describes the name of the tax linked to the respective rate
 	private String name;
 	
+	/**
+	 * Default Constructor
+	 * 
+	 * @param name
+	 * @param rate
+	 */
 	public Taxes(String name, double rate) {
 		this.rate = rate;
 		this.name = name;
 	}
 	
+	/*
+	 * Basic Getters and Setters
+	 */
 	public double getRate() {
 		return rate;
 	}
@@ -31,6 +41,5 @@ public class Taxes {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-		
+	}	
 }
