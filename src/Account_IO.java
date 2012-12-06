@@ -15,7 +15,7 @@ import java.text.DateFormat;
  *
  *Format of an account in accounts.txt:
  *
- *isCommercial
+ *isCommercial (0 or 1)
  *First Name (or just Company name)
  *Last Name
  *Account ID
@@ -27,11 +27,19 @@ import java.text.DateFormat;
  *City
  *State
  *Zip
+ *end (delimiter)
  *
+ *Comments Updated: 12/5/12 8:20pm
  */
 public class Account_IO 
 {	
-	//This method writes the account information from the accounts file to a list of accounts by reference
+	/**
+	 * Reads in a text file with the correct formatting containing account information
+	 * 
+	 * @param fileinName
+	 * @return a TreeMap of the accounts from the text file and associated data
+	 * 
+	 */
 		public TreeMap<Integer, Account> read(String fileinName){
 			File accountFile = new File(fileinName);
 			TreeMap<Integer, Account> accountlist = new TreeMap<Integer, Account>();
@@ -149,8 +157,16 @@ public class Account_IO
 			return accountlist;
 		}
 		
-		//This method persists the account information from a list by reference to a file for reading in later
+		/**
+		 * Writes the account information to a text file for persisting and storing data
+		 * through individual program executions
+		 * 
+		 * @param writefileName
+		 * @param accountlist
+		 */
 		public static void write(String writefileName, Collection<Account> accountlist){
+			//Formatter to format Date back to the correct format
+			DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
 			try{
 				
 			FileWriter fstream = new FileWriter(writefileName);
@@ -159,43 +175,36 @@ public class Account_IO
 				for(Account a : accountlist) 
 				{	if(a.isCommercial()){
 					CommercialAccount ca = (CommercialAccount)a;
-					//Format Date back to the correct format
-					DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
-					Date deadline = ca.getDeadline();
-								
+					Date deadline = ca.getDeadline();					
 					String deadlineString = formatter.format(deadline);
-								
+						
 					out.write(
-								   ca.isCommercialToString()
-							 +"\n"+ca.getCompanyName()
-							 +"\n"+ca.getAccountID()
-							 +"\n"+ca.getBalance()
-							 +"\n"+ca.getFlagToString()
-							 +"\n"+deadlineString
-							 +"\n"+ca.getBillingAddress().toString()
-							 +"\n"
-	);
+							ca.isCommercialToString()
+							+"\n"+ca.getCompanyName()
+							+"\n"+ca.getAccountID()
+							+"\n"+ca.getBalance()
+							+"\n"+ca.getFlagToString()
+							+"\n"+deadlineString
+							+"\n"+ca.getBillingAddress().toString()
+							+"\n"
+							);
 					
 				}
 				else{
 					ResidentialAccount ra = (ResidentialAccount)a;
-					
-					//Format Date back to the correct format
-					DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
 					Date deadline = ra.getDeadline();
-					
 					String deadlineString = formatter.format(deadline);
 					
 					out.write(
-							  							   ra.isCommercialToString()
-							  						 +"\n"+ra.getClientFirstName() 
-							  						 +"\n"+ra.getClientLastName() 
-													 +"\n"+ra.getAccountID()
-													 +"\n"+ra.getBalance()
-													 +"\n"+ra.getFlagToString() 
-													 +"\n"+ deadlineString
-													 +"\n"+ra.getBillingAddress().toString() 
-													 +"\n"
+							ra.isCommercialToString()
+							+"\n"+ra.getClientFirstName() 
+							+"\n"+ra.getClientLastName() 
+							+"\n"+ra.getAccountID()
+							+"\n"+ra.getBalance()
+							+"\n"+ra.getFlagToString() 
+							+"\n"+ deadlineString
+							+"\n"+ra.getBillingAddress().toString() 
+							+"\n"
 							);
 				}
 					out.write("PAYMENTS:"+"\n");

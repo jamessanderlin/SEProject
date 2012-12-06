@@ -1,6 +1,5 @@
 import java.util.*;
 import java.util.Map.Entry;
-
 /**
  * 
  * @author Mark Duncan, James Sanderlin, Mudrekh Goderya, Avi Levy
@@ -10,10 +9,15 @@ import java.util.Map.Entry;
  * 
  * @version 1.0
  *
+ *Comments Updated: 12/5/12 8:20pm
  */
 public class Meter
 {
     
+	/*
+	 * Data Fields
+	 */
+	
     //Denotes the types of meters possible
     private static final String[] types = {"Digital", "Analog"};
         
@@ -29,10 +33,21 @@ public class Meter
 	//Stores the rate for the meter
 	private double meterRate;
 	
+	//Address object of the physicalAddress of the meter
 	private Address physicalAddress;
 
+	//TreeMap that stores the taxes associated with the meter
 	private TreeMap<String, Taxes> taxes;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param meterID
+	 * @param type
+	 * @param rate
+	 * @param physicalAddress
+	 *
+	 */
 	public Meter(int meterID, String type, double rate, Address physicalAddress)
 	{
 		this.meterID = meterID;
@@ -41,75 +56,6 @@ public class Meter
 		readings = new TreeMap<Date, Meter_Reading>();
 		taxes = new TreeMap<String, Taxes>();
 		meterRate = rate;
-	}
-	
-	/**
-	 * Convenience method to add a tax to a meter
-	 * 
-	 * @param t
-	 */
-	public void addTax(Taxes t)
-	{
-		taxes.put(t.getName(),t);
-	}
-    
-	/**
-	 * Convenience method to remove a tax from a meter
-	 * 
-	 * @param n
-	 * @return the tax deleted
-	 */
-    public Taxes deleteTax(String n)
-    {
-        return taxes.remove(n);
-    }
-    /**
-     * Convenience method to add a meter reading
-     * 
-     * @param r
-     */
-	public void addReading(Meter_Reading r)
-	{
-		readings.put(r.getReadingDate(),r);
-		
-	}
-     
-	/**
-	 * Convenience method to delete a meter reading
-	 * 
-	 * @param d
-	 * @return the meter reading that was deleted
-	 */
-    public Meter_Reading deleteReading(Date d)
-    {
-        return readings.remove(d);
-    }
-	
-    /**
-     * Returns the type of the meter ("Digital" or "Analog")
-     * 
-     * @return the type of the meter ("Digital" or "Analog")
-     */
-	public String getType() {
-		if(isDigital) {
-			return "Digital";
-		}
-		return "Analog";
-	}
-	/**
-	 * Receives a string denoting the type of the meter, sets it to that
-	 * 
-	 * @param type
-	 */
-	public void setType(String type) {
-		if(type.toLowerCase().equals("digital")) 
-                {
-			isDigital = true;
-		}
-                else
-                {
-                    isDigital = false;
-                }
 	}
 	
 	/*
@@ -127,7 +73,6 @@ public class Meter
 	public void setReadings(TreeMap<Date, Meter_Reading> readings) {
 		this.readings = readings;
 	}
-	
 	public double getMeterRate() {
 		return meterRate;
 	}
@@ -153,12 +98,90 @@ public class Meter
 	public TreeMap<String, Taxes> getTaxes() {
 		return taxes;
 	}
+	
+	/**
+	 * Convenience method to add a tax to a meter
+	 * 
+	 * @param t
+	 */
+	
+	public void addTax(Taxes t)
+	{
+		taxes.put(t.getName(),t);
+	}
+    
+	/**
+	 * Convenience method to remove a tax from a meter
+	 * 
+	 * @param n
+	 * @return the tax deleted
+	 */
+	
+    public Taxes deleteTax(String n)
+    {
+        return taxes.remove(n);
+    }
+    
+    /**
+     * Convenience method to add a meter reading
+     * 
+     * @param r
+     */
+    
+	public void addReading(Meter_Reading r)
+	{
+		readings.put(r.getReadingDate(),r);
+		
+	}
+     
+	/**
+	 * Convenience method to delete a meter reading
+	 * 
+	 * @param d
+	 * @return the meter reading that was deleted
+	 */
+	
+    public Meter_Reading deleteReading(Date d)
+    {
+        return readings.remove(d);
+    }
+	
+    /**
+     * Returns the type of the meter ("Digital" or "Analog")
+     * 
+     * @return the type of the meter ("Digital" or "Analog")
+     */
+    
+	public String getType() {
+		if(isDigital) {
+			return "Digital";
+		}
+		return "Analog";
+	}
+	
+	/**
+	 * Receives a string denoting the type of the meter, sets it to that
+	 * 
+	 * @param type
+	 */
+	
+	public void setType(String type) {
+		if(type.toLowerCase().equals("digital")) 
+                {
+			isDigital = true;
+		}
+        else
+        {
+            isDigital = false;
+        }
+	}
 
 	/**
 	 * Prints out the ID of the meter
 	 * 
 	 * @return the ID of the meter
 	 */
+	
 	public String toString()
 	{
 		return "ID: " + meterID;
@@ -169,6 +192,7 @@ public class Meter
 	 * 
 	 * @return the types, "Digital" and "Analog"
 	 */
+	
     public static String[] getTypes()
     {
         return types;
@@ -179,6 +203,7 @@ public class Meter
      * 
      * @return the total tax rate of all taxes on the meter
      */
+    
 	public double getTotalTaxRate() {
         double accumulateTaxes = 0.0;
         for(Taxes t : getTaxes().values()) {
@@ -193,6 +218,7 @@ public class Meter
 	 * @param cutoffDate
 	 * @return the total usage on the meter by summing up all the meter readings
 	 */
+	
 	public int getTotalUsage(Date cutoffDate) {
 		int accumulateReadings = 0;
 		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(cutoffDate).entrySet() ) {
@@ -207,6 +233,7 @@ public class Meter
 	 * @param cutoffDate
 	 * @return the total cost of usage on this meter using the getTotalUsage method
 	 */
+	
 	public double getCost(Date cutoffDate) {
 		return getTotalUsage(cutoffDate)*getMeterRate();
 	}
@@ -217,8 +244,8 @@ public class Meter
 	 * @param cutoffDate
 	 * @return the total tax cost on usage of this meter using the getTotalTaxRate method
 	 */
+	
 	public double getTaxCost(Date cutoffDate) {
 		return getCost(cutoffDate)*getTotalTaxRate();
 	}
-
 }
