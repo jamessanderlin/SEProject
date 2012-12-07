@@ -852,7 +852,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         addPaymentPaidAmountLabel.setText("Paid Amount");
 
-        addPaymentTypeField.setText("Payment Time");
+        addPaymentTypeField.setText("Payment Type");
 
         addPaymentTypeComboBox.setModel(new DefaultComboBoxModel(Payment.getPossiblePaymentTypes()));
 
