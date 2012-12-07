@@ -44,6 +44,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quickAddPaymentActionPerformed"/>
           </Events>
         </MenuItem>
+        <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator4">
+        </Component>
+        <MenuItem class="javax.swing.JMenuItem" name="generateBill">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Generate Bill for Account"/>
+          </Properties>
+        </MenuItem>
       </SubComponents>
     </Container>
     <Component class="javax.swing.ButtonGroup" name="accountButtonGroup">
@@ -1215,6 +1222,13 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator5">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="gernerateAllBills">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Generate Bill for All Accounts"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>

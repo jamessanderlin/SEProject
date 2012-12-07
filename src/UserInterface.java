@@ -66,6 +66,8 @@ public class UserInterface extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         viewPayments = new javax.swing.JMenuItem();
         quickAddPayment = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        generateBill = new javax.swing.JMenuItem();
         accountButtonGroup = new javax.swing.ButtonGroup();
         addMeterPanel = new javax.swing.JPanel();
         meterIDLabel = new javax.swing.JLabel();
@@ -212,6 +214,8 @@ public class UserInterface extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         save = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        gernerateAllBills = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         deleteAccount = new javax.swing.JMenuItem();
 
@@ -248,6 +252,10 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         accountPopup.add(quickAddPayment);
+        accountPopup.add(jSeparator4);
+
+        generateBill.setText("Generate Bill for Account");
+        accountPopup.add(generateBill);
 
         meterIDLabel.setText("Meter ID");
 
@@ -1214,6 +1222,10 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         menuFile.add(save);
+        menuFile.add(jSeparator5);
+
+        gernerateAllBills.setText("Generate Bill for All Accounts");
+        menuFile.add(gernerateAllBills);
 
         menuBar.add(menuFile);
 
@@ -2357,11 +2369,15 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JButton deleteTaxButton;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
+    private javax.swing.JMenuItem generateBill;
+    private javax.swing.JMenuItem gernerateAllBills;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JSplitPane mainSplitPane;
