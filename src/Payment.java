@@ -22,7 +22,7 @@ public class Payment
 	private double paidAmount;
 	private String paymentType;
 	private Date paymentDate;
-	
+        private static String[] posPaymentTypes = {"Check", "Money Order", "Credit Card", "Cash"};	
 	/*
 	 * Basic Getters and Setters
 	 */
@@ -70,4 +70,9 @@ public class Payment
 		s = Double.toString(this.paidAmount)+"\n"+this.paymentType+"\n"+paymentDateString+"\n";			              
 		return s;
 	}
+        
+        public static String[] getPossiblePaymentTypes()
+        {
+            return posPaymentTypes;
+        }
 }

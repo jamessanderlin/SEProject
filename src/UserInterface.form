@@ -26,10 +26,26 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMeterToAccountActionPerformed"/>
           </Events>
         </MenuItem>
+        <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+        </Component>
+        <MenuItem class="javax.swing.JMenuItem" name="viewPayments">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="View Payments"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewPaymentsActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="quickAddPayment">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quick Add Payment"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quickAddPaymentActionPerformed"/>
+          </Events>
+        </MenuItem>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
-    </Component>
     <Component class="javax.swing.ButtonGroup" name="accountButtonGroup">
     </Component>
     <Container class="javax.swing.JPanel" name="addMeterPanel">
@@ -908,6 +924,280 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Container class="javax.swing.JPanel" name="viewPaymentsPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="viewPaymentsScrollPane" alignment="1" min="-2" pref="330" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="viewPaymentsAddButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="viewPaymentsDeleteButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="viewPaymentsScrollPane" min="-2" pref="225" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="viewPaymentsDeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="viewPaymentsAddButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="viewPaymentsScrollPane">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="paymentTable">
+              <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new PaymentViewTableModel()" type="code"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="paymentTableMouseReleased"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="paymentTableMousePressed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="paymentTable.setDefaultRenderer(Object.class, new LeftCellRenderer());&#xa;paymentTable.setDefaultRenderer(Date.class, new DateCellRenderer());"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="viewPaymentsDeleteButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Delete Payment"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewPaymentsDeleteButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="viewPaymentsAddButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add Payment"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewPaymentsAddButtonActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="addPaymentPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="addPaymentTypeField" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="addPaymentPaidAmountLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="addPaymentTimeZoneLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="addPaymentTimeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="addPaymentDateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="addPaymentPaidAmountField" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                      <Component id="addPaymentTypeComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="addPaymentTimeField" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <Component id="addPaymentAMPMComboBox" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="addPaymentDateField" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="addPaymentUSDLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="addPaymentTimeZoneField" min="-2" pref="69" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="addPaymentTimeZoneExample" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="addPaymentNote1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="addPaymentNote3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="addPaymentNote" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addPaymentDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentDateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addPaymentTimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentAMPMComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addPaymentTimeZoneLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentTimeZoneField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentTimeZoneExample" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addPaymentPaidAmountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentPaidAmountField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentUSDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addPaymentTypeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addPaymentTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="addPaymentNote1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="addPaymentNote" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="addPaymentNote3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="addPaymentDateLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Date"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addPaymentDateField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="mm/dd/yy"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addPaymentTimeField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="hh:mm"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentTimeLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Time"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="addPaymentAMPMComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="AM"/>
+                <StringItem index="1" value="PM"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentTimeZoneLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Time zone"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addPaymentTimeZoneField">
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentTimeZoneExample">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="(i.e CST)"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentPaidAmountLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Paid Amount"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentTypeField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Payment Time"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="addPaymentPaidAmountField">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="addPaymentTypeComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new DefaultComboBoxModel(Payment.getPossiblePaymentTypes())" type="code"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentNote1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="*Paid Amount must be greater than or"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentNote3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Note: Payments can have fractional cents"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentUSDLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="USD"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addPaymentNote">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="equal to 0.0"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPopupMenu" name="paymentPopup">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="deletePayment">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Delete Payment"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletePaymentActionPerformed"/>
+          </Events>
+        </MenuItem>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFile">
@@ -1091,48 +1381,56 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="firstName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="accountID" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="addressLine1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="addressLine2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="city" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="state" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="zip" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lastName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="compName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="comAccButton" min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="firstNameField" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="lastNameField" alignment="0" max="32767" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="accountIDField" min="-2" pref="97" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="addLine1Field" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="addLine2Field" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="cityField" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                                              <Component id="zipField" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="stateField" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="compNameField" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="resAccButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="buttonPanel" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="firstName" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="accountID" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="addressLine1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="addressLine2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="city" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="state" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="zip" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="lastName" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="compName" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="comAccButton" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="firstNameField" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="lastNameField" alignment="0" max="32767" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="accountIDField" min="-2" pref="97" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="addLine1Field" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="addLine2Field" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="cityField" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                                                      <Component id="zipField" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="stateField" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="compNameField" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="resAccButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1193,7 +1491,9 @@
                               <Component id="comAccButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="11" max="32767" attributes="0"/>
                               <Component id="buttonPanel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1346,6 +1646,11 @@
                     <Component class="javax.swing.JLabel" name="jLabel1">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="(1 - 2147483647)"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="*Red background indicates invalid entry or conflict"/>
                       </Properties>
                     </Component>
                   </SubComponents>

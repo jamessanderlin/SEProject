@@ -21,7 +21,7 @@ public abstract class Account
 	protected boolean isCommercial;
 	protected Date deadline;
 	protected Address billingAddress;
-	protected ArrayList<Payment> paymentHistory = new ArrayList<Payment>();
+	protected TreeMap<Date, Payment> paymentHistory = new TreeMap<Date, Payment>();
 	
 	/*
 	 * Basic Getters and Setters
@@ -32,12 +32,19 @@ public abstract class Account
 	public void setAccountNum(int accountID) {
 		this.accountID = accountID;
 	}
-	public ArrayList<Payment> getPaymentHistory() {
+	public TreeMap<Date, Payment> getPaymentHistory() {
 		return paymentHistory;
 	}
-	public void setPaymentHistory(ArrayList<Payment> paymentHistory) {
+	public void setPaymentHistory(TreeMap<Date, Payment> paymentHistory) {
 		this.paymentHistory = paymentHistory;
+        }
+        public void addPayment(Payment p){        
+                paymentHistory.put(p.getPaymentDate(), p);
 	}
+        public Payment deletePayment(Date d)
+        {
+                return paymentHistory.remove(d);
+        }
 	public double getBalance() {
 		return balance;
 	}

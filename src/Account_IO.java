@@ -102,7 +102,7 @@ public class Account_IO
 					double amount = 0.0;
 					String paymentType = "";
 					String paymentDate ="";
-					ArrayList<Payment> paymentHist = new ArrayList<Payment>();
+					TreeMap<Date, Payment> paymentHist = new TreeMap<Date, Payment>();
 					
 					//Advances the writer past the "Payments:" delimiter. (We may decide to remove this altogether)
 					@SuppressWarnings("unused")
@@ -124,7 +124,7 @@ public class Account_IO
 						}
 						//Creates the payment object to be stored in the account object's paymentHistory list
 						Payment newPayment = new Payment(amount,paymentType,payDate);
-						paymentHist.add(newPayment);
+						paymentHist.put(payDate, newPayment);
 					}
 					
 					//Advances the writer past the end delimiter if necessary to get new info
@@ -136,13 +136,13 @@ public class Account_IO
 					if(isCommercial)
 					{		
 						CommercialAccount a = new CommercialAccount(companyName, accountId, balance, flag, deadline, addressParam);
-						  				  a.paymentHistory = paymentHist;
+						  				  a.setPaymentHistory(paymentHist);
 						  				  accountlist.put(accountId, a);
 					}
 					else
 					{
 						ResidentialAccount b = new ResidentialAccount(clientFirstName, clientLastName, accountId, balance, flag, deadline, addressParam);
-										   b.paymentHistory = paymentHist;
+										   b.setPaymentHistory(paymentHist);
 										   accountlist.put(accountId, b);
 					}
 					
@@ -208,8 +208,9 @@ public class Account_IO
 							);
 				}
 					out.write("PAYMENTS:"+"\n");
-					for (int i = 0; i<a.paymentHistory.size();i++){
-						out.write(a.paymentHistory.get(i).toString());					
+                                        Collection<Payment> payments = a.getPaymentHistory().values();
+					for (Payment p : payments){
+						out.write(p.toString());					
 					}
 					out.write("end\n");
 				}

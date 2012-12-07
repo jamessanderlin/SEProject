@@ -1,41 +1,9 @@
 /*
- * To change this template, choose
-
-            @Override
-            public void setSelectedItem(Object anItem) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public Object getSelectedItem() {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public int getSize() {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public E getElementAt(int index) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void addListDataListener(ListDataListener l) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void removeListDataListener(ListDataListener l) {
-                throw new UnsupportedOperationException("Not supported yet.");
-            }
-        }Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import javax.swing.*;
 import java.util.*;
 import java.awt.Point;
@@ -43,9 +11,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.tree.TreeModel;
 
 /**
  * UserInterface is the main class for handling user input.
@@ -71,6 +39,15 @@ public class UserInterface extends javax.swing.JFrame {
                     System.exit(0);
                 }
         });
+        
+        accountTable.getSelectionModel().addListSelectionListener(
+        new javax.swing.event.ListSelectionListener() 
+        {
+            public void valueChanged(ListSelectionEvent evt) 
+            {
+                showInAccountPanel(getSelectedAccount());
+            }
+        });
     }
 
     /**
@@ -87,6 +64,8 @@ public class UserInterface extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         addMeterToAccount = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        viewPayments = new javax.swing.JMenuItem();
+        quickAddPayment = new javax.swing.JMenuItem();
         accountButtonGroup = new javax.swing.ButtonGroup();
         addMeterPanel = new javax.swing.JPanel();
         meterIDLabel = new javax.swing.JLabel();
@@ -172,6 +151,30 @@ public class UserInterface extends javax.swing.JFrame {
         addTaxNote2 = new javax.swing.JLabel();
         taxPopup = new javax.swing.JPopupMenu();
         deleteTax = new javax.swing.JMenuItem();
+        viewPaymentsPanel = new javax.swing.JPanel();
+        viewPaymentsScrollPane = new javax.swing.JScrollPane();
+        paymentTable = new javax.swing.JTable();
+        viewPaymentsDeleteButton = new javax.swing.JButton();
+        viewPaymentsAddButton = new javax.swing.JButton();
+        addPaymentPanel = new javax.swing.JPanel();
+        addPaymentDateLabel = new javax.swing.JLabel();
+        addPaymentDateField = new javax.swing.JTextField();
+        addPaymentTimeField = new javax.swing.JTextField();
+        addPaymentTimeLabel = new javax.swing.JLabel();
+        addPaymentAMPMComboBox = new javax.swing.JComboBox();
+        addPaymentTimeZoneLabel = new javax.swing.JLabel();
+        addPaymentTimeZoneField = new javax.swing.JTextField();
+        addPaymentTimeZoneExample = new javax.swing.JLabel();
+        addPaymentPaidAmountLabel = new javax.swing.JLabel();
+        addPaymentTypeField = new javax.swing.JLabel();
+        addPaymentPaidAmountField = new javax.swing.JTextField();
+        addPaymentTypeComboBox = new javax.swing.JComboBox();
+        addPaymentNote1 = new javax.swing.JLabel();
+        addPaymentNote3 = new javax.swing.JLabel();
+        addPaymentUSDLabel = new javax.swing.JLabel();
+        addPaymentNote = new javax.swing.JLabel();
+        paymentPopup = new javax.swing.JPopupMenu();
+        deletePayment = new javax.swing.JMenuItem();
         mainSplitPane = new javax.swing.JSplitPane();
         rightSplitPane = new javax.swing.JSplitPane();
         meterViewSrollPane = new javax.swing.JScrollPane();
@@ -203,6 +206,7 @@ public class UserInterface extends javax.swing.JFrame {
         resAccButton = new javax.swing.JRadioButton();
         comAccButton = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         accountScrollPane = new javax.swing.JScrollPane();
         accountTable = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
@@ -227,6 +231,23 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         accountPopup.add(addMeterToAccount);
+        accountPopup.add(jSeparator1);
+
+        viewPayments.setText("View Payments");
+        viewPayments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPaymentsActionPerformed(evt);
+            }
+        });
+        accountPopup.add(viewPayments);
+
+        quickAddPayment.setText("Quick Add Payment");
+        quickAddPayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quickAddPaymentActionPerformed(evt);
+            }
+        });
+        accountPopup.add(quickAddPayment);
 
         meterIDLabel.setText("Meter ID");
 
@@ -761,6 +782,172 @@ public class UserInterface extends javax.swing.JFrame {
         });
         taxPopup.add(deleteTax);
 
+        paymentTable.setAutoCreateRowSorter(true);
+        paymentTable.setModel(new PaymentViewTableModel());
+        paymentTable.setDefaultRenderer(Object.class, new LeftCellRenderer());
+        paymentTable.setDefaultRenderer(Date.class, new DateCellRenderer());
+        paymentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                paymentTableMouseReleased(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                paymentTableMousePressed(evt);
+            }
+        });
+        viewPaymentsScrollPane.setViewportView(paymentTable);
+
+        viewPaymentsDeleteButton.setText("Delete Payment");
+        viewPaymentsDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPaymentsDeleteButtonActionPerformed(evt);
+            }
+        });
+
+        viewPaymentsAddButton.setText("Add Payment");
+        viewPaymentsAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPaymentsAddButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout viewPaymentsPanelLayout = new javax.swing.GroupLayout(viewPaymentsPanel);
+        viewPaymentsPanel.setLayout(viewPaymentsPanelLayout);
+        viewPaymentsPanelLayout.setHorizontalGroup(
+            viewPaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewPaymentsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(viewPaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewPaymentsScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPaymentsPanelLayout.createSequentialGroup()
+                        .addComponent(viewPaymentsAddButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewPaymentsDeleteButton)))
+                .addContainerGap())
+        );
+        viewPaymentsPanelLayout.setVerticalGroup(
+            viewPaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewPaymentsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(viewPaymentsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewPaymentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewPaymentsDeleteButton)
+                    .addComponent(viewPaymentsAddButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        addPaymentDateLabel.setText("Date");
+
+        addPaymentDateField.setText("mm/dd/yy");
+
+        addPaymentTimeField.setText("hh:mm");
+
+        addPaymentTimeLabel.setText("Time");
+
+        addPaymentAMPMComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AM", "PM" }));
+
+        addPaymentTimeZoneLabel.setText("Time zone");
+
+        addPaymentTimeZoneExample.setText("(i.e CST)");
+
+        addPaymentPaidAmountLabel.setText("Paid Amount");
+
+        addPaymentTypeField.setText("Payment Time");
+
+        addPaymentTypeComboBox.setModel(new DefaultComboBoxModel(Payment.getPossiblePaymentTypes()));
+
+        addPaymentNote1.setText("*Paid Amount must be greater than or");
+
+        addPaymentNote3.setText("Note: Payments can have fractional cents");
+
+        addPaymentUSDLabel.setText("USD");
+
+        addPaymentNote.setText("equal to 0.0");
+
+        javax.swing.GroupLayout addPaymentPanelLayout = new javax.swing.GroupLayout(addPaymentPanel);
+        addPaymentPanel.setLayout(addPaymentPanelLayout);
+        addPaymentPanelLayout.setHorizontalGroup(
+            addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                        .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addPaymentTypeField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addPaymentPaidAmountLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addPaymentTimeZoneLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addPaymentTimeLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addPaymentDateLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                                .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addPaymentPaidAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addPaymentTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                                        .addComponent(addPaymentTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(addPaymentAMPMComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(addPaymentDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addPaymentUSDLabel))
+                            .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                                .addComponent(addPaymentTimeZoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addPaymentTimeZoneExample)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                        .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addPaymentNote1)
+                            .addComponent(addPaymentNote3))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                        .addComponent(addPaymentNote)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        addPaymentPanelLayout.setVerticalGroup(
+            addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addPaymentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addPaymentDateLabel)
+                    .addComponent(addPaymentDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addPaymentTimeLabel)
+                    .addComponent(addPaymentAMPMComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addPaymentTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addPaymentTimeZoneLabel)
+                    .addComponent(addPaymentTimeZoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addPaymentTimeZoneExample))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addPaymentPaidAmountLabel)
+                    .addComponent(addPaymentPaidAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addPaymentUSDLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addPaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addPaymentTypeField)
+                    .addComponent(addPaymentTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addPaymentNote1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addPaymentNote)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addPaymentNote3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        deletePayment.setText("Delete Payment");
+        deletePayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePaymentActionPerformed(evt);
+            }
+        });
+        paymentPopup.add(deletePayment);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
 
@@ -875,6 +1062,8 @@ public class UserInterface extends javax.swing.JFrame {
 
         jLabel1.setText("(1 - 2147483647)");
 
+        jLabel2.setText("*Red background indicates invalid entry or conflict");
+
         javax.swing.GroupLayout accountInfoPanelLayout = new javax.swing.GroupLayout(accountInfoPanel);
         accountInfoPanel.setLayout(accountInfoPanelLayout);
         accountInfoPanelLayout.setHorizontalGroup(
@@ -882,39 +1071,44 @@ public class UserInterface extends javax.swing.JFrame {
             .addGroup(accountInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(accountInfoPanelLayout.createSequentialGroup()
-                        .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(firstName, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(accountID, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addressLine1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addressLine2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(city, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(state, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(zip, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lastName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(compName, javax.swing.GroupLayout.Alignment.TRAILING)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comAccButton)
-                            .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(firstNameField)
-                                .addComponent(lastNameField)
-                                .addGroup(accountInfoPanelLayout.createSequentialGroup()
-                                    .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel1))
-                                .addComponent(addLine1Field)
-                                .addComponent(addLine2Field)
-                                .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(zipField)
-                                .addComponent(stateField)
-                                .addComponent(compNameField)
-                                .addComponent(resAccButton)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accountInfoPanelLayout.createSequentialGroup()
                         .addComponent(buttonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                        .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel2))
+                            .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(firstName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(accountID, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(addressLine1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(addressLine2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(city, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(state, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(zip, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lastName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(compName, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comAccButton)
+                                    .addGroup(accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(firstNameField)
+                                        .addComponent(lastNameField)
+                                        .addGroup(accountInfoPanelLayout.createSequentialGroup()
+                                            .addComponent(accountIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel1))
+                                        .addComponent(addLine1Field)
+                                        .addComponent(addLine2Field)
+                                        .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(zipField)
+                                        .addComponent(stateField)
+                                        .addComponent(compNameField)
+                                        .addComponent(resAccButton)))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         accountInfoPanelLayout.setVerticalGroup(
             accountInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -962,7 +1156,9 @@ public class UserInterface extends javax.swing.JFrame {
                 .addComponent(comAccButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addGap(3, 3, 3)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout accountPanelLayout = new javax.swing.GroupLayout(accountPanel);
@@ -1121,8 +1317,7 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addMeterToAccountActionPerformed
 
     private void accountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountTableMouseClicked
-        Account temp = getSelectedAccount();
-        showInAccountPanel(temp);     
+        showInAccountPanel(getSelectedAccount());     
     }//GEN-LAST:event_accountTableMouseClicked
 
     private void resAccButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resAccButtonActionPerformed
@@ -1266,6 +1461,34 @@ public class UserInterface extends javax.swing.JFrame {
     private void taxTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taxTableMousePressed
         doTaxPopup(evt);
     }//GEN-LAST:event_taxTableMousePressed
+
+    private void viewPaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPaymentsActionPerformed
+        openViewPaymentPanel();
+    }//GEN-LAST:event_viewPaymentsActionPerformed
+
+    private void viewPaymentsAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPaymentsAddButtonActionPerformed
+        openAddPaymentPanel();
+    }//GEN-LAST:event_viewPaymentsAddButtonActionPerformed
+
+    private void viewPaymentsDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPaymentsDeleteButtonActionPerformed
+        deleteSelectedPayment();
+    }//GEN-LAST:event_viewPaymentsDeleteButtonActionPerformed
+
+    private void quickAddPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quickAddPaymentActionPerformed
+        openAddPaymentPanel();
+    }//GEN-LAST:event_quickAddPaymentActionPerformed
+
+    private void paymentTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentTableMousePressed
+        doPaymentsPopup(evt);
+    }//GEN-LAST:event_paymentTableMousePressed
+
+    private void paymentTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentTableMouseReleased
+        doPaymentsPopup(evt);
+    }//GEN-LAST:event_paymentTableMouseReleased
+
+    private void deletePaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePaymentActionPerformed
+        deleteSelectedPayment();
+    }//GEN-LAST:event_deletePaymentActionPerformed
     
     private Meter getMeterFromViewMeterPanel()
     {
@@ -1292,12 +1515,67 @@ public class UserInterface extends javax.swing.JFrame {
                             meterRate, addr);
     }
     
+    private void openViewPaymentPanel()
+    {
+        String options[] = {"Ok", "Cancel"};
+        Account selectedAccount = getSelectedAccount();
+        paymentTable.setModel(new PaymentViewTableModel(selectedAccount.getPaymentHistory()));
+        int result = JOptionPane.showOptionDialog(null, viewPaymentsPanel, 
+                         "View Payments for Account " + getSelectedAccountID(), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+    }
+    
+    private void openAddPaymentPanel()
+    {
+        String options[] = {"Ok", "Cancel"};
+        Account selectedAccount = getSelectedAccount();
+        int result = JOptionPane.showOptionDialog(null, addPaymentPanel, 
+                         "Add a Payment to Account " + getSelectedAccountID(), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        
+        boolean failed = false;
+        if(result == 0)
+        {
+            double paidAmount = -1;
+            Date d = new Date();
+            
+            try
+            {
+                paidAmount = Double.parseDouble(addPaymentPaidAmountField.getText());
+                DateFormat formatter = new SimpleDateFormat("MM/dd/yy h:mm a z");
+                String dateLine = addPaymentDateField.getText() + " "
+                        + addPaymentTimeField.getText() + " " 
+                        + addPaymentAMPMComboBox.getSelectedItem().toString() + " "
+                        + addPaymentTimeZoneField.getText();
+                d = formatter.parse(dateLine);
+            }
+            catch(Exception e)
+            {
+                failed = true;
+            }
+            
+            if(paidAmount < 0)
+                failed = true;
+            
+            if(!failed)
+            {  
+                resetAddPaymentPanel();
+                Account selAcc = getSelectedAccount();
+                selAcc.addPayment(new Payment(paidAmount, addPaymentTypeComboBox.getSelectedItem().toString(), d));
+                updateJTable(paymentTable);
+            }
+            else
+            {
+                failToCreatePaymentDialog();
+            }
+            
+        }
+    }
+    
     private void openAddTaxPanel()
     {
         boolean failed = false;
         String options[] = {"Create", "Cancel"};
         int result = JOptionPane.showOptionDialog(null, addTaxPanel, 
-                         "Add a Tax", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                         "Add a Tax to Meter " + getSelectedMeterID(), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         if(result == 0)
         {
             double taxRate = -1;
@@ -1336,7 +1614,7 @@ public class UserInterface extends javax.swing.JFrame {
         boolean failure = false;
         String options[] = {"Create",  "Cancel"};
         int result = JOptionPane.showOptionDialog(null, addMeterPanel, 
-                         "Add Meter to Account", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                         "Add Meter to Account " + getSelectedAccountID(), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
         if(result == 0)
         {
@@ -1382,7 +1660,7 @@ public class UserInterface extends javax.swing.JFrame {
         boolean failed = false;
         String options[] = {"Create", "Cancel"};
         int result = JOptionPane.showOptionDialog(null, addMeterReadingPanel, 
-                         "Add a Meter Reading", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                         "Add a Meter Reading to Meter " +  getSelectedMeter(), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         if(result == 0)
         {
             int meterReading = -1;
@@ -1427,7 +1705,7 @@ public class UserInterface extends javax.swing.JFrame {
         Meter m = getSelectedMeter();
         showMeterInViewMeterPanel(m);
         int result = JOptionPane.showOptionDialog(null, viewMeterPanel, 
-                         "View a Meter", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                         "View Meter " + getSelectedMeterID() + " for Account " + getSelectedAccountID(), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         
         if(result == 0)
         {
@@ -1492,6 +1770,9 @@ public class UserInterface extends javax.swing.JFrame {
         clearTextInAccountPanel();
         clearFieldColorsInAccountPanel();
         
+        if(temp == null)
+            return;
+
         Address addr = temp.getBillingAddress();
         
         if(temp instanceof ResidentialAccount)
@@ -1589,6 +1870,8 @@ public class UserInterface extends javax.swing.JFrame {
     private int getSelectedAccountID()
     {
         int row = accountTable.getSelectedRow();
+        if(row < 0)
+            return -1;
         Object temp = accountTable.getValueAt(row, 0);
         if(!(temp instanceof Integer))
             return -1;
@@ -1677,6 +1960,18 @@ public class UserInterface extends javax.swing.JFrame {
             String name = (String)taxTable.getValueAt(row, 0);
             m.deleteTax(name);
             updateJTable(taxTable);
+        }
+    }
+    
+    private void deleteSelectedPayment()
+    {
+        Account selected = getSelectedAccount();
+        int row = paymentTable.getSelectedRow();
+        if(row >= 0)
+        {    
+            Date d = (Date)paymentTable.getValueAt(row, 0);
+            selected.deletePayment(d);
+            updateJTable(paymentTable);
         }
     }
     
@@ -1827,7 +2122,17 @@ public class UserInterface extends javax.swing.JFrame {
         addMeterReadingField.setText("");
         addMeterReadingDateField.setText("mm/dd/yy");
         addMeterReadingTimeField.setText("mm:hh");
-        addMeterReadingTimeZoneField.setText("");
+        //Commenting out this lines allows the user to keep the timezone
+        //addMeterReadingTimeZoneField.setText("");
+    }
+    
+    private void resetAddPaymentPanel()
+    {
+        addPaymentDateField.setText("mm/dd/yy");
+        addPaymentTimeField.setText("mm:hh");
+        addPaymentPaidAmountField.setText("");
+        //Commenting out this lines allows the user to keep the timezone
+        //addPaymentTimeZoneField.setText("");
     }
     
     //////////////////////////////////////////////////////////////////////////
@@ -1855,6 +2160,11 @@ public class UserInterface extends javax.swing.JFrame {
     {
         JOptionPane.showMessageDialog(null, "Could not create tax. Please check your values");
     }
+    private void failToCreatePaymentDialog()
+    {
+        JOptionPane.showMessageDialog(null, "Could not create payment. Please check your values");
+    }
+    
     
     //////////////////////////////////////////////////////////////////////////
     // Popup Handlers
@@ -1922,6 +2232,24 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
+    private void doPaymentsPopup(java.awt.event.MouseEvent evt)
+    {
+        if(evt.isPopupTrigger())
+        {
+            Point p = evt.getPoint();
+            int row = paymentTable.rowAtPoint(p);
+            paymentTable.getSelectionModel().setSelectionInterval(row, row);
+            paymentPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+
+//quickAddPayment.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                quickAddPaymentActionPerformed(evt);
+//            }
+//        });
+
+    
     /**
      * @param args the command line arguments
      */
@@ -1986,6 +2314,23 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel addMeterReadingTimeZoneLabel;
     private javax.swing.JLabel addMeterReadingkWh;
     private javax.swing.JMenuItem addMeterToAccount;
+    private javax.swing.JComboBox addPaymentAMPMComboBox;
+    private javax.swing.JTextField addPaymentDateField;
+    private javax.swing.JLabel addPaymentDateLabel;
+    private javax.swing.JLabel addPaymentNote;
+    private javax.swing.JLabel addPaymentNote1;
+    private javax.swing.JLabel addPaymentNote3;
+    private javax.swing.JTextField addPaymentPaidAmountField;
+    private javax.swing.JLabel addPaymentPaidAmountLabel;
+    private javax.swing.JPanel addPaymentPanel;
+    private javax.swing.JTextField addPaymentTimeField;
+    private javax.swing.JLabel addPaymentTimeLabel;
+    private javax.swing.JLabel addPaymentTimeZoneExample;
+    private javax.swing.JTextField addPaymentTimeZoneField;
+    private javax.swing.JLabel addPaymentTimeZoneLabel;
+    private javax.swing.JComboBox addPaymentTypeComboBox;
+    private javax.swing.JLabel addPaymentTypeField;
+    private javax.swing.JLabel addPaymentUSDLabel;
     private javax.swing.JButton addTaxButton;
     private javax.swing.JTextField addTaxNameField;
     private javax.swing.JLabel addTaxNameLabel;
@@ -2007,11 +2352,13 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem deleteMeter;
     private javax.swing.JMenuItem deleteMeterReading;
     private javax.swing.JButton deleteMeterReadingButton;
+    private javax.swing.JMenuItem deletePayment;
     private javax.swing.JMenuItem deleteTax;
     private javax.swing.JButton deleteTaxButton;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
@@ -2047,7 +2394,10 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JTextField meterZipField;
     private javax.swing.JLabel meterZipLabel;
     private javax.swing.JLabel optionalLabel;
+    private javax.swing.JPopupMenu paymentPopup;
+    private javax.swing.JTable paymentTable;
     private javax.swing.JMenuItem quickAddMeterReading;
+    private javax.swing.JMenuItem quickAddPayment;
     private javax.swing.JMenuItem quickAddTax;
     private javax.swing.JRadioButton resAccButton;
     private javax.swing.JSplitPane rightSplitPane;
@@ -2083,6 +2433,11 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JTextField viewMeterZipField;
     private javax.swing.JLabel viewMeterZipLabel;
     private javax.swing.JLabel viewMeterkWhLabel;
+    private javax.swing.JMenuItem viewPayments;
+    private javax.swing.JButton viewPaymentsAddButton;
+    private javax.swing.JButton viewPaymentsDeleteButton;
+    private javax.swing.JPanel viewPaymentsPanel;
+    private javax.swing.JScrollPane viewPaymentsScrollPane;
     private javax.swing.JLabel zip;
     private javax.swing.JTextField zipField;
     // End of variables declaration//GEN-END:variables
