@@ -72,6 +72,17 @@ public class CommercialAccount extends Account
 		return companyName;
 	}
 	
+	@Override
+	public double getBalance()
+	{
+		for(Entry<Integer, Meter> m : getMeters().entrySet()) {
+			balance += m.getValue().getMeterBalance();
+    	}
+		balance = Double.parseDouble(money.format(balance));
+		return balance;
+	}
+	
+	
 	/**
 	 * Convenience method to add a meter to the account
 	 * 
@@ -123,10 +134,10 @@ public class CommercialAccount extends Account
      * @return the total cost from all meters tied to the account
      */
     @Override
-    public double getTotalCost(Date cutoffDate) {
+    public double getTotalCost(Date start, Date end) {
     	double accumulateCosts = 0.0;	
     	for(Entry<Integer, Meter> m : getMeters().entrySet()) {
-    		accumulateCosts += ((Meter) m).getCost(cutoffDate);
+    		accumulateCosts += ((Meter) m).getCost(start, end);
     	}
     	return accumulateCosts;
     }
@@ -138,10 +149,10 @@ public class CommercialAccount extends Account
      * @return the total tax cost from all meters tied to the account
      */
     @Override
-    public double getTotalTaxCost(Date cutoffDate) {
+    public double getTotalTaxCost(Date start, Date end) {
     	double accumulateCosts = 0.0;	
     	for(Entry<Integer, Meter> m : getMeters().entrySet()) {
-    		accumulateCosts += m.getValue().getTaxCost(cutoffDate);
+    		accumulateCosts += m.getValue().getTaxCost(start, end);
     	}
     	return accumulateCosts;
     }
@@ -153,12 +164,12 @@ public class CommercialAccount extends Account
      * @return a string depicting a list of meters tied to the account and their usage
      */
     @Override
-    public String getMeterUsage(Date cutoffDate){
+    public String getMeterUsage(Date start, Date end){
     	String s = "";
     	for(Entry<Integer, Meter> m : getMeters().entrySet())
     	{
     		Meter meter = m.getValue();
-    		s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(cutoffDate) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
+    		s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(start, end) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
     	}
     	return s;
     }

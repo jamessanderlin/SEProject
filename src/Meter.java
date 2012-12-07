@@ -39,6 +39,9 @@ public class Meter
 	//TreeMap that stores the taxes associated with the meter
 	private TreeMap<String, Taxes> taxes;
 	
+	//Store balance from meter readings that Account has not added to its balance yet
+	private double meterBalance = 0;
+	
 	/**
 	 * Constructor
 	 * 
@@ -123,15 +126,24 @@ public class Meter
     }
     
     /**
-     * Convenience method to add a meter reading
+     * Convenience method to add a meter reading, adds to meterBalance so that next time the
+     * Account checks, it will be added to its balance
      * 
      * @param r
      */
-    
-	public void addReading(Meter_Reading r)
+	public void addReading(Meter_Reading r, boolean fromFile)
 	{
 		readings.put(r.getReadingDate(),r);
-		
+		System.out.println("adding reading");
+		if((!fromFile) && readings.lastEntry().getValue().equals(r))
+		{
+			System.out.println("adjusting meter balance");
+			Meter_Reading secondLast = readings.lowerEntry(r.getReadingDate()).getValue();
+			double readingCost = (r.getReading() - secondLast.getReading()) * meterRate;
+			meterBalance -= readingCost;
+			double taxCost = getTotalTaxRate() * readingCost;
+    		meterBalance -= taxCost;
+		}
 	}
      
 	/**
@@ -140,11 +152,33 @@ public class Meter
 	 * @param d
 	 * @return the meter reading that was deleted
 	 */
-	
     public Meter_Reading deleteReading(Date d)
     {
+    	if(readings.lastEntry().getValue().equals(readings.get(d)))
+    	{
+    		System.out.println("adjusting meter balance");
+			Meter_Reading secondLast = readings.lowerEntry(readings.get(d).getReadingDate()).getValue();
+    		double readingCost = (readings.get(d).getReading() - secondLast.getReading()) * meterRate;
+    		meterBalance += readingCost;
+    		double taxCost = getTotalTaxRate() * readingCost;
+    		meterBalance += taxCost;
+    	}
         return readings.remove(d);
     }
+    
+	/**
+	 * Retrieves and clears the meterBalance
+	 * To be used by account, every time it tries to get its balance it
+	 * calls this method for every meter to see if they have stored balances.
+	 * 
+	 * @return mb Variable representing the unread balance on the meter
+	 */
+	public double getMeterBalance()
+	{
+		double mb = meterBalance;
+		meterBalance = 0;
+		return mb;
+	}
 	
     /**
      * Returns the type of the meter ("Digital" or "Analog")
@@ -219,9 +253,9 @@ public class Meter
 	 * @return the total usage on the meter by summing up all the meter readings
 	 */
 	
-	public int getTotalUsage(Date cutoffDate) {
+	public int getTotalUsage(Date start, Date end) {
 		int accumulateReadings = 0;
-		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(cutoffDate).entrySet() ) {
+		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(start).headMap(end).entrySet() ) {
 			accumulateReadings += mr.getValue().getReading();
 		}
 		return accumulateReadings;
@@ -234,8 +268,8 @@ public class Meter
 	 * @return the total cost of usage on this meter using the getTotalUsage method
 	 */
 	
-	public double getCost(Date cutoffDate) {
-		return getTotalUsage(cutoffDate)*getMeterRate();
+	public double getCost(Date start, Date end) {
+		return getTotalUsage(start, end)*getMeterRate();
 	}
 
 	/**
@@ -245,7 +279,7 @@ public class Meter
 	 * @return the total tax cost on usage of this meter using the getTotalTaxRate method
 	 */
 	
-	public double getTaxCost(Date cutoffDate) {
-		return getCost(cutoffDate)*getTotalTaxRate();
+	public double getTaxCost(Date start, Date end) {
+		return getCost(start, end)*getTotalTaxRate();
 	}
 }

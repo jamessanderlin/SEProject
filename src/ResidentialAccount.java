@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Map.Entry;
 /**
  * 
  * @author James Sanderlin, Mudrekh Goderya, Avi Levy, Mark Duncan
@@ -76,12 +77,23 @@ public class ResidentialAccount extends Account
 		this.clientLastName = clientLastName;
 	}
 	
+	@Override
+	public double getBalance()
+	{
+		if(meter != null)
+		{
+			balance += meter.getMeterBalance();
+		}
+		
+		balance = Double.parseDouble(money.format(balance));
+		return balance;
+	}
+	
 	/**
 	 * Method to print the first and last name as a string
 	 * 
 	 * @return the string of the concatenation of first and last name
 	 */
-	
 	@Override
 	public String toString()
 	{
@@ -172,9 +184,9 @@ public class ResidentialAccount extends Account
 	 * @param cutoffDate
 	 * @return a string of the Meter ID and the meter's usage, to be used for generating bills and reports
 	 */
-    public String getMeterUsage(Date cutoffDate){
+    public String getMeterUsage(Date start, Date end){
     	String s = "";
-    	s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(cutoffDate) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
+    	s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(start, end) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
     	return s;
     }
     
@@ -186,8 +198,8 @@ public class ResidentialAccount extends Account
 	 * @return a double of the cost of the meter's usage
 	 */
     @Override
-    public double getTotalCost(Date cutoffDate) {
-    	return getMeter().getCost(cutoffDate);
+    public double getTotalCost(Date start, Date end) {
+    	return getMeter().getCost(start, end);
     }
     
     /**
@@ -199,7 +211,7 @@ public class ResidentialAccount extends Account
 	 */
     
     @Override
-    public double getTotalTaxCost(Date cutoffDate) {
-    	return getMeter().getTaxCost(cutoffDate);
+    public double getTotalTaxCost(Date start, Date end) {
+    	return getMeter().getTaxCost(start, end);
     }
 }

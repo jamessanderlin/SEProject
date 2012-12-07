@@ -93,7 +93,7 @@ public class Meter_IO
 					}
 
 					//Append to Meter
-					meter.addReading(new Meter_Reading(readingValue, readingDate));					
+					meter.addReading(new Meter_Reading(readingValue, readingDate), true);					
 				}
 				//Advances the writer past the "TAXES:" delimiter.
 				in.nextLine();

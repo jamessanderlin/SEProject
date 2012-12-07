@@ -32,7 +32,7 @@ public class Controller
 		accounts = dataAccount.read("accounts.txt");
 		meters = Meter_IO.read("meters.txt", accounts);
 		
-		generateBill(12345);
+		System.out.println(generateBill(12345, new Date("11/10/12"), new Date("12/14/12")));
     }
  
     /**
@@ -145,51 +145,54 @@ public class Controller
 	}
 	
 	/*Method to generate a bill for an account*/
-	public void generateBill(int accountID)
+	public String generateBill(int accountID, Date start, Date end)
 	{
 		Account a = accounts.get(accountID);
+		String out = "";
+
 		try{
-			File file = new File("bill.txt");
-			FileWriter fstream = new FileWriter(file);
-			BufferedWriter out = new BufferedWriter(fstream);
-			out.write("Billing Statement for:\n");
+			//File file = new File("bill.txt");
+			//FileWriter fstream = new FileWriter(file);
+			//BufferedWriter out = new BufferedWriter(fstream);
+			out += "Billing Statement for:\n";
 			if(a.isCommercial())
 			{
 				CommercialAccount ca = (CommercialAccount)a;
-				out.write(ca.getCompanyName() + "\n");
+				out += ca.getCompanyName() + "\n";
 			}
 			else
 			{
 				ResidentialAccount ra = (ResidentialAccount)a;
-				out.write(ra.getClientFirstName() + " " + ra.getClientLastName() + "\n");
+				out += ra.getClientFirstName() + " " + ra.getClientLastName() + "\n";
 			}
-			out.write(a.getBillingAddress().toString1() + "\n\n");
-			out.write("JAMM UC\n");
-			out.write("Account #" + a.getAccountID() + "\n");
+			out += a.getBillingAddress().toString1() + "\n\n";
+			out += "JAMM UC\n";
+			out += "Account #" + a.getAccountID() + "\n";
 			DateFormat f = new SimpleDateFormat("MM/dd/yy");
-			out.write("Please pay by: " + f.format(a.getDeadline()) + "\n");
-			out.write("Amount: " + a.getBalance() + "\n\n\n");
-			out.write("Meter usage since last month:\n");
+			out += "Please pay by: " + f.format(a.getDeadline()) + "\n";
+			out += "Balance as of " + f.format(new Date()) + ": " + a.getBalance() + "\n\n\n";
+			out += "Meter usage for the period " + f.format(start) + " - " + f.format(end) + ":\n";
 			
-			Date d = new Date();
+			/*Date d = new Date();
 			GregorianCalendar gc = new GregorianCalendar();
 			gc.setTime(d);
 			//The date assumes 1 month intervals between payments
 			gc.add(Calendar.DAY_OF_YEAR, -30);
-			Date result = gc.getTime();
+			Date result = gc.getTime();*/
 			
-			out.write(a.getMeterUsage(result) + "\n");
-			out.write("Taxes applied:\n$");
+			out += a.getMeterUsage(start, end) + "\n";
+			out += "Taxes applied:\n$";
 			
-			out.write(String.valueOf(money.format(a.getTotalTaxCost(result))));
+			out += String.valueOf(money.format(a.getTotalTaxCost(start, end)));
 			
-			
-			out.close();
+			//out.close();
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
+		
+		return out;
 	}
 	
 	/**

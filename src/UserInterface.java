@@ -1688,7 +1688,7 @@ public class UserInterface extends javax.swing.JFrame {
             {  
                 resetAddMeterReadingPanel();
                 Meter m = getSelectedMeter();
-                m.addReading(new Meter_Reading(meterReading, d));
+                m.addReading(new Meter_Reading(meterReading, d), false);
                 updateJTable(meterReadingTable);
             }
             else
