@@ -9,7 +9,7 @@ import java.util.Map.Entry;
  * 
  * @version 1.0
  *
- *Comments Updated: 12/5/12 8:20pm
+ *Comments Updated: 12/7/12 9:29 PM
  */
 public class Meter
 {
@@ -139,8 +139,60 @@ public class Meter
     }
     
     /**
+     * Returns true if the given meter reading is the
+     * most recent meter reading associated with this
+     * meter.
+     * 
+     * @param mr - the meter reading to test
+     * @return - whether it is last reading
+     */
+    public Boolean isLastReading(Date d) {
+    	return readings.lastKey().equals(d);
+    }
+    
+    /**
+     * Returns true if the given date is the
+     * most recent date of a meter reading associated with this
+     * meter.
+     * 
+     * @param d - the date to test
+     * @return - whether it is last reading
+     */
+    public Boolean isLastReading(Meter_Reading mr) {
+    	return isLastReading(mr.getReadingDate());
+    }
+    
+    /**
+     * A utility method to return the usage from a Meter_Reading
+     * stored in our list of readings.
+     * 
+     * This is computed as the difference in values of the
+     * passed in meter reading and the previous meter reading in
+     * 
+     * @param mr - The Meter_Reading for which we want to compute usage 
+     * @return usage value
+     */
+    public int getUsageFromReading(Meter_Reading mr) {
+    	Meter_Reading secondLast;
+    	try {
+    		secondLast = readings.lowerEntry(mr.getReadingDate()).getValue();
+    	} catch (NullPointerException e) {
+    		return mr.getReading();
+    	}
+    	if(secondLast == null) {
+    		return mr.getReading();
+    	} else {
+    		return mr.getReading() - secondLast.getReading();
+    	}
+    }
+    /**
      * Convenience method to add a meter reading, adds to meterBalance so that next time the
      * Account checks, it will be added to its balance
+     * 
+     * Note: I factored out some of the computation into the above method,
+     * getUsageFromReading. Also, I updated the algorithm to use fewer steps and 
+     * it is more straightforward in my opinion now. Lastly it uses the positive balance
+     * convention we are switching to. -Avi
      * 
      * @param r
      */
@@ -148,21 +200,19 @@ public class Meter
 	{
 		readings.put(r.getReadingDate(),r);
 		System.out.println("adding reading");
-		if((!fromFile) && readings.lastEntry().getValue().equals(r))
+		if((!fromFile) && isLastReading(r))
 		{
-                    System.out.println("adjusting meter balance");
-                    Map.Entry<Date, Meter_Reading> secondLastEntry = readings.lowerEntry(r.getReadingDate());
-                    if(secondLastEntry != null)
-                    {
-                        Meter_Reading secondLast = secondLastEntry.getValue();
-                        double readingCost = (r.getReading() - secondLast.getReading()) * meterRate;
-                        meterBalance -= readingCost;
-                        double taxCost = getTotalTaxRate() * readingCost;
-                        meterBalance -= taxCost;
-                    }
+            System.out.println("adjusting meter balance");
+			double readingCost = getUsageFromReading(r) * meterRate;
+        	meterBalance += (1 + getTotalTaxRate()) * readingCost; 
 		}
+		
 	}
-     
+    
+	public Meter_Reading deleteReading(Meter_Reading mr) {
+		return deleteReading(mr.getReadingDate());
+	}
+	
 	/**
 	 * Convenience method to delete a meter reading
 	 * 
@@ -171,18 +221,10 @@ public class Meter
 	 */
     public Meter_Reading deleteReading(Date d)
     {
-    	if(readings.lastEntry().getValue().equals(readings.get(d)))
-    	{
+    	if(isLastReading(d) && readings.lowerKey(d) != null) {
     		System.out.println("adjusting meter balance");
-                Map.Entry<Date, Meter_Reading> secondLastEntry = readings.lowerEntry(readings.get(d).getReadingDate());
-                    if(secondLastEntry != null)
-                    {
-                        Meter_Reading secondLast = secondLastEntry.getValue();
-                        double readingCost = (readings.get(d).getReading() - secondLast.getReading()) * meterRate;
-                        meterBalance += readingCost;
-                        double taxCost = getTotalTaxRate() * readingCost;
-                        meterBalance += taxCost;
-                    }
+			double readingCost = getUsageFromReading(readings.get(d)) * meterRate;
+        	meterBalance -= (1 + getTotalTaxRate()) * readingCost; 
     	}
         return readings.remove(d);
     }
@@ -221,12 +263,9 @@ public class Meter
 	 */
 	
 	public void setType(String type) {
-		if(type.toLowerCase().equals("digital")) 
-                {
+		if(type.toLowerCase().equals("digital")) {
 			isDigital = true;
-		}
-        else
-        {
+		} else {
             isDigital = false;
         }
 	}
