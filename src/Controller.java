@@ -235,7 +235,11 @@ public class Controller
 			out += "Meter usage for the period " + format.format(start) + " - " + format.format(end) + ":\n";
 			out += a.getMeterUsageString(start, end) + "\n";
 			out += "Taxes applied:\n$";
-			out += String.valueOf(money.format(a.getTotalTaxCost(start, end)));
+			out += String.valueOf(money.format(a.getTotalTaxCost(start, end))) + "\n";
+                        out += "Total Bill for Period\n";
+                        double total = a.getTotalCost(start, end) + a.getTotalTaxCost(start, end);
+                        out += String.valueOf(money.format(total));
+                                
 		}
 		catch(Exception ex)
 		{
