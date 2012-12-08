@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -7,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
  *  
  * @author  Mudrekh Goderya
  */
+@SuppressWarnings("serial")
 public class MeterTableModel extends MapTableModel {
     /**
      * Creates a new instance of MapTableModel.
@@ -18,6 +18,7 @@ public class MeterTableModel extends MapTableModel {
     /**
      * Creates a new instance of MapTableModel.
      */
+    
     public MeterTableModel(Map map) {
         this(map, "Meter ID");
     }

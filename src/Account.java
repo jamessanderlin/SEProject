@@ -142,16 +142,12 @@ public abstract class Account
 	 * @return '0' or '1' to denote the flag's value
 	 */
 	public String isCommercialToString(){
-		String s = "";
-		
 		if(isCommercial){
-			s = "1";
+			return "1";
 		}
 		else{
-			s = "0";
+			return "0";
 		}
-		
-		return s;
 	}
 	
 	/**
@@ -160,42 +156,40 @@ public abstract class Account
 	 * @return '0' or '1' to denote the flag's value
 	 */
 	public String getFlagToString(){
-		String s = "";
-		
-		if(flag){
-			s = "1";
+		if(flag) {
+			return "1";
 		}
-		else
-		{
-			s="0";
+		else {
+			return "0";
 		}
-		
-		return s;
 	}
 	
 	/**
-	 * getMeterUsage returns the total usage from all meters tied to the account (since cutoffDate)
+	 * getMeterUsage returns the total usage from all meters tied to the account in the time period
 	 * 
-	 * @param cutoffDate
+	 * @param start
+	 * @param end
 	 * @return total usage from all meters tied to the account (since cutoffDate)
 	 */
 	
-	public abstract String getMeterUsage(Date start, Date end);
+	public abstract String getMeterUsageString(Date start, Date end);
 	
 	/**
-	 * getTotalCost returns the total cost from all meters tied to the account (since cutoffDate)
+	 * getTotalCost returns the total cost from all meters tied to the account in the time period
 	 * 
-	 * @param cutoffDate
-	 * @return the total cost from all meters tied to the account (since cutoffDate)
+	 * @param start
+	 * @param end
+	 * @return the total cost from all meters tied to the account in the time period
 	 */
 	
 	public abstract double getTotalCost(Date start, Date end);
 	
 	/**
-	 * getTotalTaxCost gets the total tax cost from all meters tied to the account (since the cutoffDate)
+	 * getTotalTaxCost gets the total tax cost from all meters tied to the account in the time period
 	 * 
-	 * @param cutoffDate
-	 * @return the total tax cost from all meters tied to the account (since the cutoffDate)
+	 * @param start
+	 * @param end
+	 * @return the total tax cost from all meters tied to the account in the time period
 	 */
 	
 	public abstract double getTotalTaxCost(Date start, Date end);

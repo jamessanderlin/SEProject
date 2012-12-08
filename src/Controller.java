@@ -1,28 +1,37 @@
-import java.awt.*;
-import javax.swing.*;
 import java.util.*;
-import java.awt.event.*;
 import java.text.*;
 import java.io.*;
 import java.util.Map.*;
 
 /**
- * The Controller Class is the main driver for the program. It stores all of the main data, has the Main method, and creates
- * the UI.
+ * A Controller represents an instance of our billing system.
+ * Some important properties of this class
+ * 		* It has a main method
+ * 		* It conforms to the Singleton Pattern
+ * 			- Only one instance of this class is allowed to exist
+ * 			- The instance is accessible via the public static method
+ * 				Controller.getInstance()
+ * 			- The constructor is only called once
+ * 			- The constructor is private
+ * 		* All other components of the billing system are descendants of Controller
  * 
- * @author Mudrekh Goderya, James Sanderlin
+ * In other words, both the backend and frontend code are called from here.
  * 
+ * @author Mudrekh Goderya, James Sanderlin, Avi Levy
+ * 
+ * Last-Comment-Date: 12/7/12 9:51 PM
  */
 public class Controller 
 {
 	//TreeMap of the accounts
-    private TreeMap<Integer, Account> accounts;// = new TreeMap<Integer, Account>();
+    private TreeMap<Integer, Account> accounts;
 	//TreeMap of the meters
-    private TreeMap<Integer, Meter> meters;// = new TreeMap<Integer, Meter>();
+    private TreeMap<Integer, Meter> meters;
 	//Formats a double to be a dollar amount
 	DecimalFormat money = new DecimalFormat("0.00");
 	
     private Account_IO dataAccount;
+    
 	//Singleton instance of the Controller. 
 	private static final Controller instance = new Controller();
 	/**
@@ -32,8 +41,6 @@ public class Controller
     	dataAccount = new Account_IO();
 		accounts = dataAccount.read("accounts.txt");
 		meters = Meter_IO.read("meters.txt", accounts);
-		
-		//createAllBills(new Date("11/10/12"), new Date("12/14/12"));
     }
  
     /**
@@ -207,13 +214,9 @@ public class Controller
 	public String generateBill(int accountID, Date start, Date end)
 	{
 		Account a = accounts.get(accountID);
-		String out = "";
+		String out = "Billing Statement for:\n";
 
 		try{
-			//File file = new File("bill.txt");
-			//FileWriter fstream = new FileWriter(file);
-			//BufferedWriter out = new BufferedWriter(fstream);
-			out += "Billing Statement for:\n";
 			if(a.isCommercial())
 			{
 				CommercialAccount ca = (CommercialAccount)a;
@@ -227,24 +230,12 @@ public class Controller
 			out += a.getBillingAddress().toString1() + "\n\n";
 			out += "JAMM UC\n";
 			out += "Account #" + a.getAccountID() + "\n";
-			DateFormat f = new SimpleDateFormat("MM/dd/yy");
-			out += "Please pay by: " + f.format(a.getDeadline()) + "\n";
-			out += "Balance as of " + f.format(new Date()) + ": " + a.getBalance() + "\n\n\n";
-			out += "Meter usage for the period " + f.format(start) + " - " + f.format(end) + ":\n";
-			
-			/*Date d = new Date();
-			GregorianCalendar gc = new GregorianCalendar();
-			gc.setTime(d);
-			//The date assumes 1 month intervals between payments
-			gc.add(Calendar.DAY_OF_YEAR, -30);
-			Date result = gc.getTime();*/
-			
-			out += a.getMeterUsage(start, end) + "\n";
+			out += "Please pay by: " + format.format(a.getDeadline()) + "\n";
+			out += "Balance as of " + format.format(new Date()) + ": " + a.getBalance() + "\n\n\n";
+			out += "Meter usage for the period " + format.format(start) + " - " + format.format(end) + ":\n";
+			out += a.getMeterUsageString(start, end) + "\n";
 			out += "Taxes applied:\n$";
-			
 			out += String.valueOf(money.format(a.getTotalTaxCost(start, end)));
-			
-			//out.close();
 		}
 		catch(Exception ex)
 		{
@@ -429,6 +420,9 @@ public class Controller
 		Meter_IO.write("meters.txt",getAccountCollection());
 		System.out.println("FILE SAVED");
 	}
+	
+	//The date formatter we use to generate bills
+	private static 	DateFormat format = new SimpleDateFormat("MM/dd/yy");
 }
 
 
