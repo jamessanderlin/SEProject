@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.text.*;
 import java.io.*;
+import java.util.Map.*;
 
 /**
  * The Controller Class is the main driver for the program. It stores all of the main data, has the Main method, and creates
@@ -32,7 +33,7 @@ public class Controller
 		accounts = dataAccount.read("accounts.txt");
 		meters = Meter_IO.read("meters.txt", accounts);
 		
-		System.out.println(generateBill(12345, new Date("11/10/12"), new Date("12/14/12")));
+		createAllBills(new Date("11/10/12"), new Date("12/14/12"));
     }
  
     /**
@@ -144,7 +145,65 @@ public class Controller
 		return accounts.remove(accountID);
 	}
 	
-	/*Method to generate a bill for an account*/
+	/**
+	 * Calls generateBill for each account, writes all bills to bill.txt
+	 * 
+	 * @param start
+	 * @param end
+	 */
+	public void createAllBills(Date start, Date end)
+	{
+		try
+		{
+			File file = new File("bill.txt");
+			FileWriter fstream = new FileWriter(file);
+			BufferedWriter out = new BufferedWriter(fstream);
+			
+			for(Entry<Integer, Account> a : accounts.entrySet())
+			{
+				out.write(generateBill(a.getKey(), start, end) + "\n\n\n\n");
+			}
+			out.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Calls generateBill for the specified account, writes to bill.txt
+	 * 
+	 * @param start
+	 * @param end
+	 */
+	public void createBill(int accountID, Date start, Date end)
+	{
+		try
+		{
+			File file = new File("bill.txt");
+			FileWriter fstream = new FileWriter(file);
+			BufferedWriter out = new BufferedWriter(fstream);
+			
+			String s = generateBill(accountID, start, end);
+			System.out.println(s);
+			out.write(s);
+			out.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Method that returns a string representing a bill for an account
+	 * 
+	 * @param accountID
+	 * @param start
+	 * @param end
+	 * @return a string representing the bill
+	 */
 	public String generateBill(int accountID, Date start, Date end)
 	{
 		Account a = accounts.get(accountID);
