@@ -2274,11 +2274,11 @@ public class UserInterface extends javax.swing.JFrame {
     
     /**
      * Method that confirms if the user really wanted to delete the selected meter.
+     * Returns null the there was no meter deleted. 
      * 
-     * 
-     * @return 
+     * @return the Meter that was deleted. 
      */
-    private boolean confirmMeterDelete()
+    private Meter confirmMeterDelete()
     {
         Object[] options = {"Yes", "No"};
         
@@ -2286,14 +2286,14 @@ public class UserInterface extends javax.swing.JFrame {
                    "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         
         if(result != 0)
-            return false;
+            return null;
         
         Account selectedAccount = getSelectedAccount();
-        selectedAccount.deleteMeter(getSelectedMeterID());
+        Meter temp = selectedAccount.deleteMeter(getSelectedMeterID());
         //Call to tell the table to update
         updateJTable(meterViewTable);
         System.out.println("METER DELETED");
-        return true;
+        return temp;
     }
     
     
