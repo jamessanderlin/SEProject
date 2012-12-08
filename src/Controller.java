@@ -33,7 +33,7 @@ public class Controller
 		accounts = dataAccount.read("accounts.txt");
 		meters = Meter_IO.read("meters.txt", accounts);
 		
-		createAllBills(new Date("11/10/12"), new Date("12/14/12"));
+		//createAllBills(new Date("11/10/12"), new Date("12/14/12"));
     }
  
     /**

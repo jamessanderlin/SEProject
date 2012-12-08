@@ -177,6 +177,12 @@ public class UserInterface extends javax.swing.JFrame {
         addPaymentNote = new javax.swing.JLabel();
         paymentPopup = new javax.swing.JPopupMenu();
         deletePayment = new javax.swing.JMenuItem();
+        generateBillDatePanel = new javax.swing.JPanel();
+        generateBillStartDateLabel = new javax.swing.JLabel();
+        generateBillStartDateField = new javax.swing.JTextField();
+        generateBillEndDateLabel = new javax.swing.JLabel();
+        generateBillEndDateField = new javax.swing.JTextField();
+        generateBillNote = new javax.swing.JLabel();
         mainSplitPane = new javax.swing.JSplitPane();
         rightSplitPane = new javax.swing.JSplitPane();
         meterViewSrollPane = new javax.swing.JScrollPane();
@@ -860,7 +866,7 @@ public class UserInterface extends javax.swing.JFrame {
 
         addPaymentPaidAmountLabel.setText("Paid Amount");
 
-        addPaymentTypeField.setText("Payment Type");
+        addPaymentTypeField.setText("Payment Time");
 
         addPaymentTypeComboBox.setModel(new DefaultComboBoxModel(Payment.getPossiblePaymentTypes()));
 
@@ -955,6 +961,47 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         paymentPopup.add(deletePayment);
+
+        generateBillStartDateLabel.setText("Start Date");
+
+        generateBillStartDateField.setText("mm/dd/yy");
+
+        generateBillEndDateLabel.setText("End Date");
+
+        generateBillEndDateField.setText("mm/dd/yy");
+
+        generateBillNote.setText("*Start Date should come before End Date");
+
+        javax.swing.GroupLayout generateBillDatePanelLayout = new javax.swing.GroupLayout(generateBillDatePanel);
+        generateBillDatePanel.setLayout(generateBillDatePanelLayout);
+        generateBillDatePanelLayout.setHorizontalGroup(
+            generateBillDatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(generateBillDatePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(generateBillDatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(generateBillNote)
+                    .addGroup(generateBillDatePanelLayout.createSequentialGroup()
+                        .addComponent(generateBillStartDateLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(generateBillStartDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(generateBillEndDateLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(generateBillEndDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        generateBillDatePanelLayout.setVerticalGroup(
+            generateBillDatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generateBillDatePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(generateBillDatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generateBillStartDateLabel)
+                    .addComponent(generateBillStartDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generateBillEndDateLabel)
+                    .addComponent(generateBillEndDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(generateBillNote))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
@@ -1224,7 +1271,13 @@ public class UserInterface extends javax.swing.JFrame {
         menuFile.add(save);
         menuFile.add(jSeparator5);
 
+        gernerateAllBills.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK));
         gernerateAllBills.setText("Generate Bill for All Accounts");
+        gernerateAllBills.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gernerateAllBillsActionPerformed(evt);
+            }
+        });
         menuFile.add(gernerateAllBills);
 
         menuBar.add(menuFile);
@@ -1501,6 +1554,11 @@ public class UserInterface extends javax.swing.JFrame {
     private void deletePaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePaymentActionPerformed
         deleteSelectedPayment();
     }//GEN-LAST:event_deletePaymentActionPerformed
+
+    private void gernerateAllBillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gernerateAllBillsActionPerformed
+        //Controller.getInstance().createAllBills(new Date("11/10/12"), new Date("12/14/12"));
+        openGenerateBillForAllPanel();
+    }//GEN-LAST:event_gernerateAllBillsActionPerformed
     
     private Meter getMeterFromViewMeterPanel()
     {
@@ -1525,6 +1583,36 @@ public class UserInterface extends javax.swing.JFrame {
         
         return new Meter(meterID, viewMeterComboBox.getSelectedItem().toString(), 
                             meterRate, addr);
+    }
+    
+    private void openGenerateBillForAllPanel()
+    {
+        String options[] = {"Ok", "Cancel"};
+        //Account selectedAccount = getSelectedAccount();
+        int result = JOptionPane.showOptionDialog(null, generateBillDatePanel, 
+                         "Generate bill for all accounts", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        
+        if(result == 0)
+        {
+            Date startDate = new Date();
+            Date endDate = new Date();
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+            
+            try
+            {
+                startDate = formatter.parse(generateBillStartDateField.getText());
+                endDate = formatter.parse(generateBillEndDateField.getText());
+                
+                if(startDate.compareTo(endDate) > 0)
+                    throw new Exception();
+            }
+            catch(Exception e)
+            {
+                failToGenerateBillDialog();
+            }
+            
+            Controller.getInstance().createAllBills(startDate, endDate);
+        }
     }
     
     private void openViewPaymentPanel()
@@ -2176,6 +2264,10 @@ public class UserInterface extends javax.swing.JFrame {
     {
         JOptionPane.showMessageDialog(null, "Could not create payment. Please check your values");
     }
+    private void failToGenerateBillDialog()
+    {
+        JOptionPane.showMessageDialog(null, "Could not create bill. Please check your values");
+    }
     
     
     //////////////////////////////////////////////////////////////////////////
@@ -2370,6 +2462,12 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JMenuItem generateBill;
+    private javax.swing.JPanel generateBillDatePanel;
+    private javax.swing.JTextField generateBillEndDateField;
+    private javax.swing.JLabel generateBillEndDateLabel;
+    private javax.swing.JLabel generateBillNote;
+    private javax.swing.JTextField generateBillStartDateField;
+    private javax.swing.JLabel generateBillStartDateLabel;
     private javax.swing.JMenuItem gernerateAllBills;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

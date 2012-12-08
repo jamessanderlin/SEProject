@@ -186,8 +186,15 @@ public class ResidentialAccount extends Account
 	 */
     public String getMeterUsage(Date start, Date end){
     	String s = "";
-    	s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(start, end) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
-    	return s;
+        if(meter != null)
+        {
+            s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(start, end) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
+        }
+        else
+        {
+            s += "This account has no meter tied to it.";
+        }
+        return s;
     }
     
     /**
@@ -199,7 +206,10 @@ public class ResidentialAccount extends Account
 	 */
     @Override
     public double getTotalCost(Date start, Date end) {
-    	return getMeter().getCost(start, end);
+    	double result = 0.0;
+        if(meter != null)
+            result = meter.getCost(start, end);
+        return result;
     }
     
     /**
@@ -212,6 +222,9 @@ public class ResidentialAccount extends Account
     
     @Override
     public double getTotalTaxCost(Date start, Date end) {
-    	return getMeter().getTaxCost(start, end);
+        double result = 0.0;
+        if(meter != null)
+            result = getMeter().getTaxCost(start, end);
+        return result;
     }
 }

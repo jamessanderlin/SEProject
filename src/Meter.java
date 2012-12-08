@@ -137,12 +137,16 @@ public class Meter
 		System.out.println("adding reading");
 		if((!fromFile) && readings.lastEntry().getValue().equals(r))
 		{
-			System.out.println("adjusting meter balance");
-			Meter_Reading secondLast = readings.lowerEntry(r.getReadingDate()).getValue();
-			double readingCost = (r.getReading() - secondLast.getReading()) * meterRate;
-			meterBalance -= readingCost;
-			double taxCost = getTotalTaxRate() * readingCost;
-    		meterBalance -= taxCost;
+                    System.out.println("adjusting meter balance");
+                    Map.Entry<Date, Meter_Reading> secondLastEntry = readings.lowerEntry(r.getReadingDate());
+                    if(secondLastEntry != null)
+                    {
+                        Meter_Reading secondLast = secondLastEntry.getValue();
+                        double readingCost = (r.getReading() - secondLast.getReading()) * meterRate;
+                        meterBalance -= readingCost;
+                        double taxCost = getTotalTaxRate() * readingCost;
+                        meterBalance -= taxCost;
+                    }
 		}
 	}
      
@@ -157,11 +161,15 @@ public class Meter
     	if(readings.lastEntry().getValue().equals(readings.get(d)))
     	{
     		System.out.println("adjusting meter balance");
-			Meter_Reading secondLast = readings.lowerEntry(readings.get(d).getReadingDate()).getValue();
-    		double readingCost = (readings.get(d).getReading() - secondLast.getReading()) * meterRate;
-    		meterBalance += readingCost;
-    		double taxCost = getTotalTaxRate() * readingCost;
-    		meterBalance += taxCost;
+                Map.Entry<Date, Meter_Reading> secondLastEntry = readings.lowerEntry(readings.get(d).getReadingDate());
+                    if(secondLastEntry != null)
+                    {
+                        Meter_Reading secondLast = secondLastEntry.getValue();
+                        double readingCost = (readings.get(d).getReading() - secondLast.getReading()) * meterRate;
+                        meterBalance += readingCost;
+                        double taxCost = getTotalTaxRate() * readingCost;
+                        meterBalance += taxCost;
+                    }
     	}
         return readings.remove(d);
     }

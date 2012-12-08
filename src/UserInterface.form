@@ -1205,6 +1205,73 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Container class="javax.swing.JPanel" name="generateBillDatePanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="generateBillNote" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="generateBillStartDateLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="generateBillStartDateField" min="-2" pref="74" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="generateBillEndDateLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="generateBillEndDateField" min="-2" pref="74" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="generateBillStartDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="generateBillStartDateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="generateBillEndDateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="generateBillEndDateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="generateBillNote" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="generateBillStartDateLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Start Date"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="generateBillStartDateField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="mm/dd/yy"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="generateBillEndDateLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="End Date"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="generateBillEndDateField">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="mm/dd/yy"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="generateBillNote">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="*Start Date should come before End Date"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuFile">
@@ -1227,8 +1294,14 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="gernerateAllBills">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Alt+A"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Generate Bill for All Accounts"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gernerateAllBillsActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
