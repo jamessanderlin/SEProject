@@ -153,6 +153,8 @@ public class UserInterface extends javax.swing.JFrame {
         addTaxNameField = new javax.swing.JTextField();
         addTaxRateField = new javax.swing.JTextField();
         addTaxNote2 = new javax.swing.JLabel();
+        addTaxNote3 = new javax.swing.JLabel();
+        addTaxNote4 = new javax.swing.JLabel();
         taxPopup = new javax.swing.JPopupMenu();
         deleteTax = new javax.swing.JMenuItem();
         viewPaymentsPanel = new javax.swing.JPanel();
@@ -772,29 +774,41 @@ public class UserInterface extends javax.swing.JFrame {
 
         addTaxNote2.setText("eaual to 0.0");
 
+        addTaxNote3.setText("Note: Tax rates are in decimals");
+
+        addTaxNote4.setText("8% tax should be entered as .08");
+
         javax.swing.GroupLayout addTaxPanelLayout = new javax.swing.GroupLayout(addTaxPanel);
         addTaxPanel.setLayout(addTaxPanelLayout);
         addTaxPanelLayout.setHorizontalGroup(
             addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addTaxPanelLayout.createSequentialGroup()
-                .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(addTaxPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(addTaxRateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(addTaxNameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(addTaxNameField)
+                                .addComponent(addTaxRateField)))
+                        .addGroup(addTaxPanelLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(addTaxNote1)
+                                .addGroup(addTaxPanelLayout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(addTaxNote2)))))
                     .addGroup(addTaxPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addTaxRateLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addTaxNameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addTaxNameField)
-                            .addComponent(addTaxRateField)))
-                    .addGroup(addTaxPanelLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addTaxNote3)
                             .addGroup(addTaxPanelLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(addTaxNote2))
-                            .addComponent(addTaxNote1))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                .addComponent(addTaxNote4)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         addTaxPanelLayout.setVerticalGroup(
             addTaxPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -809,8 +823,12 @@ public class UserInterface extends javax.swing.JFrame {
                     .addComponent(addTaxRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addTaxNote1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addTaxNote2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addTaxNote2))
+                .addComponent(addTaxNote3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addTaxNote4))
         );
 
         deleteTax.setText("Delete Tax");
@@ -1459,7 +1477,7 @@ public class UserInterface extends javax.swing.JFrame {
      */
     private void deleteAccountPopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountPopupActionPerformed
         int accID = getSelectedAccountID();
-        if(confirmAccountDelete(accID))
+        if(confirmAccountDelete(accID)!=null)
             resetAccountInfoPanel();
     }//GEN-LAST:event_deleteAccountPopupActionPerformed
 
@@ -1492,53 +1510,14 @@ public class UserInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_accCancelActionPerformed
 
     private void accCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accCreateActionPerformed
-        
-        int accountID = -1;
-        try
-        {
-            accountID = Integer.parseInt(accountIDField.getText());
-        }
-        catch(Exception e)
-        {
-
-        }
-        
-        if(accountID < 1 || Controller.getInstance().hasAccountID(accountID))
-        {
-            accountIDField.setBackground(new Color(255, 200, 200));
-            return;
-        }
-
-        Account temp;
-        String fName = firstNameField.getText();
-        String lName = lastNameField.getText();
-        String cName = compNameField.getText();
-        Address addr = new Address(addLine1Field.getText(), 
-                                    addLine2Field.getText(), 
-                                    cityField.getText(), 
-                                    stateField.getText(), 
-                                    zipField.getText());
-        
-        
-        if(accountButtonGroup.isSelected(resAccButton.getModel()))
-        {
-            temp = new ResidentialAccount(fName, lName, accountID, 0, false, new Date(), addr);
-        }
-        else if(accountButtonGroup.isSelected(comAccButton.getModel()))
-        {
-            temp = new CommercialAccount(cName, accountID, 0, false, new Date(), addr);
-        }
-        else
-            temp = null;
-        
+        Account temp = getAccountFromAccountPanel();
         if(temp != null)
         {
             Controller.getInstance().addAccount(temp);
+            clearTextInAccountPanel();
+            clearFieldColorsInAccountPanel();
+            updateJTable(accountTable);
         }
-        clearTextInAccountPanel();
-        clearFieldColorsInAccountPanel();
-        updateJTable(accountTable);
-        
     }//GEN-LAST:event_accCreateActionPerformed
 
     private void viewMeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMeterActionPerformed
@@ -1659,6 +1638,49 @@ public class UserInterface extends javax.swing.JFrame {
         openEditBalancePanel();
     }//GEN-LAST:event_manualBalanceEditActionPerformed
     
+    private Account getAccountFromAccountPanel()
+    {
+        int accountID = -1;
+        try
+        {
+            accountID = Integer.parseInt(accountIDField.getText());
+        }
+        catch(Exception e)
+        {
+
+        }
+        
+        if(accountID < 1 || Controller.getInstance().hasAccountID(accountID))
+        {
+            accountIDField.setBackground(new Color(255, 200, 200));
+            return null;
+        }
+
+        Account temp;
+        String fName = firstNameField.getText();
+        String lName = lastNameField.getText();
+        String cName = compNameField.getText();
+        Address addr = new Address(addLine1Field.getText(), 
+                                    addLine2Field.getText(), 
+                                    cityField.getText(), 
+                                    stateField.getText(), 
+                                    zipField.getText());
+        
+        
+        if(accountButtonGroup.isSelected(resAccButton.getModel()))
+        {
+            temp = new ResidentialAccount(fName, lName, accountID, 0, false, new Date(), addr);
+        }
+        else if(accountButtonGroup.isSelected(comAccButton.getModel()))
+        {
+            temp = new CommercialAccount(cName, accountID, 0, false, new Date(), addr);
+        }
+        else
+            temp = null;
+        return temp;
+        
+    }
+    
     private Meter getMeterFromViewMeterPanel()
     {
         int meterID = -1;
@@ -1683,6 +1705,16 @@ public class UserInterface extends javax.swing.JFrame {
         return new Meter(meterID, viewMeterComboBox.getSelectedItem().toString(), 
                             meterRate, addr);
     }
+    
+    //////////////////////////////////////////////////////////////////////////
+    // Displayers
+    //
+    // These methods handle displaying information and parsing data for 
+    // different panels. Generally, each method is linked to a specific
+    // action, but some methods may be called by more than one action. 
+    // Many of these methods, if not all, prompt for user input by opening
+    // the panels in JDialogs. 
+    //////////////////////////////////////////////////////////////////////////
     
     private Date[] openGenerateBillPanel()
     {
@@ -1740,7 +1772,7 @@ public class UserInterface extends javax.swing.JFrame {
             }
             
             selectedAccount.setBalance(newBal);
-            resetEditBalancePanel();
+            clearEditBalancePanel();
         }
     }
     
@@ -2213,7 +2245,15 @@ public class UserInterface extends javax.swing.JFrame {
     // considered this critcial are deleting a meter, and deleting and account
     //////////////////////////////////////////////////////////////////////////
     
-    private boolean confirmAccountDelete(int accountID)
+    /**
+     * Method that displays a confirmation dialog to make sure the user really
+     * wants to delete this account. It returns the deleted account or null if 
+     * the user doesnt want to delete the account. 
+     * 
+     * @param accountID The account ID of the account to delete.
+     * @return The account deleted. 
+     */
+    private Account confirmAccountDelete(int accountID)
     {
         Object[] options = {"Yes", "No"};
         JPanel myPanel = new JPanel();
@@ -2223,15 +2263,21 @@ public class UserInterface extends javax.swing.JFrame {
                    "Confirm Deletion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         
         if(result != 0)
-            return false;
+            return null;
         
-        Controller.getInstance().deleteAccount(accountID);
+        Account temp = Controller.getInstance().deleteAccount(accountID);
         //Call to tell the table to update
         updateJTable(accountTable);
         System.out.println("ACCOUNT DELETED");
-        return true;
+        return temp;
     }
     
+    /**
+     * Method that confirms if the user really wanted to delete the selected meter.
+     * 
+     * 
+     * @return 
+     */
     private boolean confirmMeterDelete()
     {
         Object[] options = {"Yes", "No"};
@@ -2278,6 +2324,14 @@ public class UserInterface extends javax.swing.JFrame {
     // panel are not reset because they contain format guidelines for the user
     //////////////////////////////////////////////////////////////////////////
     
+    /**
+     * Resets the info in the account panel. It clears all the text and resets 
+     * all the colors of the text fields. It also clears the meters displayed
+     * in the meter panel. Resetting the account panel also reeanbles the create
+     * button and disables the save/edit button. It also re-enables the account 
+     * buttons.
+     * 
+     */
     private void resetAccountInfoPanel()
     {
         clearTextInAccountPanel();
@@ -2289,6 +2343,9 @@ public class UserInterface extends javax.swing.JFrame {
         accSave.setEnabled(false);
     }
     
+    /**
+     * Resets all the text fields in the view meter panel.
+     */
     private void clearViewMeterPanel()
     {
         viewMeterIDField.setText("");
@@ -2300,6 +2357,9 @@ public class UserInterface extends javax.swing.JFrame {
         viewMeterZipField.setText("");
     }
     
+    /**
+     * Resets all the text fields in the add meter panel.
+     */
     private void clearAddMeterPanel()
     {
         meterIDField.setText("");
@@ -2311,6 +2371,9 @@ public class UserInterface extends javax.swing.JFrame {
         meterZipField.setText("");
     }
     
+    /**
+     * Only clears text in the account panel.
+     */
     private void clearTextInAccountPanel()
     {
         compNameField.setText("");
@@ -2325,6 +2388,10 @@ public class UserInterface extends javax.swing.JFrame {
         zipField.setText("");
     }
     
+    /**
+     * Only clears the background colors of the account panel.
+     * 
+     */
     private void clearFieldColorsInAccountPanel()
     {
         compNameField.setBackground(Color.WHITE);
@@ -2339,13 +2406,20 @@ public class UserInterface extends javax.swing.JFrame {
         zipField.setBackground(Color.WHITE);
     }   
     
-        
+    /**
+     * Clears the text in the add tax panel. 
+     */    
     private void clearAddTaxPanel()
     {
         addTaxNameField.setText("");
         addTaxRateField.setText("");
     }
 
+    /**
+     * Resets the text in the add meter panel. The timezone field is left so 
+     * the user does not have to enter the same time zone again and again. The
+     * date and time fields are set to display the required format. 
+     */
     private void resetAddMeterReadingPanel()
     {
         addMeterReadingField.setText("");
@@ -2355,6 +2429,11 @@ public class UserInterface extends javax.swing.JFrame {
         //addMeterReadingTimeZoneField.setText("");
     }
     
+    /**
+     * Resets the text in the add payment panel. The timezone field is left so 
+     * the user does not have to enter the same time zone again and again. The
+     * date and time fields are set to display the required format.
+     */
     private void resetAddPaymentPanel()
     {
         addPaymentDateField.setText("mm/dd/yy");
@@ -2364,13 +2443,20 @@ public class UserInterface extends javax.swing.JFrame {
         //addPaymentTimeZoneField.setText("");
     }
     
+    /**
+     * Resets the text in the generate panel to the default date formats. 
+     * 
+     */
     private void resetGenerateBillPanel()
     {
         generateBillEndDateField.setText("mm/dd/yy");
         generateBillStartDateField.setText("mm/dd/yy");
     }
     
-    private void resetEditBalancePanel()
+    /**
+     * Resets the edit balance panel.
+     */
+    private void clearEditBalancePanel()
     {
         editBalanceNewField.setText("");
         editBalanceOldField.setText("");
@@ -2379,24 +2465,22 @@ public class UserInterface extends javax.swing.JFrame {
     //////////////////////////////////////////////////////////////////////////
     // Fail Dialog Handlers
     //
-    // These are basic message dialogs to display certain failures.
+    // These are basic message dialogs to display certain failures. Most of 
+    // these are self explanatory. 
     //////////////////////////////////////////////////////////////////////////
     
     private void failToCreateMeterReadingDialog()
     {
         JOptionPane.showMessageDialog(null, "Could not create meter reading. Please check your values.");
     }
-    
     private void failToCreateMeterDialog()
     {
         JOptionPane.showMessageDialog(null, "Could not create meter. Please check your values.");
     }
-    
     private void failToEditMeterDialog()
     {
         JOptionPane.showMessageDialog(null, "Could not edit meter. Please check your values");
     }
-    
     private void failToCreateTaxDialog()
     {
         JOptionPane.showMessageDialog(null, "Could not create tax. Please check your values");
@@ -2426,7 +2510,8 @@ public class UserInterface extends javax.swing.JFrame {
     
      /**
      * Actual method to respond to a call for a popup event. Checks if the event is the
-     * popup trigger and then responds accordingly.
+     * popup trigger and then responds accordingly. The accounts popup is the largest
+     * popup menu in the program.
      * 
      * @param evt The event passed to this action.
      */
@@ -2443,6 +2528,11 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }        
     
+    /**
+     * Opens the popup for the Meter  table
+     * 
+     * @param evt The click in the meter table.
+     */
     private void doMeterPopup(java.awt.event.MouseEvent evt)
     {
         if(evt.isPopupTrigger())
@@ -2457,6 +2547,11 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Opens the popup for the tax table
+     * 
+     * @param evt The click in the tax table.
+     */
     private void doTaxPopup(java.awt.event.MouseEvent evt)
     {
         if(evt.isPopupTrigger())
@@ -2469,6 +2564,11 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
+     /**
+     * Opens the popup for the Meter Readings table
+     * 
+     * @param evt The click in the meter reading table.
+     */
     private void doMeterReadingPopup(java.awt.event.MouseEvent evt)
     {
         if(evt.isPopupTrigger())
@@ -2481,6 +2581,11 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Opens the popup for the payments table
+     * 
+     * @param evt The click in the payments table.
+     */
     private void doPaymentsPopup(java.awt.event.MouseEvent evt)
     {
         if(evt.isPopupTrigger())
@@ -2585,6 +2690,8 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel addTaxNameLabel;
     private javax.swing.JLabel addTaxNote1;
     private javax.swing.JLabel addTaxNote2;
+    private javax.swing.JLabel addTaxNote3;
+    private javax.swing.JLabel addTaxNote4;
     private javax.swing.JPanel addTaxPanel;
     private javax.swing.JTextField addTaxRateField;
     private javax.swing.JLabel addTaxRateLabel;

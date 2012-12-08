@@ -852,31 +852,43 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="addTaxRateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addTaxNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="addTaxNameField" max="32767" attributes="0"/>
+                                  <Component id="addTaxRateField" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="addTaxNote1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="addTaxNote2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="addTaxRateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="addTaxNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="addTaxNameField" max="32767" attributes="0"/>
-                              <Component id="addTaxRateField" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="addTaxNote3" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                  <Component id="addTaxNote2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addTaxNote4" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="addTaxNote1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -895,8 +907,12 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="addTaxNote1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="addTaxNote2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="addTaxNote3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="addTaxNote4" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -924,6 +940,16 @@
         <Component class="javax.swing.JLabel" name="addTaxNote2">
           <Properties>
             <Property name="text" type="java.lang.String" value="eaual to 0.0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addTaxNote3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Note: Tax rates are in decimals"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="addTaxNote4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="8% tax should be entered as .08"/>
           </Properties>
         </Component>
       </SubComponents>
