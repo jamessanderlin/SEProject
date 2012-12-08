@@ -261,6 +261,11 @@ public class UserInterface extends javax.swing.JFrame {
         accountPopup.add(jSeparator4);
 
         generateBill.setText("Generate Bill for Account");
+        generateBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateBillActionPerformed(evt);
+            }
+        });
         accountPopup.add(generateBill);
 
         meterIDLabel.setText("Meter ID");
@@ -1557,8 +1562,17 @@ public class UserInterface extends javax.swing.JFrame {
 
     private void gernerateAllBillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gernerateAllBillsActionPerformed
         //Controller.getInstance().createAllBills(new Date("11/10/12"), new Date("12/14/12"));
-        openGenerateBillForAllPanel();
+        Date[] dates = openGenerateBillPanel();
+        if(dates != null)
+            Controller.getInstance().createAllBills(dates[0], dates[1]);
     }//GEN-LAST:event_gernerateAllBillsActionPerformed
+
+    private void generateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBillActionPerformed
+        Date[] dates = openGenerateBillPanel();
+        int selAccID = getSelectedAccountID();
+        if(dates != null)
+            Controller.getInstance().createBill(selAccID, dates[0], dates[1]);
+    }//GEN-LAST:event_generateBillActionPerformed
     
     private Meter getMeterFromViewMeterPanel()
     {
@@ -1585,13 +1599,14 @@ public class UserInterface extends javax.swing.JFrame {
                             meterRate, addr);
     }
     
-    private void openGenerateBillForAllPanel()
+    private Date[] openGenerateBillPanel()
     {
         String options[] = {"Ok", "Cancel"};
         //Account selectedAccount = getSelectedAccount();
         int result = JOptionPane.showOptionDialog(null, generateBillDatePanel, 
-                         "Generate bill for all accounts", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                         "Enter billing period", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         
+        Date[] dates = new Date[2];
         if(result == 0)
         {
             Date startDate = new Date();
@@ -1605,14 +1620,16 @@ public class UserInterface extends javax.swing.JFrame {
                 
                 if(startDate.compareTo(endDate) > 0)
                     throw new Exception();
+                
+                dates[0] = startDate;
+                dates[1] = endDate;
             }
             catch(Exception e)
             {
                 failToGenerateBillDialog();
             }
-            
-            Controller.getInstance().createAllBills(startDate, endDate);
         }
+        return dates;
     }
     
     private void openViewPaymentPanel()

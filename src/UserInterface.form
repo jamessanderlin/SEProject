@@ -50,6 +50,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Generate Bill for Account"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateBillActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
