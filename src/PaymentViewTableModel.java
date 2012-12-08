@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Mudrekh
  */
+@SuppressWarnings("serial")
 public class PaymentViewTableModel extends AbstractTableModel{
     private String[] columnNames = {"Date", "Paid Amount", "Type"};
     private TreeMap<Date, Payment> payments;

@@ -21,7 +21,6 @@
  */
 
 
-import java.util.*;
 import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
@@ -31,6 +30,7 @@ import javax.swing.table.AbstractTableModel;
  * @author  Jens Gulden
  * @version  snapshot-beautyj-1.1
  */
+@SuppressWarnings("serial")
 public class MapTableModel extends AbstractTableModel {
 
     // ------------------------------------------------------------------------

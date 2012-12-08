@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  *
  * @ version 1.0
  * 
- * Comments Updated 12/15/12 8:15pm
+ * Comments Updated 12/7/12 9:34 PM
  */
 public class CommercialAccount extends Account
 {
@@ -145,7 +145,8 @@ public class CommercialAccount extends Account
     /**
      * Convenience method to sum up the total tax cost from all meters tied to the account
      * 
-     * @param cutoffDate
+     * @param start - the start date cutoff
+     * @param end - the end date cutoff
      * @return the total tax cost from all meters tied to the account
      */
     @Override
@@ -160,11 +161,12 @@ public class CommercialAccount extends Account
     /**
      * Convenience method to print out a list of meters tied to the account and their usage
      * 
-     * @param cutoffDate
+     * @param start - the start date cutoff
+     * @param end - the end date cutoff
      * @return a string depicting a list of meters tied to the account and their usage
      */
     @Override
-    public String getMeterUsage(Date start, Date end){
+    public String getMeterUsageString(Date start, Date end){
     	String s = "";
     	for(Entry<Integer, Meter> m : getMeters().entrySet())
     	{

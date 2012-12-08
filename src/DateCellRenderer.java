@@ -10,6 +10,7 @@ import java.text.DateFormat;
  *
  * @author Mudrekh
  */
+@SuppressWarnings("serial")
 public class DateCellRenderer extends LeftCellRenderer{
 
     DateFormat formatter;

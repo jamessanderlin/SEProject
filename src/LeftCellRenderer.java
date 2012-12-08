@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * 
  * @author Mudrekh Goderya
  */
+@SuppressWarnings("serial")
 public class LeftCellRenderer extends DefaultTableCellRenderer{
 
 	public LeftCellRenderer()

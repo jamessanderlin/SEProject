@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Mudrekh
  */
+@SuppressWarnings("serial")
 public class MeterReadingViewTableModel extends AbstractTableModel{
     private String[] columnNames = {"Date", "Reading"};
     private TreeMap<Date, Meter_Reading> meterReadings;
@@ -59,28 +60,4 @@ public class MeterReadingViewTableModel extends AbstractTableModel{
         }
         return getValueAt(0, c).getClass();
     }
-
-//    /*
-//     * Don't need to implement this method unless your table's
-//     * editable.
-//     */
-//    public boolean isCellEditable(int row, int col) {
-//        //Note that the data/cell address is constant,
-//        //no matter where the cell appears onscreen.
-//        if (col < 2) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-//
-//    /*
-//     * Don't need to implement this method unless your table's
-//     * data can change.
-//     */
-//    public void setValueAt(Object value, int row, int col) {
-//        data[row][col] = value;
-//        fireTableCellUpdated(row, col);
-//    }
-//    ...
 }

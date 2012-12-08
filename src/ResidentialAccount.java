@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Map.Entry;
 /**
  * 
  * @author James Sanderlin, Mudrekh Goderya, Avi Levy, Mark Duncan
@@ -158,16 +157,20 @@ public class ResidentialAccount extends Account
     }
     
     /**
-	 * Abstract convenience method to delete a meter from the account
+	 * Convenience method to delete the unique meter
 	 * 
 	 * @return the meter Object that was deleted
 	 */ 
     
     public Meter deleteMeter()
     {
-        Meter temp = new Meter(meter);
-        meter = null;
-        return temp;       	
+    	if(meter == null) {
+    		return null;
+    	} else {
+	        Meter temp = new Meter(meter);
+	        meter = null;
+	        return temp;       	
+    	}
     }
     
     /**
@@ -184,30 +187,28 @@ public class ResidentialAccount extends Account
     }
     
     /**
-	 * Method to easily print the usage of the meter expressed as
-	 * a string
+	 * This method returns a string summarizing
+	 * the usage data of this meter.
 	 * 
-	 * @param cutoffDate
+	 * @param start - the start date
+	 * @param end - the end date
 	 * @return a string of the Meter ID and the meter's usage, to be used for generating bills and reports
 	 */
-    public String getMeterUsage(Date start, Date end){
-    	String s = "";
-        if(meter != null)
-        {
-            s += "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(start, end) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
-        }
-        else
-        {
-            s += "This account has no meter tied to it.";
-        }
-        return s;
+    @Override
+    public String getMeterUsageString(Date start, Date end){
+    	if(meter == null) {
+    		return "This account has no meter tied to it.";
+    	} else {
+            return "Meter #" + meter.getMeterID() + ": " + meter.getTotalUsage(start, end) + " kWh at a rate of $" + meter.getMeterRate() + " per kWh\n";
+    	}
     }
     
     /**
 	 * Abstract convenience method to sum the total cost of the
 	 * meter's usage for the account, expressed as a double
 	 * 
-	 * @param cutoffDate
+	 * @param start - the start date cutoff
+     * @param end - the end date cutoff
 	 * @return a double of the cost of the meter's usage
 	 */
     @Override
