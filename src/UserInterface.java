@@ -1168,6 +1168,11 @@ public class UserInterface extends javax.swing.JFrame {
 
         accSave.setText("Save/Edit");
         accSave.setEnabled(false);
+        accSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accSaveActionPerformed(evt);
+            }
+        });
 
         accCancel.setText("Cancel");
         accCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -1778,6 +1783,37 @@ public class UserInterface extends javax.swing.JFrame {
     private void manualBalanceEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualBalanceEditActionPerformed
         openEditBalancePanel();
     }//GEN-LAST:event_manualBalanceEditActionPerformed
+
+    private void accSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accSaveActionPerformed
+        Account temp = getAccountFromAccountPanel();
+        if(temp != null)
+        {
+            Account selAcc = Controller.getInstance().deleteAccount(getSelectedAccountID());
+            
+            selAcc.setAccountID(temp.getAccountID());
+            selAcc.setBillingAddress(temp.billingAddress);
+            
+            if(temp instanceof ResidentialAccount)
+            {
+                ResidentialAccount resTemp = (ResidentialAccount) temp;
+                ResidentialAccount resSelAcc = (ResidentialAccount) selAcc;
+                
+                resSelAcc.setClientFirstName(resTemp.getClientFirstName());
+                resSelAcc.setClientLastName(resTemp.getClientLastName());
+            }
+            
+            else if(temp instanceof CommercialAccount)
+            {
+                CommercialAccount comTemp = (CommercialAccount) temp;
+                CommercialAccount comSelAcc = (CommercialAccount) selAcc;
+                
+                comSelAcc.setCompanyName(comTemp.getCompanyName());
+            }
+            Controller.getInstance().addAccount(selAcc);
+            updateJTable(accountTable);
+        }
+
+    }//GEN-LAST:event_accSaveActionPerformed
     
     /**
      * Helper method to create an account from the account panel. Returns null 
