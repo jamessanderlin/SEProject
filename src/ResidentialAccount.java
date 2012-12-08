@@ -134,6 +134,15 @@ public class ResidentialAccount extends Account
 	 * Abstract convenience method to delete a meter from the account
 	 * with the specified meterID in the argument
 	 * 
+	 * Changed the implementation to catch a null pointer exception.
+	 * Removed duplication of functionality by using the hasMeter() method
+	 * as well as moved the deletion operation to deleteMeter() instead of
+	 * the other way around.
+	 * 
+	 * Got around the null pointer exception by adding a copy constructor
+	 * to the Meter class, so that we properly copy the Meter data to
+	 * a temporary location before deleting the reference.
+	 * 
 	 * @param meterID
 	 * @return the meter Object that was deleted if applicable
 	 */      
@@ -141,16 +150,11 @@ public class ResidentialAccount extends Account
     @Override
     public Meter deleteMeter(int meterID)
     {
-        if(meterID == meter.getMeterID())
-        {
-            Meter temp = meter;
-            meter = null;
-            return temp;
-        }
-        else
-        {
-            return null;
-        }
+    	if(hasMeter(meterID)) {
+    		return deleteMeter();
+    	} else {
+    		return null;
+    	}
     }
     
     /**
@@ -161,7 +165,9 @@ public class ResidentialAccount extends Account
     
     public Meter deleteMeter()
     {
-        return deleteMeter(meter.getMeterID());
+        Meter temp = new Meter(meter);
+        meter = null;
+        return temp;       	
     }
     
     /**

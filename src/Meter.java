@@ -43,6 +43,19 @@ public class Meter
 	private double meterBalance = 0;
 	
 	/**
+	 * Copy Constructor - used to avoid null pointer exceptions in deleteMeter() functions
+	 * @param other
+	 */
+	public Meter(Meter other) {
+		isDigital = other.isDigital;
+		meterID = other.meterID;
+		readings = other.readings;
+		meterRate = other.meterRate;
+		physicalAddress = other.physicalAddress;
+		taxes = other.taxes;
+		meterBalance = other.meterBalance;
+	}
+	/**
 	 * Constructor
 	 * 
 	 * @param meterID
