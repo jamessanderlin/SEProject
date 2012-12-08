@@ -68,6 +68,8 @@ public class UserInterface extends javax.swing.JFrame {
         quickAddPayment = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         generateBill = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        manualBalanceEdit = new javax.swing.JMenuItem();
         accountButtonGroup = new javax.swing.ButtonGroup();
         addMeterPanel = new javax.swing.JPanel();
         meterIDLabel = new javax.swing.JLabel();
@@ -183,6 +185,15 @@ public class UserInterface extends javax.swing.JFrame {
         generateBillEndDateLabel = new javax.swing.JLabel();
         generateBillEndDateField = new javax.swing.JTextField();
         generateBillNote = new javax.swing.JLabel();
+        editBalancePanel = new javax.swing.JPanel();
+        editBalanceOldLabel = new javax.swing.JLabel();
+        editBalanceOldField = new javax.swing.JTextField();
+        editBalanceNewLabel = new javax.swing.JLabel();
+        editBalanceNewField = new javax.swing.JTextField();
+        editBalanceNote1 = new javax.swing.JLabel();
+        editBalanceFieldNote2 = new javax.swing.JLabel();
+        editBalanceUSDLabel = new javax.swing.JLabel();
+        editBalanceUSDLabel1 = new javax.swing.JLabel();
         mainSplitPane = new javax.swing.JSplitPane();
         rightSplitPane = new javax.swing.JSplitPane();
         meterViewSrollPane = new javax.swing.JScrollPane();
@@ -267,6 +278,15 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
         accountPopup.add(generateBill);
+        accountPopup.add(jSeparator6);
+
+        manualBalanceEdit.setText("Edit Balance Manually");
+        manualBalanceEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manualBalanceEditActionPerformed(evt);
+            }
+        });
+        accountPopup.add(manualBalanceEdit);
 
         meterIDLabel.setText("Meter ID");
 
@@ -1008,6 +1028,67 @@ public class UserInterface extends javax.swing.JFrame {
                 .addComponent(generateBillNote))
         );
 
+        editBalanceOldLabel.setText("Old Balance");
+
+        editBalanceOldField.setEditable(false);
+        editBalanceOldField.setBackground(new java.awt.Color(204, 204, 204));
+
+        editBalanceNewLabel.setText("New Balance");
+
+        editBalanceNote1.setText("*Positive values indicate customer owes money. ");
+
+        editBalanceFieldNote2.setText("*Negative values indicate customer has credit on account.");
+
+        editBalanceUSDLabel.setText("USD");
+
+        editBalanceUSDLabel1.setText("USD");
+
+        javax.swing.GroupLayout editBalancePanelLayout = new javax.swing.GroupLayout(editBalancePanel);
+        editBalancePanel.setLayout(editBalancePanelLayout);
+        editBalancePanelLayout.setHorizontalGroup(
+            editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editBalancePanelLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(editBalanceNote1)
+                    .addComponent(editBalanceFieldNote2)
+                    .addGroup(editBalancePanelLayout.createSequentialGroup()
+                        .addGroup(editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editBalanceNewLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(editBalanceOldLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(editBalancePanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editBalanceOldField))
+                            .addGroup(editBalancePanelLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(editBalanceNewField)))
+                        .addGap(5, 5, 5)
+                        .addGroup(editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editBalanceUSDLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(editBalanceUSDLabel, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        editBalancePanelLayout.setVerticalGroup(
+            editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editBalancePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editBalanceOldLabel)
+                    .addComponent(editBalanceOldField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editBalanceUSDLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(editBalancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editBalanceNewLabel)
+                    .addComponent(editBalanceNewField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editBalanceUSDLabel1))
+                .addGap(3, 3, 3)
+                .addComponent(editBalanceNote1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editBalanceFieldNote2)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Utility Billing Program");
 
@@ -1573,6 +1654,10 @@ public class UserInterface extends javax.swing.JFrame {
         if(dates != null)
             Controller.getInstance().createBill(selAccID, dates[0], dates[1]);
     }//GEN-LAST:event_generateBillActionPerformed
+
+    private void manualBalanceEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualBalanceEditActionPerformed
+        openEditBalancePanel();
+    }//GEN-LAST:event_manualBalanceEditActionPerformed
     
     private Meter getMeterFromViewMeterPanel()
     {
@@ -1629,7 +1714,34 @@ public class UserInterface extends javax.swing.JFrame {
                 failToGenerateBillDialog();
             }
         }
+        resetGenerateBillPanel();
         return dates;
+    }
+    
+    private void openEditBalancePanel()
+    {
+        String options[] = {"Ok", "Cancel"};
+        Account selectedAccount = getSelectedAccount();
+        editBalanceOldField.setText(String.format("%.2f", selectedAccount.getBalance()));
+        int result = JOptionPane.showOptionDialog(null, editBalancePanel, 
+                         "Edit the balance for Account " +  getSelectedAccountID(), JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        
+        if(result == 0)
+        {
+            double newBal = 0.0;
+            
+            try
+            {
+                newBal = Double.parseDouble(editBalanceNewField.getText());
+            }
+            catch(Exception e)
+            {
+                failToEditBalanceDialog();
+            }
+            
+            selectedAccount.setBalance(newBal);
+            resetEditBalancePanel();
+        }
     }
     
     private void openViewPaymentPanel()
@@ -2252,6 +2364,18 @@ public class UserInterface extends javax.swing.JFrame {
         //addPaymentTimeZoneField.setText("");
     }
     
+    private void resetGenerateBillPanel()
+    {
+        generateBillEndDateField.setText("mm/dd/yy");
+        generateBillStartDateField.setText("mm/dd/yy");
+    }
+    
+    private void resetEditBalancePanel()
+    {
+        editBalanceNewField.setText("");
+        editBalanceOldField.setText("");
+    }
+    
     //////////////////////////////////////////////////////////////////////////
     // Fail Dialog Handlers
     //
@@ -2284,6 +2408,10 @@ public class UserInterface extends javax.swing.JFrame {
     private void failToGenerateBillDialog()
     {
         JOptionPane.showMessageDialog(null, "Could not create bill. Please check your values");
+    }
+    private void failToEditBalanceDialog()
+    {
+        JOptionPane.showMessageDialog(null, "Could not edit account balance. Please check your values");
     }
     
     
@@ -2476,6 +2604,15 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JMenuItem deletePayment;
     private javax.swing.JMenuItem deleteTax;
     private javax.swing.JButton deleteTaxButton;
+    private javax.swing.JLabel editBalanceFieldNote2;
+    private javax.swing.JTextField editBalanceNewField;
+    private javax.swing.JLabel editBalanceNewLabel;
+    private javax.swing.JLabel editBalanceNote1;
+    private javax.swing.JTextField editBalanceOldField;
+    private javax.swing.JLabel editBalanceOldLabel;
+    private javax.swing.JPanel editBalancePanel;
+    private javax.swing.JLabel editBalanceUSDLabel;
+    private javax.swing.JLabel editBalanceUSDLabel1;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JMenuItem generateBill;
@@ -2493,9 +2630,11 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JSplitPane mainSplitPane;
+    private javax.swing.JMenuItem manualBalanceEdit;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
