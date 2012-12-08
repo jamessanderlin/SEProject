@@ -51,7 +51,7 @@ public abstract class Account
     public void addPayment(Payment p){        
         paymentHistory.put(p.getPaymentDate(), p);
         
-        balance += p.getPaidAmount();
+        balance -= p.getPaidAmount();
 	}
     
     /**
@@ -62,7 +62,7 @@ public abstract class Account
      */
     public Payment deletePayment(Date d)
     {
-    	balance -= paymentHistory.get(d).getPaidAmount();
+    	balance += paymentHistory.get(d).getPaidAmount();
         return paymentHistory.remove(d);
         
     }

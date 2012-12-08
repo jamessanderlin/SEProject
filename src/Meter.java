@@ -314,11 +314,27 @@ public class Meter
 	 */
 	
 	public int getTotalUsage(Date start, Date end) {
-		int accumulateReadings = 0;
-		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(start).headMap(end).entrySet() ) {
-			accumulateReadings += mr.getValue().getReading();
-		}
-		return accumulateReadings;
+//		int accumulateReadings = 0;
+//                Map<Date, Meter_Reading> readings
+//		for (Entry<Date, Meter_Reading> mr : getReadings().tailMap(start).headMap(end).entrySet() ) {
+//			accumulateReadings += mr.getValue().getReading();
+//		}
+//		return accumulateReadings;
+            
+           int result;
+           try
+           {
+               Map.Entry<Date, Meter_Reading> lastReadingInPeriod = getReadings().lowerEntry(end);
+               Map.Entry<Date, Meter_Reading> firstReadingInPeriod = getReadings().ceilingEntry(start);
+               result = lastReadingInPeriod.getValue().getReading() - firstReadingInPeriod.getValue().getReading();
+           }
+           catch(Exception e)
+           {
+              result = 0;
+           }
+           
+           return result;
+           
 	}
 
 	/**

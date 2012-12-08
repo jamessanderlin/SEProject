@@ -1884,7 +1884,7 @@ public class UserInterface extends javax.swing.JFrame {
         int result = JOptionPane.showOptionDialog(null, generateBillDatePanel, 
                          "Enter billing period", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         
-        Date[] dates = new Date[2];
+        Date[] dates = null;
         if(result == 0)
         {
             Date startDate = new Date();
@@ -1899,6 +1899,7 @@ public class UserInterface extends javax.swing.JFrame {
                 if(startDate.compareTo(endDate) > 0)
                     throw new Exception();
                 
+                dates = new Date[2];
                 dates[0] = startDate;
                 dates[1] = endDate;
             }
