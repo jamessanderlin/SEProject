@@ -145,7 +145,7 @@ public class ResidentialAccount extends Account
         {
             Meter temp = meter;
             meter = null;
-            return meter;
+            return temp;
         }
         else
         {
