@@ -1,15 +1,111 @@
-0
-a
-f
-4
+1
+Edge Computer Science
+1
 0.0
 0
-12/02/12 7:09 PM CST
-a
-a
-3
-s
-a
+12/03/12 1:08 AM CST
+Somewhere
+Some Place
+Some City
+Some State
+Some Zip
+PAYMENTS:
+end
+0
+James
+Sanderlin
+5
+0.0
+0
+12/03/12 12:24 AM CST
+afasdfjl
+aalfkjalf
+afasdf
+sadfasf
+aafdasd
+PAYMENTS:
+end
+0
+SomeName
+SomeNAme
+15
+0.0
+0
+12/07/12 9:11 PM CST
+
+
+
+
+
+PAYMENTS:
+end
+0
+A
+S
+33
+0.0
+0
+12/04/12 1:39 AM CST
+asfasdf
+asdfasd
+asdfa
+asdfa
+fdsa
+PAYMENTS:
+end
+0
+Mohammad
+Burhanuddin
+52
+0.0
+0
+12/07/12 4:37 AM CST
+Someplace
+Somewhere
+Dubai
+India
+None
+PAYMENTS:
+end
+1
+Windrider Technologies
+5555
+0.0
+0
+12/02/12 11:24 PM CST
+Somewhere
+Some place
+Some City
+Some State
+Some Zip
+PAYMENTS:
+end
+0
+Mudrekh
+Goderya
+9001
+0.0
+0
+12/02/12 8:02 PM CST
+137 Shadow Creek Ln
+blank
+Aledo
+76008
+TX
+PAYMENTS:
+end
+0
+Mogri
+Husain
+9002
+0.0
+0
+12/03/12 2:25 AM CST
+2800 Waterview Pkwy
+Apt 5935
+Richardson
+Texas
+75080
 PAYMENTS:
 end
 0
@@ -17,34 +113,15 @@ Mark
 Duncan
 12345
 0.0
-1
-02/13/13 5:00 PM CST
+0
+12/04/12 12:07 AM CST
 3208 Citadel Drive
 NULL
 Plano
 Texas
 75023
 PAYMENTS:
-23.45
-Mastercard
-11/13/12 4:55 PM CST
-45.36
-Visa
-12/13/12 4:55 PM CST
-53.89
+110.0
 Check
-01/13/13 4:55 PM CST
-end
-1
-BlahBlah
-2012893
-0.0
-0
-12/02/12 7:08 PM CST
-2309 Citadel Drive
-
-Plano
-75023
-Texas
-PAYMENTS:
+11/11/11 11:11 AM CST
 end
